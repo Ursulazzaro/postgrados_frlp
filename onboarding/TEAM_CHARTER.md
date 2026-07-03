@@ -1,7 +1,7 @@
 # Team Charter — [Nombre del Equipo]
 
 **Módulo asignado:** [Core + MOD-B / MOD-C / MOD-D]  
-**Fecha:** ___/04/2026 | **Repositorio:** https://github.com/utn-frlp-dev2026/fenix-[equipo]
+**Fecha:** 03/07/2026 | **Repositorio:** https://github.com/utn-frlp-dev2026/fenix-[equipo]
 
 ---
 
@@ -34,21 +34,20 @@
 
 ## 4. Stack Tecnológico (ver ADR-001)
 
-| Capa | Tecnología | Justificación breve |
-|------|-----------|---------------------|
-| Frontend | | |
-| Backend | | |
-| Base de datos | PostgreSQL 15 | |
-| ORM | | |
-| Testing | | |
-
+|     Capa      |   Tecnología  | Justificación breve |
+|---------------|---------------|---------------------|
+|   Frontend    |               |                     |
+|   Backend     |               |                     |
+| Base de datos | PostgreSQL 15 |                     |
+|     ORM       |               |                     |
+|   Testing     |               |                     |
 ---
 
 ## 5. Riesgos Identificados
 
 | Riesgo | Prob. | Impacto | Mitigación |
-|--------|:-----:|:-------:|-----------|
-| | | | |
+|--------|:-----:|:-------:|------ -----|
+|        |       |         |            |
 
 ---
 
