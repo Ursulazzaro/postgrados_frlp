@@ -57,15 +57,15 @@ chore(ci): configura pipeline de GitHub Actions para linting
 
 **Tipos válidos:**
 
-|    Tipo    |                  Cuándo usarlo                  |
-|------------|-------------------------------------------------|
-|   `feat`   |               Nueva funcionalidad               |
-|   `fix`    |                Corrección de bug                |
-|   `docs`   |             Cambios en documentación            |
-|   `test`   |              Agrega o modifica tests            |
-| `refactor` |   Refactorización sin cambio de comportamiento  |
-|   `chore`  |    Tareas de mantenimiento (CI, dependencias)   |
-|   `style`  | Formato (linting,espacios) sin cambio de lógica |
+| Tipo | Cuándo usarlo |
+|------|--------------|
+| `feat` | Nueva funcionalidad |
+| `fix` | Corrección de bug |
+| `docs` | Cambios en documentación |
+| `test` | Agrega o modifica tests |
+| `refactor` | Refactorización sin cambio de comportamiento |
+| `chore` | Tareas de mantenimiento (CI, dependencias) |
+| `style` | Formato (linting, espacios) sin cambio de lógica |
 
 **Referencia al requisito:** Si el commit implementa un requisito del SRS, incluirlo:
 ```
@@ -128,7 +128,7 @@ NO es responsabilidad del reviewer:
 - Encontrar typos de UI (eso va en un issue separado)
 - Revisar que el diseño "se vea lindo" (eso es del QA/UX)
 
-
+---
 
 ## 5. Workflow Paso a Paso
 

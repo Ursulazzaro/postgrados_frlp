@@ -3,8 +3,6 @@
 # Detener:  docker-compose down
 # Ver logs: docker-compose logs -f [servicio]
 
-version: '3.9'
-
 services:
   # ──────────────────────────────────────────
   # BASE DE DATOS PostgreSQL
@@ -55,23 +53,24 @@ services:
     command: uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
   # ──────────────────────────────────────────
-  # FRONTEND (comentado hasta que exista src/frontend)
+  # FRONTEND - PARA DEV
   # ──────────────────────────────────────────
-  # frontend:
-  #   build:
-  #     context: ./src/frontend
-  #     dockerfile: Dockerfile.dev
-  #   container_name: postgrado-frontend
-  #   restart: unless-stopped
-  #   depends_on:
-  #     - backend
-  #   environment:
-  #     VITE_API_URL: http://localhost:8000/api/v1
-  #   ports:
-  #     - "3000:3000"
-  #   volumes:
-  #     - ./src/frontend/src:/app/src
-  #     - /app/node_modules
+  frontend:
+    build:
+      context: ./src/frontend
+      dockerfile: Dockerfile.dev
+    container_name: postgrado-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:8000/api/v1
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src/frontend:/app
+      - /app/node_modules
+    command: npm run dev -- --host 0.0.0.0 --port 3000
 
   # ──────────────────────────────────────────
   # MAILHOG — Servidor de email falso para desarrollo
