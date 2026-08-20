@@ -29,11 +29,11 @@ services:
       retries: 5
 
   # ──────────────────────────────────────────
-  # BACKEND API
+  # BACKEND API (FastAPI)
   # ──────────────────────────────────────────
   backend:
     build:
-      context: ./src/core
+      context: ./src/backend
       dockerfile: Dockerfile.dev
     container_name: postgrado-backend
     restart: unless-stopped
@@ -41,19 +41,18 @@ services:
       db:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://${DB_USER:-postgrado_user}:${DB_PASSWORD:-postgrado_dev_password}@db:5432/${DB_NAME:-postgrado_dev}
+      DATABASE_URL: postgresql+asyncpg://${DB_USER:-postgrado_user}:${DB_PASSWORD:-postgrado_dev_password}@db:5432/${DB_NAME:-postgrado_dev}
       JWT_SECRET: ${JWT_SECRET:-dev-secret-change-in-production}
       STORAGE_PATH: /var/postgrado-storage
       SMTP_HOST: ${SMTP_HOST:-mailhog}
       SMTP_PORT: ${SMTP_PORT:-1025}
-      NODE_ENV: development
+      ENVIRONMENT: development
     ports:
       - "8000:8000"
     volumes:
-      - ./src:/app/src
+      - ./src/backend:/app
       - postgrado-storage:/var/postgrado-storage
-      - /app/node_modules  # Evita sobreescribir node_modules del container
-    command: npm run dev  # Hot reload en desarrollo
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
   # ──────────────────────────────────────────
   # FRONTEND
