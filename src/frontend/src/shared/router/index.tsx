@@ -5,7 +5,7 @@ import ProtectedRoute from "../auth/ProtectedRoute";
 import HomePage from "../../home/pages/HomePage";
 import LoginPage from "../auth/pages/LoginPage";
 import DashboardPage from "../../dashboard/pages/DashboardPage";
-import FormularioInscripcion from "../../inscripcion/paginas/formularioInscripcion";
+import FormularioInscripcion from "../../inscripcion/pages/FormularioInscripcion";
 
 export const router = createBrowserRouter([
   {
