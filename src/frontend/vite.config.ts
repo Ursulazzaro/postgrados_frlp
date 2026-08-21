@@ -7,9 +7,8 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-
   server: {
-  //   host: "0.0.0.0",  // ESTO DEPENDE SI SE TRABAJA DENTRO DEL CONTAINER DE DOCKER
+    // host: "0.0.0.0", // ESTO DEPENDE SI SE TRABAJA DENTRO DEL CONTAINER DE DOCKER
     port: 3000,
   },
 });

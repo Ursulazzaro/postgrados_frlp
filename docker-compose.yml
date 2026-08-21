@@ -1,9 +1,11 @@
 # docker-compose.yml — Ambiente de desarrollo Fenix Posgrado
+
 # Ejecutar: docker-compose up -d
 # Detener:  docker-compose down
 # Ver logs: docker-compose logs -f [servicio]
 
 services:
+
   # ──────────────────────────────────────────
   # BASE DE DATOS PostgreSQL
   # ──────────────────────────────────────────
@@ -27,7 +29,7 @@ services:
       retries: 5
 
   # ──────────────────────────────────────────
-  # BACKEND API
+  # BACKEND API (FastAPI)
   # ──────────────────────────────────────────
   backend:
     build:
@@ -44,7 +46,7 @@ services:
       STORAGE_PATH: /var/postgrado-storage
       SMTP_HOST: ${SMTP_HOST:-mailhog}
       SMTP_PORT: ${SMTP_PORT:-1025}
-      NODE_ENV: development
+      ENVIRONMENT: development
     ports:
       - "8000:8000"
     volumes:
