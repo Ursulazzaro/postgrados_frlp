@@ -24,7 +24,7 @@ export default function FormularioInscripcion() {
       } else {
         setMensaje("Error al enviar la inscripción. Verifica tus datos.");
       }
-    } catch (error) {
+    } catch {
       setMensaje("Error de conexión con el servidor.");
     }
   };
