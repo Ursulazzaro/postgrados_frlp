@@ -1,6 +1,6 @@
 # Guía de Contribución — postgrado Posgrado (Modificada)
 
-Leé este documento antes de comenzar a rabajar en el proyecto. La idea es que los 4 podamos trabajar en paralelo sin pisarnos cambios ni romper main.
+Leé este documento antes de comenzar a trabajar en el proyecto. La idea es que los 4 podamos trabajar en paralelo sin pisarnos cambios ni romper main.
 ---
 
 ## 1. Tecnologias del proyecto
@@ -47,7 +47,7 @@ postgrados_frlp/
 
 Para evitar que varias personas trabajen directamente sobre main, cada integrante debe trabajar en su propia rama.
 
-La rama MAIN es la principal y es la qu nos tenemos queasegurar que siempre funcione
+La rama MAIN es la principal y es la que nos tenemos que asegurar que siempre funcione
 
 
 Pasos para crear las ramas:
