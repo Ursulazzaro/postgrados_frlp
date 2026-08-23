@@ -1,8 +1,20 @@
+// Página pública de inicio del Sistema de Posgrado UTN FRLP.
+
+import { Link } from "react-router-dom";
+
 export default function HomePage() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen gap-4">
-      <h1 className="text-3xl font-bold text-gray-800">Bienvenido al sistema</h1>
-      <a href="/login" className="text-blue-600 hover:underline text-sm">Iniciar sesion</a>
-    </div>
+    <section>
+      <h1>Bienvenido al Sistema de Posgrado UTN FRLP</h1>
+
+      <p>
+        Gestioná tu inscripción, consultá tu estado académico y accedé a la
+        información de tu carrera.
+      </p>
+
+      <Link to="/login">
+        Iniciar sesión
+      </Link>
+    </section>
   );
 }

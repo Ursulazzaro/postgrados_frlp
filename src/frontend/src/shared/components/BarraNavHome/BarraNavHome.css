@@ -1,0 +1,150 @@
+/* Estilos de la barra de navegación de las páginas públicas. */
+
+.barra-nav-home {
+  width: 100%;
+  background-color: var(--color-primary);
+}
+
+.barra-nav-home-contenido {
+  width: min(100% - 48px, 1400px);
+  min-height: 76px;
+  margin-inline: auto;
+
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 40px;
+}
+
+.barra-nav-home-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.barra-nav-home-logo img {
+  display: block;
+  width: 165px;
+  height: auto;
+  object-fit: contain;
+}
+
+.barra-nav-home-enlaces {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 12px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.barra-nav-home-enlaces a {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--color-text-light);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  transition: opacity 0.2s ease;
+}
+
+.barra-nav-home-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--color-text-light);
+  font-size: 17px;
+  line-height: 1;
+}
+
+.barra-nav-home-enlaces a:hover {
+  opacity: 0.8;
+}
+
+.barra-nav-home-enlaces a[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: -10px;
+
+  height: 2px;
+
+  background-color: var(--color-secondary);
+  border-radius: 2px;
+}
+
+.barra-nav-home-login {
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 13px 24px;
+
+  color: var(--color-text-light);
+  background-color: var(--color-secondary);
+
+  border-radius: 6px;
+
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+
+  white-space: nowrap;
+
+  transition: opacity 0.2s ease;
+}
+
+.barra-nav-home-login:hover {
+  opacity: 0.9;
+}
+
+.barra-nav-home-enlaces a:focus-visible,
+.barra-nav-home-login:focus-visible,
+.barra-nav-home-logo:focus-visible {
+  outline: 2px solid var(--color-text-light);
+  outline-offset: 4px;
+}
+
+.barra-nav-home-icono-usuario {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+
+  fill: currentColor;
+}
+
+@media (max-width: 1100px) {
+  .barra-nav-home-contenido {
+    width: min(100% - 32px, 1400px);
+    gap: 20px;
+  }
+
+  .barra-nav-home-enlaces {
+    gap: 8px;
+  }
+
+  .barra-nav-home-enlaces a {
+    font-size: 13px;
+  }
+
+  .barra-nav-home-logo img {
+    width: 145px;
+  }
+}

@@ -1,3 +1,5 @@
+// Define tipos compartidos utilizados por distintos módulos de la aplicación.
+
 export type EstadoLegajo =
   | "BORRADOR"
   | "PENDIENTE"
@@ -10,11 +12,22 @@ export type EstadoLegajo =
   | "BAJA"
   | "GRADUADO";
 
-export type TipoCarrera = "Especializacion" | "Maestria" | "Doctorado";
+export type TipoCarrera =
+  | "Especializacion"
+  | "Maestria"
+  | "Doctorado";
 
-export type Semaforo = "VERDE" | "AMARILLO" | "ROJO";
+export type Semaforo =
+  | "VERDE"
+  | "AMARILLO"
+  | "ROJO";
 
-export type Rol = "ASPIRANTE" | "DOCENTE" | "COORDINADOR" | "CPR" | "ADMIN";
+export type Rol =
+  | "ASPIRANTE"
+  | "DOCENTE"
+  | "COORDINADOR"
+  | "CPR"
+  | "ADMIN";
 
 export interface Usuario {
   id: string;

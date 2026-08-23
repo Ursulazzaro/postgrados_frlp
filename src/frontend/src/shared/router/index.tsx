@@ -1,3 +1,5 @@
+// Define las rutas públicas y privadas de la aplicación.
+
 import { createBrowserRouter } from "react-router-dom";
 import PublicLayout from "../layouts/PublicLayout";
 import DashboardLayout from "../layouts/DashboardLayout";

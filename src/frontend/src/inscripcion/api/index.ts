@@ -1,3 +1,5 @@
+// Define las operaciones de API relacionadas con las inscripciones.
+
 import { api } from "../../shared/api/client";
 import type { Aspirante } from "../types";
 
