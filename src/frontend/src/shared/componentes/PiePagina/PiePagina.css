@@ -1,0 +1,161 @@
+/* Estilos del pie de página de las páginas públicas. */
+
+.pie-pagina {
+  width: 100%;
+
+  color: var(--color-text-light);
+  background-color: var(--color-primary);
+}
+
+.pie-pagina-contenido {
+  width: min(100% - 48px, 1400px);
+  min-height: 120px;
+  margin-inline: auto;
+
+  display: grid;
+  grid-template-columns: 1.25fr 0.9fr 1.35fr 1fr 1.1fr;
+  align-items: center;
+}
+
+.pie-pagina-bloque,
+.pie-pagina-redes {
+  min-height: 78px;
+  padding-inline: 24px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  border-right: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.pie-pagina-bloque:first-child {
+  padding-left: 0;
+}
+
+.pie-pagina-redes {
+  padding-right: 0;
+
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+
+  border-right: 0;
+}
+
+.pie-pagina p {
+  margin: 0;
+
+  color: var(--color-text-light);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.pie-pagina strong {
+  font-weight: 600;
+}
+
+.pie-pagina address {
+  font-style: normal;
+}
+
+.pie-pagina a {
+  color: var(--color-text-light);
+  text-decoration: none;
+}
+
+.pie-pagina-email > a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.pie-pagina-icono {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--color-text-light);
+  background-color: #0754a5;
+
+  border-radius: 50%;
+
+  font-size: 17px;
+}
+
+.pie-pagina-redes > p {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.pie-pagina-redes ul {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  list-style: none;
+}
+
+.pie-pagina-redes a {
+  width: 30px;
+  height: 30px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.pie-pagina-redes a:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+
+.pie-pagina a:focus-visible {
+  outline: 2px solid var(--color-text-light);
+  outline-offset: 4px;
+}
+
+@media (max-width: 1000px) {
+  .pie-pagina-contenido {
+    grid-template-columns: repeat(2, 1fr);
+    padding-block: 24px;
+  }
+
+  .pie-pagina-bloque,
+  .pie-pagina-redes {
+    padding: 20px;
+
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  }
+}
+
+.pie-pagina-icono-svg {
+  width: 18px;
+  height: 18px;
+
+  fill: currentColor;
+}
+
+@media (max-width: 600px) {
+  .pie-pagina-contenido {
+    width: min(100% - 32px, 1400px);
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface NoticiaProps {
   categoria: string;
   titulo: string;

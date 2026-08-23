@@ -1,3 +1,5 @@
+// Define los tipos de datos utilizados en el módulo de inscripción.
+
 export interface Aspirante {
   id: string;
   dni: string;
