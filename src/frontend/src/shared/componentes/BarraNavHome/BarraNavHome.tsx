@@ -1,7 +1,7 @@
 // Barra de navegación utilizada en las páginas públicas del sistema.
 
 import { Link, NavLink } from "react-router-dom";
-import logoUtnFrlp from "../../../assets/logo-utn-frlp.png";
+import logoUtnFrlp from "../../../imagenes/logo-utn-frlp.png";
 import "./BarraNavHome.css";
 
 export default function BarraNavHome() {

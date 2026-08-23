@@ -1,13 +1,17 @@
 // Define las rutas públicas y privadas de la aplicación.
 
 import { createBrowserRouter } from "react-router-dom";
-import PublicLayout from "../layouts/PublicLayout";
-import DashboardLayout from "../layouts/DashboardLayout";
+
+import PublicLayout from "../disposiciones/PublicLayout";
+import DashboardLayout from "../disposiciones/DashboardLayout";
 import ProtectedRoute from "../auth/ProtectedRoute";
-import HomePage from "../../home/pages/HomePage";
-import LoginPage from "../auth/pages/LoginPage";
-import DashboardPage from "../../dashboard/pages/DashboardPage";
-import FormularioInscripcion from "../../inscripcion/pages/FormularioInscripcion";
+
+import HomePage from "../../home/paginas/HomePage";
+import LoginPage from "../auth/paginas/LoginPage";
+import DashboardPage from "../../dashboard/paginas/DashboardPage";
+import FormularioInscripcion from "../../inscripcion/paginas/FormularioInscripcion";
+import PaginaNoticias from "../../noticias/paginas/paginaNoticias";
+import PaginaNoEncontrada from "../paginas/PaginaNoEncontrada";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +20,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
+      { path: "noticias", element: <PaginaNoticias /> },
+      { path: "*", element: <PaginaNoEncontrada /> },
     ],
   },
   {
