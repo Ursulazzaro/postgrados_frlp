@@ -1,7 +1,7 @@
 // Página pública de inicio del Sistema de Posgrado UTN FRLP.
 
 import { Link } from "react-router-dom";
-import imagenHero from "../../imagenes/hero-home.png";
+import imagenHero from "../../../imagenes/hero-home.png";
 import "./HomePage.css";
 
 export default function HomePage() {

@@ -1,7 +1,7 @@
 // Define el contexto de autenticación y el hook para acceder a la sesión del usuario.
 
 import { createContext, useContext } from "react";
-import type { Rol } from "../tipos";
+import type { Rol } from "../../shared/tipos";
 
 export interface AuthState {
   email: string;

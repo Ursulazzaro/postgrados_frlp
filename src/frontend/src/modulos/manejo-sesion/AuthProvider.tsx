@@ -11,9 +11,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       throw new Error("El email y la contraseña son obligatorios");
     }
 
-    // TODO: implementar llamada real a POST /api/v1/auth/login
-    // Acá se obtiene el token si los datos son correctos o se devuelve un error.
-    setUser({ email, rol: "COORDINADOR", token: "" });
+    setUser({
+      email,
+      rol: "COORDINADOR",
+      token: "",
+    });
   };
 
   const logout = () => setUser(null);

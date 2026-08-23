@@ -1,0 +1,66 @@
+/* Estilos del formulario público de preinscripción. */
+
+.inscripcion {
+  min-height: 100%;
+  padding: 40px var(--espaciado-lateral);
+  display: flex;
+  justify-content: center;
+  background: #f5f5f5;
+}
+
+.inscripcion-formulario {
+  width: 100%;
+  max-width: 500px;
+  padding: 32px;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.inscripcion-formulario h1 {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.inscripcion-formulario fieldset {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+  border: 0;
+}
+
+.inscripcion-formulario label {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.inscripcion-formulario input,
+.inscripcion-formulario select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+}
+
+.inscripcion-formulario button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 11px;
+  color: var(--color-text-light);
+  background: var(--color-secondary);
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.inscripcion-formulario button:hover {
+  opacity: 0.9;
+}
+
+.inscripcion-mensaje {
+  margin-bottom: 16px;
+  padding: 10px;
+  text-align: center;
+}

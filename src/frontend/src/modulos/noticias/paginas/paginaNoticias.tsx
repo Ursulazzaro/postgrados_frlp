@@ -1,7 +1,7 @@
 import TarjetaNoticia from "../componentes/tarjetasNoticias";
 import BarraLateral from "../componentes/BarraLateral";
 import { noticiasFalsas } from "../mocks/noticiasFalsas";
-import imagenHero from "../../imagenes/hero-home.png";
+import imagenHero from "../../../imagenes/hero-home.png";
 import "./PaginaNoticias.css";
 
 export default function PaginaNoticias() {

@@ -1,7 +1,7 @@
 // Layout privado con navegación lateral para las funciones del sistema.
 
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { useAuth } from "../auth/useAuth";
+import { useAuth } from "../../modulos/manejo-sesion/useAuth";
 
 export default function DashboardLayout() {
   const { logout } = useAuth();
@@ -27,12 +27,6 @@ export default function DashboardLayout() {
             Panel de control
           </Link>
 
-          <Link
-            to="/inscripcion"
-            className="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100"
-          >
-            Inscripción
-          </Link>
         </nav>
 
         <button
