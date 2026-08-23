@@ -19,10 +19,7 @@ export default function DashboardLayout() {
           Sistema de Posgrado
         </h2>
 
-        <nav
-          aria-label="Navegación del panel"
-          className="mt-4 space-y-1 flex-1"
-        >
+        <nav aria-label="Navegación del panel" className="mt-4 space-y-1 flex-1">
           <Link
             to="/dashboard"
             className="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100"
@@ -41,7 +38,7 @@ export default function DashboardLayout() {
         <button
           type="button"
           onClick={handleLogout}
-          className="block px-3 py-2 rounded-md text-sm text-red-600 hover:bg-red-50 text-left cursor-pointer"
+          className="px-3 py-2 rounded-md text-sm text-red-600 hover:bg-red-50 text-left cursor-pointer"
         >
           Cerrar sesión
         </button>
