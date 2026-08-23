@@ -7,11 +7,11 @@ import "./HomePage.css";
 export default function HomePage() {
   return (
     <>
-      <section
-        className="home-hero"
-        style={{ backgroundImage: `url(${imagenHero})` }}
-        aria-labelledby="home-titulo"
-      >
+        <section
+          className="home-hero"
+          style={{ backgroundImage: `url(${imagenHero})` }}
+          aria-labelledby="home-titulo"
+        >
         <section className="home-hero-contenido">
           <h1 id="home-titulo">
             Bienvenido al Sistema
