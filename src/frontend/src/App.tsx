@@ -1,6 +1,7 @@
-import { RouterProvider } from "react-router-dom";
-import { router } from "./shared/router";
+import PaginaNoticias from "./noticias/paginas/paginaNoticias";
 
-export default function App() {
-  return <RouterProvider router={router} />;
+function App() {
+  return <PaginaNoticias />;
 }
+
+export default App;
