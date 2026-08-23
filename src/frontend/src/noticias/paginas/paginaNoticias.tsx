@@ -1,42 +1,32 @@
-import TarjetaNoticia from '../componentes/tarjetasNoticias';
-import BarraLateral from '../componentes/BarraLateral';
-import { noticiasFalsas } from '../mocks/noticiasFalsas';
+import TarjetaNoticia from "../componentes/tarjetasNoticias";
+import BarraLateral from "../componentes/BarraLateral";
+import { noticiasFalsas } from "../mocks/noticiasFalsas";
+import imagenHero from "../../imagenes/hero-home.png";
+import "./PaginaNoticias.css";
 
 export default function PaginaNoticias() {
   return (
     <>
-      {/* 1. SECCIÓN HERO (El banner gigante) */}
       <section
-        className="relative bg-cover bg-center h-80 flex items-center"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
-        }}
+        className="noticias-hero"
+        style={{ backgroundImage: `url(${imagenHero})` }}
+        aria-labelledby="noticias-titulo"
       >
-        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
-
-        <section className="relative z-10 max-w-7xl mx-auto px-4 w-full">
-          <h1 className="text-5xl font-extrabold text-white mb-4">
-            Noticias
-          </h1>
-
-          <p className="text-xl text-gray-200 max-w-2xl">
-            Enterate de las ultimas novedades y comunicados de la facultad
+        <section className="noticias-hero-contenido">
+          <h1 id="noticias-titulo">Noticias</h1>
+          <p>
+            Enterate de las últimas novedades y comunicados de la facultad
           </p>
         </section>
       </section>
 
-      {/* 2. CONTENEDOR PRINCIPAL */}
       <section className="max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row gap-8">
-
-        {/* Columna Izquierda (Acá se dibujan las Tarjetas) */}
         <section className="md:w-2/3">
           <h2 className="text-3xl font-bold mb-6 text-gray-900 border-b pb-2">
             Últimas Noticias
           </h2>
 
           <section className="space-y-2">
-            {/* El .map agarra tu lista de noticias y dibuja un componente por cada una */}
             {noticiasFalsas.map((noticia) => (
               <TarjetaNoticia
                 key={noticia.id}
@@ -49,11 +39,9 @@ export default function PaginaNoticias() {
           </section>
         </section>
 
-        {/* Columna Derecha (Acá ponemos el Sidebar) */}
         <aside className="md:w-1/3">
           <BarraLateral />
         </aside>
-
       </section>
     </>
   );
