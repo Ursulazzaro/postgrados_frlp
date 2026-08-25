@@ -1,0 +1,29 @@
+/* Estilos de la página pública de contacto. */
+
+.contacto-hero {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-primary);
+  color: var(--color-text-light);
+}
+
+.contacto-contenido {
+  width: min(
+    calc(100% - var(--espaciado-lateral) * 2),
+    var(--ancho-maximo)
+  );
+  margin: auto;
+}
+
+.contacto-hero h1 {
+  margin: 0 0 14px;
+  font-size: clamp(40px, 3.2vw, 54px);
+  line-height: 1.08;
+}
+
+.contacto-hero p {
+  max-width: 640px;
+  margin: 0;
+  font-size: 16px;
+}

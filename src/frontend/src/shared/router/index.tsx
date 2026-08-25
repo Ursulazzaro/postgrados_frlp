@@ -2,6 +2,7 @@
 
 import { createBrowserRouter } from "react-router-dom";
 
+
 import PublicLayout from "../disposiciones/PublicLayout";
 import DashboardLayout from "../disposiciones/DashboardLayout";
 import PaginaNoEncontrada from "../paginas/PaginaNoEncontrada";
@@ -15,6 +16,7 @@ import DashboardPage from "../../modulos/dashboard/paginas/DashboardPage";
 import FormularioInscripcion from "../../modulos/inscripcion/paginas/FormularioInscripcion";
 import PaginaNoticias from "../../modulos/noticias/paginas/paginaNoticias";
 import PaginaCarreras from "../../modulos/carreras/paginas/PaginaCarreras";
+import PaginaContacto from "../../modulos/contacto/paginas/PaginaContacto";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +32,7 @@ export const router = createBrowserRouter([
       { path: "carreras", element: <PaginaCarreras /> },
       { path: "inscripcion", element: <FormularioInscripcion /> },
       { path: "noticias", element: <PaginaNoticias /> },
+      { path: "contacto", element: <PaginaContacto /> },
       { path: "*", element: <PaginaNoEncontrada /> },
     ],
   },
