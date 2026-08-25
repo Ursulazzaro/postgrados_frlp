@@ -132,6 +132,15 @@ export default function PaginaContacto() {
             </div>
             </article>
             </div>
+
+            <div className="contacto-mapa">
+                <iframe
+                    title="Ubicación UTN Facultad Regional La Plata"
+                    src="https://www.google.com/maps?q=UTN%20Facultad%20Regional%20La%20Plata&output=embed"
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                />
+            </div>
         </aside>
       </section>
     </main>
