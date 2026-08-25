@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./PaginaCalendario.css";
 
-type TipoEvento = "clases" | "inscripcion" | "examen" | "feriado" | "otros";
+type TipoEvento = "clases" | "inscripcion" | "examen" | "feriado" | "inamovible" | "trasladable" | "turistico" | "otros";
 
 type Evento = {
   fecha: string;
@@ -11,6 +11,122 @@ type Evento = {
 };
 
 const eventos: Evento[] = [
+
+
+  {
+    fecha: "2026-01-01",
+    titulo: "Año Nuevo",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
+  {
+    fecha: "2026-02-15",
+    titulo: "Carnaval",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
+  {
+    fecha: "2026-02-16",
+    titulo: "Carnaval",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
+  {
+    fecha: "2026-03-23",
+    titulo: "Día no laborable con fines turísticos",
+    descripcion: "Feriado turístico",
+    tipo: "turistico",
+  },
+  {
+    fecha: "2026-03-24",
+    titulo: "Día Nacional de la Memoria por la Verdad y la Justicia",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
+  {
+    fecha: "2026-04-02",
+    titulo: "Día del Veterano y de los Caídos en la Guerra de Malvinas",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
+  {
+    fecha: "2026-04-03",
+    titulo: "Viernes Santo",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
+  {
+    fecha: "2026-05-01",
+    titulo: "Día del Trabajador",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
+  {
+    fecha: "2026-05-25",
+    titulo: "Día de la Revolución de Mayo",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
+  {
+    fecha: "2026-06-14",
+    titulo: "Paso a la Inmortalidad del Gral. Martín Miguel de Güemes",
+    descripcion: "Feriado trasladable",
+    tipo: "trasladable",
+  },
+  {
+    fecha: "2026-06-19",
+    titulo: "Paso a la Inmortalidad del Gral. Manuel Belgrano",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
+  {
+    fecha: "2026-07-09",
+    titulo: "Día de la Independencia",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
+  {
+    fecha: "2026-07-10",
+    titulo: "Día no laborable con fines turísticos",
+    descripcion: "Feriado turístico",
+    tipo: "turistico",
+  },
+  {
+    fecha: "2026-08-16",
+    titulo: "Paso a la Inmortalidad del Gral. José de San Martín",
+    descripcion: "Feriado trasladable",
+    tipo: "trasladable",
+  },
+  {
+    fecha: "2026-10-11",
+    titulo: "Día de la Raza",
+    descripcion: "Feriado trasladable",
+    tipo: "trasladable",
+  },
+  {
+    fecha: "2026-11-22",
+    titulo: "Día de la Soberanía Nacional",
+    descripcion: "Feriado trasladable",
+    tipo: "trasladable",
+  },
+  {
+    fecha: "2026-12-07",
+    titulo: "Día no laborable con fines turísticos",
+    descripcion: "Feriado turístico",
+    tipo: "turistico",
+  },
+  {
+    fecha: "2026-12-08",
+    titulo: "Inmaculada Concepción de María",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
+  {
+    fecha: "2026-12-25",
+    titulo: "Navidad",
+    descripcion: "Feriado inamovible",
+    tipo: "inamovible",
+  },
   {
     fecha: "2026-02-17",
     titulo: "Inscripción a carreras",
@@ -34,18 +150,6 @@ const eventos: Evento[] = [
     titulo: "Día del personal docente Universitario",
     descripcion: "Sin actividad. Día del personal docente universitario de la UTN",
     tipo: "otros",
-  },
-  {
-    fecha: "2026-06-16",
-    titulo: "Feriado",
-    descripcion: "Sin actividad. Día de paso a la Inmortalidad de Güemes",
-    tipo: "feriado",
-  },
-  {
-    fecha: "2026-06-20",
-    titulo: "Feriado",
-    descripcion: "Sin actividad. Día de paso a la Inmortalidad del General Belgrano",
-    tipo: "feriado",
   },
 ];
 
@@ -257,8 +361,18 @@ export default function PaginaCalendario() {
               </div>
 
               <div>
-                <span className="leyenda-color leyenda-feriado" />
-                Feriados
+                <span className="leyenda-color leyenda-inamovible" />
+                Feriados inamovibles
+               </div>
+
+              <div>
+                <span className="leyenda-color leyenda-trasladable" />
+                Feriados trasladables
+              </div>
+
+              <div>
+                <span className="leyenda-color leyenda-turistico" />
+                Feriados turísticos
               </div>
 
               <div>
