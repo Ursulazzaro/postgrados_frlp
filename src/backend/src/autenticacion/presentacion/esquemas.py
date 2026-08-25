@@ -20,6 +20,15 @@ class LegajoRespuesta(BaseModel):
     estado: str
     tipo_carrera: str
     created_at: datetime
+    
+class LoginRequest(BaseModel):
+    email: EmailStr
+    password: str
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str
+    rol: str
 
     class Config:
         # Esto permite que Pydantic lea los datos directamente desde tu LegajoORM
