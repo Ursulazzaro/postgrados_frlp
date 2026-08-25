@@ -4,12 +4,16 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../useAuth";
 
+import imagenFondo from "../../../imagenes/hero-inicio.jpg";
+import "./ManejoSesion.css";
+
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [mostrarPassword, setMostrarPassword] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,69 +29,72 @@ export default function LoginPage() {
   };
 
   return (
-    <section className="flex items-center justify-center min-h-screen bg-gray-50">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm space-y-4"
-      >
-        <h1 className="text-xl font-bold text-gray-800 text-center">
-          Iniciar sesión
-        </h1>
+    <section
+      className="sesion"
+      style={{ backgroundImage: `url(${imagenFondo})` }}
+    >
+      <form className="sesion-formulario" onSubmit={handleSubmit}>
+        <header className="sesion-encabezado">
+          <h1>Iniciar Sesión</h1>
+          <p>Ingresá tus credenciales para acceder al sistema</p>
+        </header>
 
         {error && (
-          <p role="alert" className="text-red-600 text-sm text-center">
+          <p className="sesion-error" role="alert">
             {error}
           </p>
         )}
 
-        <p>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email
-          </label>
+        <label htmlFor="email">
+          Correo Electrónico <span aria-hidden="true">*</span>
+        </label>
 
-          <input
-            id="email"
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </p>
+        <input
+          id="email"
+          type="email"
+          placeholder="usuario@frlp.utn.edu.ar"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-        <p>
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Contraseña
-          </label>
+        <label htmlFor="password">
+          Contraseña <span aria-hidden="true">*</span>
+        </label>
 
+        <div className="sesion-password">
           <input
             id="password"
-            type="password"
+            type={mostrarPassword ? "text" : "password"}
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 block w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </p>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition-colors cursor-pointer"
-        >
-          Entrar
-        </button>
-        <Link
-          to="/recuperar-contrasena"
-          className="block text-center text-sm text-blue-600 hover:underline"
-        >
+          <button
+            type="button"
+            onClick={() => setMostrarPassword(!mostrarPassword)}
+            aria-label={
+              mostrarPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+            }
+          >
+            ◉
+          </button>
+        </div>
+
+        <Link className="sesion-recuperar" to="/recuperar-contrasena">
           ¿Olvidaste tu contraseña?
         </Link>
+
+        <div className="sesion-captcha">
+          <span className="sesion-captcha-cuadro" aria-hidden="true" />
+          <span>I'm not a robot</span>
+          <strong>reCAPTCHA</strong>
+        </div>
+
+        <button className="sesion-boton" type="submit">
+          Iniciar Sesión
+        </button>
       </form>
     </section>
   );
