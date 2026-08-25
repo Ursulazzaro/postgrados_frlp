@@ -8,6 +8,7 @@ import PaginaNoEncontrada from "../paginas/PaginaNoEncontrada";
 
 import ProtectedRoute from "../../modulos/manejo-sesion/ProtectedRoute";
 import LoginPage from "../../modulos/manejo-sesion/paginas/LoginPage";
+import RecuperarContrasenaPage from "../../modulos/manejo-sesion/paginas/RecuperarContrasenaPage";
 
 import HomePage from "../../modulos/home/paginas/HomePage";
 import DashboardPage from "../../modulos/dashboard/paginas/DashboardPage";
@@ -22,6 +23,10 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
+      {
+        path: "recuperar-contrasena",
+        element: <RecuperarContrasenaPage />,
+      },
       { path: "carreras", element: <PaginaCarreras /> },
       { path: "inscripcion", element: <FormularioInscripcion /> },
       { path: "noticias", element: <PaginaNoticias /> },

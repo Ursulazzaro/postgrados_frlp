@@ -1,7 +1,7 @@
 // Página de inicio de sesión para acceder a las funciones privadas del sistema.
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../useAuth";
 
 export default function LoginPage() {
@@ -82,6 +82,12 @@ export default function LoginPage() {
         >
           Entrar
         </button>
+        <Link
+          to="/recuperar-contrasena"
+          className="block text-center text-sm text-blue-600 hover:underline"
+        >
+          ¿Olvidaste tu contraseña?
+        </Link>
       </form>
     </section>
   );
