@@ -49,3 +49,131 @@
   margin: 0;
   font-size: 16px;
 }
+
+.contacto-principal {
+  width: min(
+    calc(100% - var(--espaciado-lateral) * 2),
+    var(--ancho-maximo)
+  );
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 24px;
+}
+
+.contacto-formulario {
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-background);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+
+.contacto-formulario > p {
+  margin: 0 0 12px;
+  font-size: 12px;
+}
+
+.contacto-formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contacto-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.contacto-campo input,
+.contacto-campo textarea {
+  width: 100%;
+  padding: 6px 8px;
+}
+
+.contacto-campo textarea {
+  min-height: 45px;
+  height: 45px;
+  resize: none;
+}
+
+
+.contacto-formulario button {
+  padding: 8px 16px;
+}
+
+.contacto-formulario {
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-background);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.contacto-formulario h2 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.contacto-formulario > p {
+  margin: 0 0 18px;
+  font-size: 12px;
+}
+
+.contacto-formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contacto-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.contacto-campo label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.contacto-campo label span {
+  color: #b91c1c;
+}
+
+.contacto-campo input,
+.contacto-campo textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #b5b5b5;
+  border-radius: 4px;
+  background: #ffffff;
+  outline: none;
+}
+
+.contacto-campo textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.contacto-campo input:focus,
+.contacto-campo textarea:focus {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 0 2px rgba(52, 18, 118, 0.15);
+}
+
+.contacto-formulario button {
+  align-self: flex-end;
+  min-width: 90px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--color-secondary);
+  color: var(--color-text-light);
+  cursor: pointer;
+}
+
+.contacto-formulario button:hover {
+  opacity: 0.9;
+}
