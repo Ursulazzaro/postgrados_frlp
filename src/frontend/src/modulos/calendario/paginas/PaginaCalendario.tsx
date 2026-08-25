@@ -1,159 +1,17 @@
-import { useState } from "react";
+// Página pública con el calendario académico y feriados de Argentina.
+
+import { useEffect, useState } from "react";
+
+import { obtenerFeriados } from "../api/feriados";
+import { eventosAcademicos } from "../mocks/eventosAcademicos";
+import type { Evento } from "../tipos";
+
 import "./PaginaCalendario.css";
 
-type TipoEvento = "clases" | "inscripcion" | "examen" | "feriado" | "inamovible" | "trasladable" | "turistico" | "otros";
+const ANIO_MINIMO = 2025;
+const ANIO_MAXIMO = 2027;
 
-type Evento = {
-  fecha: string;
-  titulo: string;
-  descripcion: string;
-  tipo: TipoEvento;
-};
-
-const eventos: Evento[] = [
-
-
-  {
-    fecha: "2026-01-01",
-    titulo: "Año Nuevo",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-02-15",
-    titulo: "Carnaval",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-02-16",
-    titulo: "Carnaval",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-03-23",
-    titulo: "Día no laborable con fines turísticos",
-    descripcion: "Feriado turístico",
-    tipo: "turistico",
-  },
-  {
-    fecha: "2026-03-24",
-    titulo: "Día Nacional de la Memoria por la Verdad y la Justicia",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-04-02",
-    titulo: "Día del Veterano y de los Caídos en la Guerra de Malvinas",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-04-03",
-    titulo: "Viernes Santo",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-05-01",
-    titulo: "Día del Trabajador",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-05-25",
-    titulo: "Día de la Revolución de Mayo",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-06-14",
-    titulo: "Paso a la Inmortalidad del Gral. Martín Miguel de Güemes",
-    descripcion: "Feriado trasladable",
-    tipo: "trasladable",
-  },
-  {
-    fecha: "2026-06-19",
-    titulo: "Paso a la Inmortalidad del Gral. Manuel Belgrano",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-07-09",
-    titulo: "Día de la Independencia",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-07-10",
-    titulo: "Día no laborable con fines turísticos",
-    descripcion: "Feriado turístico",
-    tipo: "turistico",
-  },
-  {
-    fecha: "2026-08-16",
-    titulo: "Paso a la Inmortalidad del Gral. José de San Martín",
-    descripcion: "Feriado trasladable",
-    tipo: "trasladable",
-  },
-  {
-    fecha: "2026-10-11",
-    titulo: "Día de la Raza",
-    descripcion: "Feriado trasladable",
-    tipo: "trasladable",
-  },
-  {
-    fecha: "2026-11-22",
-    titulo: "Día de la Soberanía Nacional",
-    descripcion: "Feriado trasladable",
-    tipo: "trasladable",
-  },
-  {
-    fecha: "2026-12-07",
-    titulo: "Día no laborable con fines turísticos",
-    descripcion: "Feriado turístico",
-    tipo: "turistico",
-  },
-  {
-    fecha: "2026-12-08",
-    titulo: "Inmaculada Concepción de María",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-12-25",
-    titulo: "Navidad",
-    descripcion: "Feriado inamovible",
-    tipo: "inamovible",
-  },
-  {
-    fecha: "2026-02-17",
-    titulo: "Inscripción a carreras",
-    descripcion: "Inscripción a carreras y materias de todos los niveles",
-    tipo: "inscripcion",
-  },
-  {
-    fecha: "2026-04-04",
-    titulo: "Inicio de clases",
-    descripcion: "Comienzo Ciclo Lectivo 2026",
-    tipo: "clases",
-  },
-  {
-    fecha: "2026-04-16",
-    titulo: "Mesa de examen Final",
-    descripcion: "Sin actividad. 1er Turno examen Final.",
-    tipo: "examen",
-  },
-  {
-    fecha: "2026-05-02",
-    titulo: "Día del personal docente Universitario",
-    descripcion: "Sin actividad. Día del personal docente universitario de la UTN",
-    tipo: "otros",
-  },
-];
-
-const nombresMeses = [
+const meses = [
   "Enero",
   "Febrero",
   "Marzo",
@@ -168,75 +26,87 @@ const nombresMeses = [
   "Diciembre",
 ];
 
-const nombresDias = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+const diasSemana = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 
-function obtenerDiasDelMes(anio: number, mes: number) {
-  return new Date(anio, mes + 1, 0).getDate();
-}
-
-function obtenerPrimerDia(anio: number, mes: number) {
+function primerDiaDelMes(anio: number, mes: number) {
   const dia = new Date(anio, mes, 1).getDay();
 
-  // JavaScript considera domingo = 0.
-  // Nosotros queremos lunes = 0.
   return dia === 0 ? 6 : dia - 1;
-}
-
-function obtenerEvento(fecha: string) {
-  return eventos.find((evento) => evento.fecha === fecha);
 }
 
 export default function PaginaCalendario() {
   const [anio, setAnio] = useState(2026);
-  const [mes, setMes] = useState(5); // Junio
+  const [mes, setMes] = useState(5);
+  const [feriados, setFeriados] = useState<Evento[]>([]);
+  const [error, setError] = useState("");
 
-  const diasDelMes = obtenerDiasDelMes(anio, mes);
-  const primerDia = obtenerPrimerDia(anio, mes);
+  useEffect(() => {
+    const cargarFeriados = async () => {
+      try {
+        setError("");
+        setFeriados(await obtenerFeriados(anio));
+      } catch {
+        setFeriados([]);
+        setError("No se pudieron cargar los feriados.");
+      }
+    };
 
-  const cambiarMes = (direccion: number) => {
-    let nuevoMes = mes + direccion;
-    let nuevoAnio = anio;
+    cargarFeriados();
+  }, [anio]);
 
-    if (nuevoMes < 0) {
-      nuevoMes = 11;
-      nuevoAnio--;
-    }
-
-    if (nuevoMes > 11) {
-      nuevoMes = 0;
-      nuevoAnio++;
-    }
-
-    setMes(nuevoMes);
-    setAnio(nuevoAnio);
-  };
-
-  const diasCalendario = [];
-
-  for (let i = 0; i < primerDia; i++) {
-    diasCalendario.push(null);
-  }
-
-  for (let dia = 1; dia <= diasDelMes; dia++) {
-    diasCalendario.push(dia);
-  }
-
-  const eventosDelMes = eventos.filter((evento) => {
+  const academicosDelAnio = eventosAcademicos.filter((evento) => {
     const fecha = new Date(`${evento.fecha}T00:00:00`);
 
-    return (
-      fecha.getFullYear() === anio &&
-      fecha.getMonth() === mes
-    );
+    return fecha.getFullYear() === anio;
   });
 
+  const feriadosDelMes = feriados.filter((evento) => {
+    const fecha = new Date(`${evento.fecha}T00:00:00`);
+
+    return fecha.getFullYear() === anio && fecha.getMonth() === mes;
+  });
+
+  const eventosVisibles = [...academicosDelAnio, ...feriadosDelMes];
+  const eventos = [...academicosDelAnio, ...feriados];
+
+  const cantidadDias = new Date(anio, mes + 1, 0).getDate();
+  const espacios = primerDiaDelMes(anio, mes);
+
+  const dias: (number | null)[] = [
+    ...Array(espacios).fill(null),
+    ...Array.from({ length: cantidadDias }, (_, indice) => indice + 1),
+  ];
+
+  const cambiarMes = (direccion: number) => {
+    const fecha = new Date(anio, mes + direccion, 1);
+    const nuevoAnio = fecha.getFullYear();
+
+    if (nuevoAnio < ANIO_MINIMO || nuevoAnio > ANIO_MAXIMO) {
+      return;
+    }
+
+    setAnio(nuevoAnio);
+    setMes(fecha.getMonth());
+  };
+
+  const cambiarAnio = (nuevoAnio: number) => {
+    setAnio(nuevoAnio);
+    setMes(0);
+  };
+
+  const buscarEvento = (fecha: string) =>
+    eventos.find((evento) => evento.fecha === fecha);
+
+  const puedeRetroceder = !(anio === ANIO_MINIMO && mes === 0);
+  const puedeAvanzar = !(anio === ANIO_MAXIMO && mes === 11);
+
   return (
-    <main className="calendario">
-      <section className="calendario-contenido">
+    <section className="calendario-fondo">
+      <section className="calendario">
         <header className="calendario-encabezado">
           <div>
             <h1>Calendario Académico</h1>
-            <p>Consulta las fechas importantes del ciclo lectivo</p>
+            <p>Consultá las fechas importantes del ciclo lectivo</p>
           </div>
 
           <div className="calendario-anio">
@@ -245,89 +115,94 @@ export default function PaginaCalendario() {
             <select
               id="anio"
               value={anio}
-              onChange={(e) => {
-                setAnio(Number(e.target.value));
-                setMes(0);
-              }}
+              onChange={(e) => cambiarAnio(Number(e.target.value))}
             >
+              <option value="2025">2025</option>
               <option value="2026">2026</option>
+              <option value="2027">2027</option>
             </select>
           </div>
         </header>
 
-        <section className="calendario-cuerpo">
-          <div className="calendario-eventos">
-            <h2 className="sr-only">Eventos académicos</h2>
+        {error && (
+          <p className="calendario-error" role="alert">
+            {error}
+          </p>
+        )}
 
-            {eventosDelMes.length === 0 ? (
-              <p className="calendario-sin-eventos">
-                No hay eventos registrados para este mes.
-              </p>
+        <section className="calendario-cuerpo">
+          <section
+            className="calendario-eventos"
+            aria-label="Eventos importantes"
+          >
+            {eventosVisibles.length === 0 ? (
+              <p>No hay eventos registrados.</p>
             ) : (
-              eventosDelMes.map((evento) => {
+              eventosVisibles.map((evento) => {
                 const fecha = new Date(`${evento.fecha}T00:00:00`);
 
                 return (
                   <article
+                    key={`${evento.fecha}-${evento.titulo}`}
                     className={`calendario-evento calendario-evento-${evento.tipo}`}
-                    key={evento.fecha}
                   >
                     <div className="calendario-evento-fecha">
-                      <span>{nombresMeses[mes]}</span>
+                      <span>{meses[fecha.getMonth()]}</span>
                       <strong>{fecha.getDate()}</strong>
                     </div>
 
-                    <div className="calendario-evento-contenido">
-                      <h3>{evento.titulo}</h3>
+                    <div className="calendario-evento-info">
+                      <h2>{evento.titulo}</h2>
                       <p>{evento.descripcion}</p>
                     </div>
                   </article>
                 );
               })
             )}
-          </div>
+          </section>
 
-          <div className="calendario-panel">
-            <div className="calendario-navegacion">
+          <section className="calendario-panel">
+            <header className="calendario-navegacion">
               <button
                 type="button"
                 onClick={() => cambiarMes(-1)}
                 aria-label="Mes anterior"
+                disabled={!puedeRetroceder}
               >
                 ‹
               </button>
 
               <h2>
-                {nombresMeses[mes]} {anio}
+                {meses[mes]} {anio}
               </h2>
 
               <button
                 type="button"
                 onClick={() => cambiarMes(1)}
                 aria-label="Mes siguiente"
+                disabled={!puedeAvanzar}
               >
                 ›
               </button>
-            </div>
+            </header>
 
             <div className="calendario-dias-semana">
-              {nombresDias.map((dia) => (
+              {diasSemana.map((dia) => (
                 <span key={dia}>{dia}</span>
               ))}
             </div>
 
             <div className="calendario-dias">
-              {diasCalendario.map((dia, indice) => {
+              {dias.map((dia, indice) => {
                 if (dia === null) {
                   return <span key={`vacio-${indice}`} />;
                 }
 
-                const fecha = `${anio}-${String(mes + 1).padStart(
-                  2,
-                  "0"
-                )}-${String(dia).padStart(2, "0")}`;
+                const fecha =
+                  `${anio}-${String(mes + 1).padStart(2, "0")}` +
+                  `-${String(dia).padStart(2, "0")}`;
 
-                const evento = obtenerEvento(fecha);
+                const evento = buscarEvento(fecha);
 
                 return (
                   <span
@@ -344,45 +219,35 @@ export default function PaginaCalendario() {
               })}
             </div>
 
-            <div className="calendario-leyenda">
-              <div>
+            <section className="calendario-leyenda">
+              <p>
                 <span className="leyenda-color leyenda-clases" />
                 Inicio de clases
-              </div>
+              </p>
 
-              <div>
+              <p>
                 <span className="leyenda-color leyenda-inscripcion" />
                 Inscripciones
-              </div>
+              </p>
 
-              <div>
+              <p>
                 <span className="leyenda-color leyenda-examen" />
                 Mesa de final
-              </div>
+              </p>
 
-              <div>
-                <span className="leyenda-color leyenda-inamovible" />
-                Feriados inamovibles
-               </div>
+              <p>
+                <span className="leyenda-color leyenda-feriado" />
+                Feriados
+              </p>
 
-              <div>
-                <span className="leyenda-color leyenda-trasladable" />
-                Feriados trasladables
-              </div>
-
-              <div>
-                <span className="leyenda-color leyenda-turistico" />
-                Feriados turísticos
-              </div>
-
-              <div>
+              <p>
                 <span className="leyenda-color leyenda-otros" />
                 Otros eventos
-              </div>
-            </div>
-          </div>
+              </p>
+            </section>
+          </section>
         </section>
       </section>
-    </main>
+    </section>
   );
 }
