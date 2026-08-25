@@ -17,6 +17,7 @@ import FormularioInscripcion from "../../modulos/inscripcion/paginas/FormularioI
 import PaginaNoticias from "../../modulos/noticias/paginas/paginaNoticias";
 import PaginaCarreras from "../../modulos/carreras/paginas/PaginaCarreras";
 import PaginaContacto from "../../modulos/contacto/paginas/PaginaContacto";
+import PaginaCalendario from "../../modulos/calendario/paginas/PaginaCalendario";
 
 export const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ export const router = createBrowserRouter([
       { path: "noticias", element: <PaginaNoticias /> },
       { path: "contacto", element: <PaginaContacto /> },
       { path: "*", element: <PaginaNoEncontrada /> },
+      { path: "calendario", element: <PaginaCalendario /> },
     ],
   },
   {

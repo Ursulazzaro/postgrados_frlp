@@ -1,0 +1,349 @@
+.calendario {
+  min-height: calc(100vh - 60px);
+  padding: 8px 16px;
+  background: var(--color-primary);
+}
+
+.calendario-contenido {
+  max-width: 1720px;
+  min-height: 570px;
+  margin: 0 auto;
+  padding: 34px 42px;
+  background: #ffffff;
+  border-radius: 28px;
+}
+
+/* ENCABEZADO */
+
+.calendario-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #bdbdbd;
+}
+
+.calendario-encabezado h1 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.calendario-encabezado p {
+  margin: 8px 0 0;
+  color: #666666;
+  font-size: 14px;
+}
+
+.calendario-anio {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+
+.calendario-anio label {
+  color: #777777;
+  font-size: 13px;
+}
+
+.calendario-anio select {
+  width: 80px;
+  height: 28px;
+  padding: 3px 8px;
+  border: 0;
+  background: #d9d9d9;
+  color: #777777;
+}
+
+/* CUERPO */
+
+.calendario-cuerpo {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* EVENTOS */
+
+.calendario-eventos {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.calendario-evento {
+  min-height: 45px;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid #888888;
+  border-radius: 6px;
+  background: #dddddd;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.calendario-evento-fecha {
+  width: 58px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #aaaaaa;
+  color: #222222;
+}
+
+.calendario-evento-fecha span {
+  font-size: 11px;
+}
+
+.calendario-evento-fecha strong {
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.calendario-evento-contenido {
+  padding: 6px 12px;
+}
+
+.calendario-evento-contenido h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.calendario-evento-contenido p {
+  margin: 2px 0 0;
+  color: #777777;
+  font-size: 12px;
+}
+
+/* COLORES DE EVENTOS */
+
+.calendario-evento-clases .calendario-evento-fecha {
+  background: #4f6cff;
+}
+
+.calendario-evento-inscripcion .calendario-evento-fecha {
+  background: #42f477;
+}
+
+.calendario-evento-examen .calendario-evento-fecha {
+  background: #b548d4;
+}
+
+.calendario-evento-feriado .calendario-evento-fecha {
+  background: #ff4b4b;
+}
+
+.calendario-evento-inamovible .calendario-evento-fecha {
+  background: #ff4b4b;
+}
+
+.calendario-evento-trasladable .calendario-evento-fecha {
+  background: #ff8a00;
+}
+
+.calendario-evento-turistico .calendario-evento-fecha {
+  background: #9b59b6;
+}
+
+.calendario-evento-otros .calendario-evento-fecha {
+  background: #aaaaaa;
+}
+
+/* CALENDARIO */
+
+.calendario-panel {
+  width: 100%;
+}
+
+.calendario-navegacion {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  border: 1px solid #bbbbbb;
+  background: #dddddd;
+}
+
+.calendario-navegacion h2 {
+  margin: 0;
+  font-size: 14px;
+}
+
+.calendario-navegacion button {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #777777;
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.calendario-dias-semana,
+.calendario-dias {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.calendario-dias-semana {
+  padding: 12px 8px 6px;
+  color: #666666;
+  font-size: 12px;
+}
+
+.calendario-dias {
+  padding: 0 8px 12px;
+  border: 1px solid #bbbbbb;
+  border-top: 0;
+  background: #dddddd;
+}
+
+.calendario-dia,
+.calendario-dias > span:empty {
+  min-height: 32px;
+  display: grid;
+  place-items: center;
+  color: #666666;
+  font-size: 12px;
+}
+
+/* DÍAS CON EVENTOS */
+
+.calendario-dia-clases,
+.calendario-dia-inscripcion,
+.calendario-dia-examen,
+.calendario-dia-feriado,
+.calendario-dia-inamovible,
+.calendario-dia-trasladable,
+.calendario-dia-turistico,
+.calendario-dia-otros {
+  width: 32px;
+  height: 32px;
+  justify-self: center;
+  align-self: center;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  border-radius: 50%;
+}
+.calendario-dia-clases {
+  background: #4f6cff;
+}
+
+.calendario-dia-inscripcion {
+  background: #42f477;
+}
+
+.calendario-dia-examen {
+  background: #b548d4;
+}
+
+.calendario-dia-feriado,
+.calendario-dia-inamovible {
+  background: #ff4b4b;
+}
+
+.calendario-dia-trasladable {
+  background: #ff8a00;
+}
+
+.calendario-dia-turistico {
+  background: #9b59b6;
+}
+
+.calendario-dia-otros {
+  background: #aaaaaa;
+}
+/* LEYENDA */
+
+.calendario-leyenda {
+  margin-top: 16px;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+}
+
+.calendario-leyenda div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+  color: #666666;
+  font-size: 12px;
+}
+
+.leyenda-color {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.leyenda-clases {
+  background: #4f6cff;
+}
+
+.leyenda-inscripcion {
+  background: #42f477;
+}
+
+.leyenda-examen {
+  background: #b548d4;
+}
+
+.leyenda-feriado {
+  background: #ff4b4b;
+}
+
+.leyenda-inamovible {
+  background: #ff4b4b;
+}
+
+.leyenda-trasladable {
+  background: #ff8a00;
+}
+
+.leyenda-turistico {
+  background: #9b59b6;
+}
+
+.leyenda-otros {
+  background: #aaaaaa;
+}
+
+.calendario-sin-eventos {
+  color: #777777;
+  font-size: 14px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@media (max-width: 800px) {
+  .calendario-cuerpo {
+    grid-template-columns: 1fr;
+  }
+
+  .calendario-encabezado {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .calendario-contenido {
+    padding: 24px 20px;
+  }
+}
+
