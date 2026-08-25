@@ -13,6 +13,7 @@ import HomePage from "../../modulos/home/paginas/HomePage";
 import DashboardPage from "../../modulos/dashboard/paginas/DashboardPage";
 import FormularioInscripcion from "../../modulos/inscripcion/paginas/FormularioInscripcion";
 import PaginaNoticias from "../../modulos/noticias/paginas/paginaNoticias";
+import PaginaCarreras from "../../modulos/carreras/paginas/PaginaCarreras";
 
 export const router = createBrowserRouter([
   {
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: "login", element: <LoginPage /> },
+      { path: "carreras", element: <PaginaCarreras /> },
       { path: "inscripcion", element: <FormularioInscripcion /> },
       { path: "noticias", element: <PaginaNoticias /> },
       { path: "*", element: <PaginaNoEncontrada /> },
