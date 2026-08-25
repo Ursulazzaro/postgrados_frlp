@@ -1,11 +1,15 @@
 // Página con la información de la facu.
 
+import imagenHero from "../../../imagenes/hero-home.png";
 import "./PaginaContacto.css";
 
 export default function PaginaContacto() {
   return (
     <main className="contacto">
-      <section className="contacto-hero" aria-labelledby="contacto-titulo">
+      <section className="contacto-hero" 
+                style={{ backgroundImage: `url(${imagenHero})` }}
+                aria-labelledby="contacto-titulo"
+      >
         <div className="contacto-contenido">
           <h1 id="contacto-titulo">Contacto</h1>
           <p>
