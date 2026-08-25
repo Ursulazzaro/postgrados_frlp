@@ -177,3 +177,59 @@
 .contacto-formulario button:hover {
   opacity: 0.9;
 }
+
+.contacto-informacion {
+  padding: 4px 0;
+}
+
+.contacto-informacion h2 {
+  margin: 0 0 18px;
+  font-size: 20px;
+}
+
+.contacto-datos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.contacto-dato {
+  min-height: 80px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-background);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contacto-dato-icono {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #075db5;
+  color: var(--color-text-light);
+}
+
+.contacto-dato-icono svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}
+
+.contacto-dato h3 {
+  margin: 0 0 4px;
+  font-size: 13px;
+}
+
+.contacto-dato p {
+  margin: 0;
+  font-size: 13px;
+}
