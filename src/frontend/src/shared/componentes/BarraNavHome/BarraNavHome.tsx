@@ -65,6 +65,18 @@ export default function BarraNavHome() {
           </li>
 
           <li>
+            <NavLink to="/faq">
+              {/* Usamos un ícono de signo de interrogación simple */}
+              <svg className="barra-nav-home-icono" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+              FAQ
+            </NavLink>
+          </li>
+
+          <li>
             <NavLink to="/contacto">
               <svg className="barra-nav-home-icono" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M7 3 4 5c0 8 7 15 15 15l2-3-5-3-2 2c-3-1-5-3-6-6l2-2-3-5Z" />

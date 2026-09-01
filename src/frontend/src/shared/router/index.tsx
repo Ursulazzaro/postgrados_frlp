@@ -2,7 +2,7 @@
 
 import { createBrowserRouter } from "react-router-dom";
 
-
+import PaginaFAQ from "../../modulos/preguntas-frecuentes/paginas/paginaFAQ";
 import PublicLayout from "../disposiciones/PublicLayout";
 import DashboardLayout from "../disposiciones/DashboardLayout";
 import PaginaNoEncontrada from "../paginas/PaginaNoEncontrada";
@@ -21,7 +21,7 @@ import PaginaCalendario from "../../modulos/calendario/paginas/PaginaCalendario"
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/", 
     element: <PublicLayout />,
     children: [
       { index: true, element: <HomePage /> },
@@ -36,6 +36,7 @@ export const router = createBrowserRouter([
       { path: "contacto", element: <PaginaContacto /> },
       { path: "*", element: <PaginaNoEncontrada /> },
       { path: "calendario", element: <PaginaCalendario /> },
+      {path: "faq", element: <PaginaFAQ />},
     ],
   },
   {
