@@ -1,6 +1,4 @@
-// Layout privado con navegación lateral para las funciones del sistema.
-
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../../modulos/manejo-sesion/useAuth";
 
 export default function DashboardLayout() {
@@ -13,34 +11,108 @@ export default function DashboardLayout() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gray-50">
-      <aside className="w-64 bg-white border-r border-gray-200 p-4 flex flex-col">
-        <h2 className="text-lg font-semibold text-gray-800">
-          Sistema de Posgrado
-        </h2>
+    // Contenedor principal que ocupa toda la pantalla
+    <div className="min-h-screen flex bg-gray-100 font-sans">
+      
+      {/* 1. BARRA LATERAL (Sidebar) - Azul oscura según el mockup */}
+      <aside className="w-64 bg-slate-900 text-white flex flex-col shadow-xl z-10">
+        
+        {/* Logo y Título */}
+        <div className="p-6 border-b border-slate-800">
+          <h2 className="text-2xl font-bold tracking-wider">UTN FRLP</h2>
+          <p className="text-sm text-slate-400 mt-1">Estudiante</p>
+        </div>
 
-        <nav aria-label="Navegación del panel" className="mt-4 space-y-1 flex-1">
-          <Link
-            to="/dashboard"
-            className="block px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100"
+        {/* Menú de Navegación */}
+        <nav aria-label="Navegación del panel" className="mt-6 flex-1 px-4 space-y-2">
+          {/* NavLink pinta el botón de azul automáticamente si estamos en esa URL */}
+          <NavLink 
+            to="/dashboard" 
+            end
+            className={({ isActive }) => 
+              `flex items-center px-4 py-3 rounded-md text-sm font-medium transition-colors ${
+                isActive ? "bg-blue-600 text-white shadow-md" : "text-slate-300 hover:bg-slate-800 hover:text-white"
+              }`
+            }
           >
-            Panel de control
-          </Link>
+            🏠 Inicio
+          </NavLink>
 
+          <NavLink 
+            to="/dashboard/perfil"
+            className={({ isActive }) => 
+              `flex items-center px-4 py-3 rounded-md text-sm font-medium transition-colors ${
+                isActive ? "bg-blue-600 text-white shadow-md" : "text-slate-300 hover:bg-slate-800 hover:text-white"
+              }`
+            }
+          >
+            👤 Mi Perfil
+          </NavLink>
+
+          <NavLink 
+            to="/dashboard/estado-academico"
+            className={({ isActive }) => 
+              `flex items-center px-4 py-3 rounded-md text-sm font-medium transition-colors ${
+                isActive ? "bg-blue-600 text-white shadow-md" : "text-slate-300 hover:bg-slate-800 hover:text-white"
+              }`
+            }
+          >
+            📊 Estado Académico
+          </NavLink>
+          
+          <NavLink 
+            to="/dashboard/tesis"
+            className={({ isActive }) => 
+              `flex items-center px-4 py-3 rounded-md text-sm font-medium transition-colors ${
+                isActive ? "bg-blue-600 text-white shadow-md" : "text-slate-300 hover:bg-slate-800 hover:text-white"
+              }`
+            }
+          >
+            📝 Trabajo Final / Tesis
+          </NavLink>
         </nav>
 
-        <button
-          type="button"
-          onClick={handleLogout}
-          className="px-3 py-2 rounded-md text-sm text-red-600 hover:bg-red-50 text-left cursor-pointer"
-        >
-          Cerrar sesión
-        </button>
+        {/* Botón Cerrar Sesión (Fijo abajo) */}
+        <div className="p-4 border-t border-slate-800">
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="w-full flex items-center justify-center px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm font-medium transition-colors shadow-sm"
+          >
+            🚪 Cerrar Sesión
+          </button>
+        </div>
       </aside>
 
-      <main className="flex-1 p-6">
-        <Outlet />
-      </main>
+      {/* ÁREA DERECHA (Header + Contenido Central) */}
+      <div className="flex-1 flex flex-col h-screen overflow-hidden">
+        
+        {/* 2. ENCABEZADO SUPERIOR (Header) - Blanco según el mockup */}
+        <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-end px-8 shadow-sm z-0">
+          <div className="flex items-center space-x-6">
+            <button className="text-gray-400 hover:text-blue-600 text-xl transition-colors">✉️</button>
+            <button className="text-gray-400 hover:text-blue-600 text-xl transition-colors">🔔</button>
+            
+            {/* Perfil de Usuario simulado (Como en el Mockup: Juan Perez) */}
+            <div className="flex items-center space-x-3 border-l pl-6 border-gray-200 cursor-pointer hover:bg-gray-50 p-2 rounded-md transition-colors">
+              <div className="w-9 h-9 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold shadow-sm">
+                JP
+              </div>
+              <div className="hidden md:block text-left">
+                <p className="text-sm font-bold text-gray-800 leading-tight">Juan Perez</p>
+                <p className="text-xs text-gray-500">Estudiante</p>
+              </div>
+              <span className="text-gray-400 text-xs">▼</span>
+            </div>
+          </div>
+        </header>
+
+        {/* 3. CONTENIDO DINÁMICO (El "Agujero" del marco) */}
+        <main className="flex-1 p-8 overflow-y-auto">
+          <Outlet />
+        </main>
+
+      </div>
     </div>
   );
 }
