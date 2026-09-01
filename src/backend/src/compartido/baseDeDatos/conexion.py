@@ -1,20 +1,15 @@
 import os
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from sqlalchemy.orm import DeclarativeBase
 
-# Leemos la URL de la base de datos de las variables de entorno
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgrado_user:postgrado_dev_password@localhost:5432/postgrado_dev")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgrado_user:pass@db:5432/postgrados")
 
-# Creamos el motor asíncrono
 engine = create_async_engine(DATABASE_URL, echo=True)
+SessionLocal = async_sessionmaker(engine, expire_on_commit=False)
 
-# Creamos el creador de sesiones
-AsyncSessionLocal = async_sessionmaker(bind=engine, expire_on_commit=False)
+class Base (DeclarativeBase):
+    pass
 
-# Clase base para nuestros modelos
-Base = declarative_base()
-
-# Dependencia para FastAPI
 async def get_db():
-    async with AsyncSessionLocal() as session:
+    async with SessionLocal() as session:
         yield session
