@@ -2,6 +2,7 @@
 
 import { createBrowserRouter } from "react-router-dom";
 
+import MiPerfilPage from "../../modulos/dashboard/paginas/MiPerfilPage";
 import PaginaFAQ from "../../modulos/preguntas-frecuentes/paginas/paginaFAQ";
 import PublicLayout from "../disposiciones/PublicLayout";
 import DashboardLayout from "../disposiciones/DashboardLayout";
@@ -39,13 +40,14 @@ export const router = createBrowserRouter([
       {path: "faq", element: <PaginaFAQ />},
     ],
   },
-  {
+    {
     element: <ProtectedRoute />,
     children: [
       {
         element: <DashboardLayout />,
         children: [
           { path: "dashboard", element: <DashboardPage /> },
+          { path: "dashboard/perfil", element: <MiPerfilPage /> }, // <-- ESTA ES LA LÍNEA NUEVA
         ],
       },
     ],
