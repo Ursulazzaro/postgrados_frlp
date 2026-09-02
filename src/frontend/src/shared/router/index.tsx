@@ -2,6 +2,8 @@
 
 import { createBrowserRouter } from "react-router-dom";
 
+import PanelAsistenciaPage from "../../modulos/dashboard/paginas/PanelAsistenciaPage";
+import DashboardDocentePage from "../../modulos/dashboard/paginas/DashboardDocentePage";
 import MiPerfilPage from "../../modulos/dashboard/paginas/MiPerfilPage";
 import PaginaFAQ from "../../modulos/preguntas-frecuentes/paginas/paginaFAQ";
 import PublicLayout from "../disposiciones/PublicLayout";
@@ -41,13 +43,15 @@ export const router = createBrowserRouter([
     ],
   },
     {
-    element: <ProtectedRoute />,
+        element: <ProtectedRoute />,
     children: [
       {
         element: <DashboardLayout />,
         children: [
           { path: "dashboard", element: <DashboardPage /> },
-          { path: "dashboard/perfil", element: <MiPerfilPage /> }, // <-- ESTA ES LA LÍNEA NUEVA
+          { path: "dashboard/perfil", element: <MiPerfilPage /> },
+          { path: "dashboard/docente", element: <DashboardDocentePage /> },
+          { path: "dashboard/docente/asistencia", element: <PanelAsistenciaPage /> },
         ],
       },
     ],

@@ -70,6 +70,17 @@ export default function DashboardLayout() {
           >
             📝 Trabajo Final / Tesis
           </NavLink>
+                    {/* BOTÓN TEMPORAL PARA VER LA VISTA DEL DOCENTE */}
+          <NavLink 
+            to="/dashboard/docente"
+            className={({ isActive }) => 
+              `flex items-center px-4 py-3 mt-8 rounded-md text-sm font-bold transition-colors ${
+                isActive ? "bg-amber-500 text-slate-900 shadow-md" : "text-amber-400 border border-amber-500 hover:bg-amber-500 hover:text-slate-900"
+              }`
+            }
+          >
+            👁️ Vista Docente (Test)
+          </NavLink>
         </nav>
 
         {/* Botón Cerrar Sesión (Fijo abajo) */}
