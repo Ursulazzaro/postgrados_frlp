@@ -1,15 +1,20 @@
-from contextlib import asynccontextmanager
+import sys
+import asyncio
+from dotenv import load_dotenv
+load_dotenv()
 
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from src.compartido.baseDeDatos.conexion import Base, engine
 from src.inscripcion.presentacion.rutas import enrutador as inscripcion_rutas
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Esto se ejecuta al encender el servidor
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     yield
@@ -22,7 +27,6 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# Permitir al Frontend (puerto 3000) hablar con el Backend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],

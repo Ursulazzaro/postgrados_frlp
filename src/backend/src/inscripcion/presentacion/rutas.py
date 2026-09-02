@@ -1,8 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 import uuid
-
-# Importamos lo que creaste en los pasos anteriores (ajusta las rutas si cambiaste algún nombre)
 from src.compartido.baseDeDatos.conexion import get_db
 from src.inscripcion.infraestructura.orm_modelos import LegajoORM
 from src.inscripcion.presentacion.esquemas import LegajoCrear, LegajoRespuesta
@@ -14,9 +12,6 @@ async def inscribir_aspirante(
     datos: LegajoCrear, 
     db: AsyncSession = Depends(get_db)
 ):
-   
-    
-    # 2. Creamos el registro usando los datos que llegaron de React
     nuevo_legajo = LegajoORM(
         dni=datos.dni,
         apellido=datos.apellido,
@@ -26,7 +21,6 @@ async def inscribir_aspirante(
         estado="PENDIENTE"
     )
     
-    # 3. Guardamos en la base de datos
     db.add(nuevo_legajo)
     try:
         await db.commit()
