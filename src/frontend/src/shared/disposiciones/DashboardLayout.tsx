@@ -81,6 +81,17 @@ export default function DashboardLayout() {
           >
             👁️ Vista Docente (Test)
           </NavLink>
+                    {/* BOTÓN TEMPORAL PARA VER ASISTENCIA DOCENTE */}
+          <NavLink 
+            to="/dashboard/docente/asistencia"
+            className={({ isActive }) => 
+              `flex items-center px-4 py-3 mt-2 rounded-md text-sm font-bold transition-colors ${
+                isActive ? "bg-emerald-500 text-white shadow-md" : "text-emerald-400 border border-emerald-500 hover:bg-emerald-500 hover:text-white"
+              }`
+            }
+          >
+            📋 Asistencia (Test)
+          </NavLink>
         </nav>
 
         {/* Botón Cerrar Sesión (Fijo abajo) */}
