@@ -1,0 +1,320 @@
+.mi-perfil {
+  width: 100%;
+}
+
+.mi-perfil-pestanas {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mi-perfil-pestana {
+  padding: 10px 16px;
+  color: #6b7280;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.mi-perfil-pestana:hover {
+  color: #374151;
+}
+
+.mi-perfil-pestana.activa {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+}
+
+.mi-perfil-mensaje {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  color: #166534;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 6px;
+}
+
+.mi-perfil-contenido {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+}
+
+.mi-perfil-tarjeta-personal {
+  overflow: hidden;
+  color: #ffffff;
+  background: #0f172a;
+  border-radius: 12px;
+}
+
+.mi-perfil-tarjeta-personal > header {
+  padding: 8px;
+  background: #2563eb;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.mi-perfil-avatar-contenedor {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px solid #334155;
+}
+
+.mi-perfil-avatar {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mi-perfil-avatar-vacio {
+  display: grid;
+  place-items: center;
+  background: #334155;
+  font-size: 38px;
+}
+
+.mi-perfil-avatar-contenedor h2 {
+  margin: 12px 0 0;
+  font-size: 20px;
+}
+
+.mi-perfil-avatar-contenedor p {
+  margin: 4px 0 0;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.mi-perfil-foto-acciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.mi-perfil-input-foto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.mi-perfil-boton-foto {
+  padding: 7px 12px;
+  color: #ffffff;
+  background: #2563eb;
+  border-radius: 5px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.mi-perfil-boton-foto:hover {
+  background: #1d4ed8;
+}
+
+.mi-perfil-eliminar-foto {
+  padding: 5px;
+  color: #fca5a5;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.mi-perfil-resumen-personal {
+  padding: 20px;
+}
+
+.mi-perfil-resumen-personal dl {
+  margin: 0;
+}
+
+.mi-perfil-resumen-personal dl div {
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #1e293b;
+  border-radius: 6px;
+}
+
+.mi-perfil-resumen-personal dl div:last-child {
+  margin-bottom: 0;
+}
+
+.mi-perfil-resumen-personal dt {
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.mi-perfil-resumen-personal dd {
+  margin: 0;
+  color: #cbd5e1;
+}
+
+.mi-perfil-modificar {
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px;
+  color: #ffffff;
+  background: #2563eb;
+  border: 0;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mi-perfil-modificar:hover {
+  background: #1d4ed8;
+}
+
+.mi-perfil-datos {
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.mi-perfil-datos h2 {
+  margin: 0 0 18px;
+  color: #111827;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.mi-perfil-grilla {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 20px;
+}
+
+.mi-perfil-campo label {
+  display: block;
+  margin-bottom: 6px;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.mi-perfil-campo input,
+.mi-perfil-campo p {
+  width: 100%;
+  min-height: 40px;
+  margin: 0;
+  padding: 9px 11px;
+  color: #1f2937;
+  background: #f9fafb;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.mi-perfil-campo input:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+.mi-perfil-carrera {
+  margin-bottom: 16px;
+  padding: 14px;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.mi-perfil-indicadores {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.mi-perfil-indicadores div {
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.mi-perfil-indicadores dt {
+  color: #6b7280;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.mi-perfil-indicadores dd {
+  margin: 6px 0 0;
+  color: #1f2937;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.mi-perfil-acciones {
+  margin-top: 20px;
+  padding-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.mi-perfil-cancelar,
+.mi-perfil-guardar {
+  padding: 9px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.mi-perfil-cancelar {
+  color: #374151;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+}
+
+.mi-perfil-cancelar:hover {
+  background: #f9fafb;
+}
+
+.mi-perfil-guardar {
+  color: #ffffff;
+  background: #2563eb;
+  border: 0;
+}
+
+.mi-perfil-guardar:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 800px) {
+  .mi-perfil-pestanas {
+    margin-bottom: 16px;
+  }
+
+  .mi-perfil-contenido {
+    grid-template-columns: 1fr;
+  }
+
+  .mi-perfil-grilla,
+  .mi-perfil-indicadores {
+    grid-template-columns: 1fr;
+  }
+
+  .mi-perfil-datos {
+    padding: 20px;
+  }
+}
