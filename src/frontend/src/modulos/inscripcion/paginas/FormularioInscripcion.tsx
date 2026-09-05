@@ -59,6 +59,7 @@ export default function FormularioInscripcion() {
     correo_alternativo: "",
     forma_conocio_ofertas: "",
     motivos_cursar: "",
+    solicitud_beca: "",
   });
 
   const siguienteEtapa = () => {
@@ -658,13 +659,64 @@ export default function FormularioInscripcion() {
           </section>
         )}
 
-        {etapa === 3 && (
+       {etapa === 3 && (
           <section className="inscripcion-contenido-etapa">
             <h2>Beca (Opcional)</h2>
 
             <p>
-              Esta etapa corresponde a la información relacionada con
-              la solicitud de una beca.
+              Seleccioná el porcentaje de beca que corresponde a tu situación.
+            </p>
+
+            <fieldset className="inscripcion-beca">
+              <legend>Solicitud de beca</legend>
+
+              <div className="inscripcion-opcion-beca">
+                <input
+                  id="beca-30"
+                  name="solicitud_beca"
+                  type="radio"
+                  value="30"
+                  checked={datos.solicitud_beca === "30"}
+                  onChange={(e) =>
+                    setDatos({
+                      ...datos,
+                      solicitud_beca: e.target.value,
+                    })
+                  }
+                />
+
+                <label htmlFor="beca-30">
+                  Solicitar beca del 30%
+                </label>
+              </div>
+
+              <div className="inscripcion-opcion-beca">
+                <input
+                  id="beca-100"
+                  name="solicitud_beca"
+                  type="radio"
+                  value="100"
+                  checked={datos.solicitud_beca === "100"}
+                  onChange={(e) =>
+                    setDatos({
+                      ...datos,
+                      solicitud_beca: e.target.value,
+                    })
+                  }
+                />
+
+                <label htmlFor="beca-100">
+                  Solicitar beca del 100%
+                </label>
+              </div>
+            </fieldset>
+
+            <p className="inscripcion-aviso-beca">
+              <span className="inscripcion-aviso-icono" aria-hidden="true" />
+              <span>
+                La beca del 30% corresponde a graduados de la UTN y la beca del 100%
+                corresponde a docentes de la UTN.
+              </span>
             </p>
 
             <div className="inscripcion-botones">

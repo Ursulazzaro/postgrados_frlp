@@ -185,6 +185,7 @@
 
   color: #555555;
   font-size: 14px;
+  margin-bottom: 18px;
 }
 
 /* Botones */
@@ -366,4 +367,56 @@
   font-size: 12px;
   font-weight: 700;
   line-height: 1;
+}
+
+.inscripcion-beca {
+  margin: 0;
+  padding: 0;
+
+  display: grid;
+  gap: 8px;
+
+  border: 0;
+}
+
+.inscripcion-beca legend {
+  padding: 0 8px;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.inscripcion-opcion-beca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.inscripcion-opcion-beca input[type="radio"] {
+  margin: 0;
+  accent-color: var(--color-secondary);
+}
+
+.inscripcion-opcion-beca label {
+  color: #444;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.inscripcion-contenido-etapa .inscripcion-aviso-beca {
+  margin: 18px 0 0;
+  padding: 10px 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  background: #f3f0fa;
+  border: 1px solid #c5b8e8;
+  border-radius: 4px;
+
+  color: var(--color-secondary);
+  font-size: 14px;
+  font-weight: 500;
 }
