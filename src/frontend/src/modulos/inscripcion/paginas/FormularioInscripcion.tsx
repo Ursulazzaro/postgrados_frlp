@@ -544,9 +544,105 @@ export default function FormularioInscripcion() {
             <h2>Documentación</h2>
 
             <p>
-              En esta etapa se cargará la documentación necesaria para
-              completar la inscripción.
+              Adjuntá la documentación requerida para completar la inscripción.
             </p>
+
+            <p className="inscripcion-aviso-documentacion">
+              <span className="inscripcion-aviso-icono" aria-hidden="true"/>
+              <span>Solo se admiten archivos en formato PDF.</span>
+            </p>
+
+            <fieldset className="inscripcion-documentacion">
+              <legend>Documentación requerida</legend>
+
+              <div className="inscripcion-documento">
+                <label htmlFor="formulario-preinscripcion">
+                  Formulario de preinscripción con firma analógica
+                  <span>*</span>
+                </label>
+
+                <input
+                  id="formulario-preinscripcion"
+                  name="formulario-preinscripcion"
+                  type="file"
+                  accept="application/pdf"
+                  required
+                />
+              </div>
+
+              <div className="inscripcion-documento">
+                <label htmlFor="formulario-inscripcion">
+                  Formulario de inscripción con firma analógica
+                  <span>*</span>
+                </label>
+
+                <input
+                  id="formulario-inscripcion"
+                  name="formulario-inscripcion"
+                  type="file"
+                  accept="application/pdf"
+                  required
+                />
+              </div>
+
+              <div className="inscripcion-documento">
+                <label htmlFor="partida-nacimiento">
+                  Copia de la partida de nacimiento
+                  <span>*</span>
+                </label>
+
+                <input
+                  id="partida-nacimiento"
+                  name="partida-nacimiento"
+                  type="file"
+                  accept="application/pdf"
+                  required
+                />
+              </div>
+
+              <div className="inscripcion-documento">
+                <label htmlFor="constancia-cuit-cuil">
+                  Constancia de CUIT-CUIL
+                  <span>*</span>
+                </label>
+
+                <input
+                  id="constancia-cuit-cuil"
+                  name="constancia-cuit-cuil"
+                  type="file"
+                  accept="application/pdf"
+                  required
+                />
+              </div>
+
+              <div className="inscripcion-documento">
+                <label htmlFor="titulo-grado">
+                  Copia del título de grado
+                  <span>*</span>
+                </label>
+
+                <input
+                  id="titulo-grado"
+                  name="titulo-grado"
+                  type="file"
+                  accept="application/pdf"
+                  required
+                />
+              </div>
+
+              <div className="inscripcion-documento">
+                <label htmlFor="titulo-posgrado">
+                  Copia del título de posgrado
+                </label>
+
+                <input
+                  id="titulo-posgrado"
+                  name="titulo-posgrado"
+                  type="file"
+                  accept="application/pdf"
+                />
+              </div>
+            </fieldset>
 
             <div className="inscripcion-botones">
               <button type="button" onClick={etapaAnterior}>
