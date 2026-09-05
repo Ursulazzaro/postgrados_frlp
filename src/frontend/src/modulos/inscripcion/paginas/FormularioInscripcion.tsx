@@ -57,6 +57,8 @@ export default function FormularioInscripcion() {
     titulo_anterior: "",
     universidad_anterior: "",
     correo_alternativo: "",
+    forma_conocio_ofertas: "",
+    motivos_cursar: "",
   });
 
   const siguienteEtapa = () => {
@@ -476,6 +478,56 @@ export default function FormularioInscripcion() {
                   }
                 />
               </div>
+
+              <div className="inscripcion-campo">
+                <label htmlFor="forma_conocio_oferta">
+                  ¿Cómo conociste la oferta de posgrado? <span>*</span>
+                </label>
+                <select
+                  id="forma_conocio_oferta"
+                  name="forma_conocio_oferta"
+                  required
+                  value={datos.forma_conocio_oferta}
+                  onChange={(e) =>
+                    setDatos({
+                      ...datos,
+                      forma_conocio_oferta: e.target.value,
+                    })
+                  }
+                >
+                  <option value="">Seleccionar</option>
+                  <option value="Sitio web">Sitio web</option>
+                  <option value="Otros sitios web">Otros sitios web</option>
+                  <option value="Egresados de la UTN FRLP">
+                    Egresados de la UTN FRLP
+                  </option>
+                  <option value="Comentarios de colegas u otros">
+                    Comentarios de colegas u otros
+                  </option>
+                </select>           
+              </div>
+
+              <div className="inscripcion-campo inscripcion-campo-ancho-completo">
+                <label htmlFor="motivos_cursar">
+                  Motivos por los cuales desea cursar la carrera <span>*</span>
+                </label>
+
+                <textarea
+                  id="motivos_cursar"
+                  name="motivos_cursar"
+                  required
+                  rows={4}
+                  placeholder="Contanos brevemente tus motivos"
+                  value={datos.motivos_cursar}
+                  onChange={(e) =>
+                    setDatos({
+                      ...datos,
+                      motivos_cursar: e.target.value,
+                    })
+                  }
+                />
+              </div>
+
             </fieldset>
 
             <div className="inscripcion-botones">
