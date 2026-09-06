@@ -481,18 +481,18 @@ export default function FormularioInscripcion() {
               </div>
 
               <div className="inscripcion-campo">
-                <label htmlFor="forma_conocio_oferta">
+                <label htmlFor="forma_conocio_ofertas">
                   ¿Cómo conociste la oferta de posgrado? <span>*</span>
                 </label>
                 <select
-                  id="forma_conocio_oferta"
-                  name="forma_conocio_oferta"
+                  id="forma_conocio_ofertas"
+                  name="forma_conocio_ofertas"
                   required
-                  value={datos.forma_conocio_oferta}
+                  value={datos.forma_conocio_ofertas}
                   onChange={(e) =>
                     setDatos({
                       ...datos,
-                      forma_conocio_oferta: e.target.value,
+                      forma_conocio_ofertas: e.target.value,
                     })
                   }
                 >
@@ -741,9 +741,60 @@ export default function FormularioInscripcion() {
             <h2>Confirmación</h2>
 
             <p>
-              Revisá la información ingresada antes de enviar la
-              inscripción.
+              Revisá la información ingresada antes de confirmar la inscripción.
             </p>
+
+            <section className="inscripcion-resumen">
+              <h3>Datos personales</h3>
+
+              <p><strong>Carrera:</strong> {datos.tipo_carrera}</p>
+              <p><strong>Apellido/s:</strong> {datos.apellido}</p>
+              <p><strong>Nombre/s:</strong> {datos.nombre}</p>
+              <p><strong>Nacionalidad:</strong> {datos.nacionalidad}</p>
+              <p><strong>DNI o Pasaporte:</strong> {datos.dni}</p>
+              <p><strong>Teléfono:</strong> {datos.telefono || "No informado"}</p>
+              <p><strong>Correo electrónico:</strong> {datos.email}</p>
+              <p>
+                <strong>Correo electrónico alternativo:</strong>{" "}
+                {datos.correo_alternativo || "No informado"}
+              </p>
+              <p>
+                <strong>Domicilio:</strong> {datos.domicilio || "No informado"}
+              </p>
+              <p><strong>País:</strong> {datos.pais === "Otro" ? otroPais : datos.pais}</p>
+              <p><strong>Provincia:</strong> {datos.provincia}</p>
+              <p><strong>Ciudad:</strong> {datos.ciudad}</p>
+              <p><strong>Título anterior:</strong> {datos.titulo_anterior}</p>
+              <p>
+                <strong>Universidad anterior:</strong>{" "}
+                {datos.universidad_anterior}
+              </p>
+              <p>
+                <strong>¿Cómo conociste la oferta de posgrado?:</strong>{" "}
+                {datos.forma_conocio_ofertas}
+              </p>
+              <p>
+                <strong>Motivos para cursar la carrera:</strong>{" "}
+                {datos.motivos_cursar}
+              </p>
+            </section>
+
+            <section className="inscripcion-resumen">
+              <h3>Documentación</h3>
+
+              <p>Documentación requerida adjuntada.</p>
+            </section>
+
+            <section className="inscripcion-resumen">
+              <h3>Beca</h3>
+
+              <p>
+                <strong>Solicitud de beca:</strong>{" "}
+                {datos.solicitud_beca
+                  ? `Beca del ${datos.solicitud_beca}%`
+                  : "No solicita beca"}
+              </p>
+            </section>
 
             <div className="inscripcion-botones">
               <button type="button" onClick={etapaAnterior}>
@@ -752,11 +803,12 @@ export default function FormularioInscripcion() {
               </button>
 
               <button type="submit">
-                Enviar inscripción
+                Confirmar inscripción
               </button>
             </div>
           </form>
         )}
+        
       </section>
     </section>
   );
