@@ -72,6 +72,27 @@ export default function FormularioInscripcion() {
   });
 
   const siguienteEtapa = () => {
+    if (etapa === 2) {
+      const documentosObligatorios = [
+        documentos.formularioPreinscripcion,
+        documentos.formularioInscripcion,
+        documentos.partidaNacimiento,
+        documentos.constanciaCuitCuil,
+        documentos.tituloGrado,
+      ];
+
+      const faltaDocumento = documentosObligatorios.some(
+        (documento) => documento === null
+      );
+
+      if (faltaDocumento) {
+        setMensaje(
+          "Debés adjuntar todos los documentos obligatorios para continuar."
+        );
+        return;
+      }
+    }
+
     if (etapa < 4) {
       setEtapa(etapa + 1);
       setMensaje("");
@@ -153,7 +174,8 @@ export default function FormularioInscripcion() {
 
         {mensaje && (
           <p className="inscripcion-mensaje" role="status">
-            {mensaje}
+            <span className="inscripcion-aviso-icono" aria-hidden="true" />
+            <span>{mensaje}</span>
           </p>
         )}
 
