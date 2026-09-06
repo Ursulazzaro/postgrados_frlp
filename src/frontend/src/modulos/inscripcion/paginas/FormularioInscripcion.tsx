@@ -806,91 +806,122 @@ export default function FormularioInscripcion() {
             className="inscripcion-contenido-etapa"
             onSubmit={enviarFormulario}
           >
-            <h2>Confirmación</h2>
+            <h2 className="inscripcion-titulo-confirmacion">
+              Confirmación
+            </h2>
 
             <p>
               Revisá la información ingresada antes de confirmar la inscripción.
             </p>
 
-            <section className="inscripcion-resumen">
-              <h3>Datos personales</h3>
+            <div className="inscripcion-resumen-grid">
+              <section className="inscripcion-resumen">
+                <div className="inscripcion-resumen-encabezado">
+                  <h3>Datos personales</h3>
 
-              <p><strong>Carrera:</strong> {datos.tipo_carrera}</p>
-              <p><strong>Apellido/s:</strong> {datos.apellido}</p>
-              <p><strong>Nombre/s:</strong> {datos.nombre}</p>
-              <p><strong>Nacionalidad:</strong> {datos.nacionalidad}</p>
-              <p><strong>DNI o Pasaporte:</strong> {datos.dni}</p>
-              <p><strong>Teléfono:</strong> {datos.telefono || "No informado"}</p>
-              <p><strong>Correo electrónico:</strong> {datos.email}</p>
-              <p>
-                <strong>Correo electrónico alternativo:</strong>{" "}
-                {datos.correo_alternativo || "No informado"}
-              </p>
-              <p>
-                <strong>Domicilio:</strong> {datos.domicilio || "No informado"}
-              </p>
-              <p><strong>País:</strong> {datos.pais === "Otro" ? otroPais : datos.pais}</p>
-              <p><strong>Provincia:</strong> {datos.provincia}</p>
-              <p><strong>Ciudad:</strong> {datos.ciudad}</p>
-              <p><strong>Título anterior:</strong> {datos.titulo_anterior}</p>
-              <p>
-                <strong>Universidad anterior:</strong>{" "}
-                {datos.universidad_anterior}
-              </p>
-              <p>
-                <strong>¿Cómo conociste la oferta de posgrado?:</strong>{" "}
-                {datos.forma_conocio_ofertas}
-              </p>
-              <p>
-                <strong>Motivos para cursar la carrera:</strong>{" "}
-                {datos.motivos_cursar}
-              </p>
-            </section>
+                  <button
+                    type="button"
+                    onClick={() => setEtapa(1)}
+                  >
+                    Modificar
+                  </button>
+                </div>
 
-            <section className="inscripcion-resumen">
-              <h3>Documentación</h3>
+                <p><strong>Carrera:</strong> {datos.tipo_carrera}</p>
+                <p><strong>Apellido/s:</strong> {datos.apellido}</p>
+                <p><strong>Nombre/s:</strong> {datos.nombre}</p>
+                <p><strong>Nacionalidad:</strong> {datos.nacionalidad}</p>
+                <p><strong>DNI o Pasaporte:</strong> {datos.dni}</p>
+                <p><strong>Teléfono:</strong> {datos.telefono || "No informado"}</p>
+                <p><strong>Correo electrónico:</strong> {datos.email}</p>
+                <p>
+                  <strong>Correo electrónico alternativo:</strong>{" "}
+                  {datos.correo_alternativo || "No informado"}
+                </p>
+                <p>
+                  <strong>Domicilio:</strong> {datos.domicilio || "No informado"}
+                </p>
+                <p><strong>País:</strong> {datos.pais === "Otro" ? otroPais : datos.pais}</p>
+                <p><strong>Provincia:</strong> {datos.provincia}</p>
+                <p><strong>Ciudad:</strong> {datos.ciudad}</p>
+                <p><strong>Título anterior:</strong> {datos.titulo_anterior}</p>
+                <p>
+                  <strong>Universidad anterior:</strong>{" "}
+                  {datos.universidad_anterior}
+                </p>
+                <p>
+                  <strong>¿Cómo conociste la oferta de posgrado?:</strong>{" "}
+                  {datos.forma_conocio_ofertas}
+                </p>
+                <p>
+                  <strong>Motivos para cursar la carrera:</strong>{" "}
+                  {datos.motivos_cursar}
+                </p>
+              </section>
 
-              <p>
-                <strong>Formulario de preinscripción:</strong>{" "}
-                {documentos.formularioPreinscripcion?.name || "No adjuntado"}
-              </p>
+              <section className="inscripcion-resumen">
+                <div className="inscripcion-resumen-encabezado">
+                  <h3>Documentación</h3>
 
-              <p>
-                <strong>Formulario de inscripción:</strong>{" "}
-                {documentos.formularioInscripcion?.name || "No adjuntado"}
-              </p>
+                  <button
+                    type="button"
+                    onClick={() => setEtapa(2)}
+                  >
+                    Modificar
+                  </button>
+                </div>
 
-              <p>
-                <strong>Partida de nacimiento:</strong>{" "}
-                {documentos.partidaNacimiento?.name || "No adjuntado"}
-              </p>
+                <p>
+                  <strong>Formulario de preinscripción:</strong>{" "}
+                  {documentos.formularioPreinscripcion?.name || "No adjuntado"}
+                </p>
 
-              <p>
-                <strong>Constancia de CUIT-CUIL:</strong>{" "}
-                {documentos.constanciaCuitCuil?.name || "No adjuntado"}
-              </p>
+                <p>
+                  <strong>Formulario de inscripción:</strong>{" "}
+                  {documentos.formularioInscripcion?.name || "No adjuntado"}
+                </p>
 
-              <p>
-                <strong>Título de grado:</strong>{" "}
-                {documentos.tituloGrado?.name || "No adjuntado"}
-              </p>
+                <p>
+                  <strong>Partida de nacimiento:</strong>{" "}
+                  {documentos.partidaNacimiento?.name || "No adjuntado"}
+                </p>
 
-              <p>
-                <strong>Título de posgrado:</strong>{" "}
-                {documentos.tituloPosgrado?.name || "No adjuntado"}
-              </p>
-            </section>
+                <p>
+                  <strong>Constancia de CUIT-CUIL:</strong>{" "}
+                  {documentos.constanciaCuitCuil?.name || "No adjuntado"}
+                </p>
 
-            <section className="inscripcion-resumen">
-              <h3>Beca</h3>
+                <p>
+                  <strong>Título de grado:</strong>{" "}
+                  {documentos.tituloGrado?.name || "No adjuntado"}
+                </p>
 
-              <p>
-                <strong>Solicitud de beca:</strong>{" "}
-                {datos.solicitud_beca
-                  ? `Beca del ${datos.solicitud_beca}%`
-                  : "No solicita beca"}
-              </p>
-            </section>
+                <p>
+                  <strong>Título de posgrado:</strong>{" "}
+                  {documentos.tituloPosgrado?.name || "No adjuntado"}
+                </p>
+              </section>
+
+              <section className="inscripcion-resumen">
+                <div className="inscripcion-resumen-encabezado">
+                  <h3>Beca</h3>
+
+                  <button
+                    type="button"
+                    onClick={() => setEtapa(3)}
+                  >
+                    Modificar
+                  </button>
+                </div>
+
+                <p>
+                  <strong>Solicitud de beca:</strong>{" "}
+                  {datos.solicitud_beca
+                    ? `Beca del ${datos.solicitud_beca}%`
+                    : "No solicita beca"}
+                </p>
+              </section>
+            </div>
 
             <div className="inscripcion-botones">
               <button type="button" onClick={etapaAnterior}>
