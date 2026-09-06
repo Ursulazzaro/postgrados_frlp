@@ -41,6 +41,15 @@ export default function FormularioInscripcion() {
   const [etapa, setEtapa] = useState(1);
   const [otroPais, setOtroPais] = useState("");
   const [mensaje, setMensaje] = useState("");
+  
+  const [documentos, setDocumentos] = useState({
+    formularioPreinscripcion: null as File | null,
+    formularioInscripcion: null as File | null,
+    partidaNacimiento: null as File | null,
+    constanciaCuitCuil: null as File | null,
+    tituloGrado: null as File | null,
+    tituloPosgrado: null as File | null,
+  });
 
   const [datos, setDatos] = useState({
     dni: "",
@@ -568,7 +577,14 @@ export default function FormularioInscripcion() {
                   type="file"
                   accept="application/pdf"
                   required
+                  onChange={(e) =>
+                    setDocumentos({
+                      ...documentos,
+                      formularioPreinscripcion: e.target.files?.[0] ?? null,
+                    })
+                  }
                 />
+
               </div>
 
               <div className="inscripcion-documento">
@@ -583,6 +599,12 @@ export default function FormularioInscripcion() {
                   type="file"
                   accept="application/pdf"
                   required
+                  onChange={(e) =>
+                    setDocumentos({
+                      ...documentos,
+                      formularioInscripcion: e.target.files?.[0] ?? null,
+                    })
+                  }
                 />
               </div>
 
@@ -598,6 +620,12 @@ export default function FormularioInscripcion() {
                   type="file"
                   accept="application/pdf"
                   required
+                  onChange={(e) =>
+                    setDocumentos({
+                      ...documentos,
+                      partidaNacimiento: e.target.files?.[0] ?? null,
+                    })
+                  }
                 />
               </div>
 
@@ -613,6 +641,12 @@ export default function FormularioInscripcion() {
                   type="file"
                   accept="application/pdf"
                   required
+                  onChange={(e) =>
+                  setDocumentos({
+                    ...documentos,
+                    constanciaCuitCuil: e.target.files?.[0] ?? null,
+                  })
+                }
                 />
               </div>
 
@@ -628,6 +662,12 @@ export default function FormularioInscripcion() {
                   type="file"
                   accept="application/pdf"
                   required
+                  onChange={(e) =>
+                    setDocumentos({
+                      ...documentos,
+                      tituloGrado: e.target.files?.[0] ?? null,
+                    })
+                  }
                 />
               </div>
 
@@ -641,6 +681,12 @@ export default function FormularioInscripcion() {
                   name="titulo-posgrado"
                   type="file"
                   accept="application/pdf"
+                  onChange={(e) =>
+                    setDocumentos({
+                      ...documentos,
+                      tituloPosgrado: e.target.files?.[0] ?? null,
+                    })
+                  }
                 />
               </div>
             </fieldset>
@@ -782,7 +828,35 @@ export default function FormularioInscripcion() {
             <section className="inscripcion-resumen">
               <h3>Documentación</h3>
 
-              <p>Documentación requerida adjuntada.</p>
+              <p>
+                <strong>Formulario de preinscripción:</strong>{" "}
+                {documentos.formularioPreinscripcion?.name || "No adjuntado"}
+              </p>
+
+              <p>
+                <strong>Formulario de inscripción:</strong>{" "}
+                {documentos.formularioInscripcion?.name || "No adjuntado"}
+              </p>
+
+              <p>
+                <strong>Partida de nacimiento:</strong>{" "}
+                {documentos.partidaNacimiento?.name || "No adjuntado"}
+              </p>
+
+              <p>
+                <strong>Constancia de CUIT-CUIL:</strong>{" "}
+                {documentos.constanciaCuitCuil?.name || "No adjuntado"}
+              </p>
+
+              <p>
+                <strong>Título de grado:</strong>{" "}
+                {documentos.tituloGrado?.name || "No adjuntado"}
+              </p>
+
+              <p>
+                <strong>Título de posgrado:</strong>{" "}
+                {documentos.tituloPosgrado?.name || "No adjuntado"}
+              </p>
             </section>
 
             <section className="inscripcion-resumen">
