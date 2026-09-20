@@ -2,7 +2,7 @@ import uuid
 from sqlalchemy import Column, String, Boolean, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
-from src.compartido.baseDeDatos.conexion import Base
+from backend.src.compartido.conexion import Base
 
 class LegajoORM(Base):
     __tablename__ = "legajos"

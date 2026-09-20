@@ -2,7 +2,10 @@
 
 import { createBrowserRouter } from "react-router-dom";
 
-
+import PanelAsistenciaPage from "../../modulos/dashboard/paginas/PanelAsistenciaPage";
+import DashboardDocentePage from "../../modulos/dashboard/paginas/DashboardDocentePage";
+import MiPerfilPage from "../../modulos/dashboard/paginas/MiPerfilPage";
+import PaginaFAQ from "../../modulos/preguntas-frecuentes/paginas/paginaFAQ";
 import PublicLayout from "../disposiciones/PublicLayout";
 import DashboardLayout from "../disposiciones/DashboardLayout";
 import PaginaNoEncontrada from "../paginas/PaginaNoEncontrada";
@@ -21,7 +24,7 @@ import PaginaCalendario from "../../modulos/calendario/paginas/PaginaCalendario"
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/", 
     element: <PublicLayout />,
     children: [
       { index: true, element: <HomePage /> },
@@ -36,15 +39,19 @@ export const router = createBrowserRouter([
       { path: "contacto", element: <PaginaContacto /> },
       { path: "*", element: <PaginaNoEncontrada /> },
       { path: "calendario", element: <PaginaCalendario /> },
+      {path: "faq", element: <PaginaFAQ />},
     ],
   },
-  {
-    element: <ProtectedRoute />,
+    {
+        element: <ProtectedRoute />,
     children: [
       {
         element: <DashboardLayout />,
         children: [
           { path: "dashboard", element: <DashboardPage /> },
+          { path: "dashboard/perfil", element: <MiPerfilPage /> },
+          { path: "dashboard/docente", element: <DashboardDocentePage /> },
+          { path: "dashboard/docente/asistencia", element: <PanelAsistenciaPage /> },
         ],
       },
     ],

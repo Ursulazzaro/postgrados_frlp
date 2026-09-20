@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 import uuid
-from src.compartido.baseDeDatos.conexion import get_db
+from backend.src.compartido.conexion import get_db
 from src.inscripcion.infraestructura.orm_modelos import LegajoORM
 from src.inscripcion.presentacion.esquemas import LegajoCrear, LegajoRespuesta
 
@@ -28,4 +28,4 @@ async def inscribir_aspirante(
         return nuevo_legajo
     except Exception as e:
         await db.rollback()
-        raise HTTPException(status_code=400, detail="Error al guardar: el email o DNI ya existen.")
+        raise HTTPException(status_code=404, detail="Error al guardar: el email o DNI ya existen.")
