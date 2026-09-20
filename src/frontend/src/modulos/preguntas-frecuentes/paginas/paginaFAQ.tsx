@@ -9,6 +9,10 @@ type ContenidoRespuesta =
   | {
       tipo: "subtitulo";
       texto: string;
+    }
+  | {
+      tipo: "lista";
+      items: string[];
     };
 
 type Pregunta = {
@@ -106,7 +110,7 @@ const categorias: Categoria[] = [
   },
     ],
   },
-  
+
   {
   titulo: "Inscripción",
   preguntas: [
@@ -187,71 +191,198 @@ const categorias: Categoria[] = [
     },
   ],
 },
+
   {
-    titulo: "Cursado",
-    preguntas: [
-      {
-        pregunta: "Me inscribí al curso, ¿y ahora qué hago?",
-        respuesta:
-          "Una vez completada la inscripción, recibirás la información necesaria para continuar con la cursada.",
-      },
-      {
-        pregunta: "¿Puedo inscribirme a un curso que ya comenzó?",
-        respuesta:
-          "La posibilidad de inscribirte una vez iniciada la cursada depende de las condiciones de cada propuesta.",
-      },
-      {
-        pregunta: "¿Hay cupos limitados para cursar?",
-        respuesta:
-          "La disponibilidad de cupos depende de cada curso o propuesta académica.",
-      },
-    ],
-  },
+  titulo: "Cursado",
+  preguntas: [
+    {
+      pregunta: "Me inscribí al curso, ¿y ahora qué hago?",
+      respuesta: [
+        {
+          tipo: "parrafo",
+          texto:
+            "El día de inicio de cursada -entre las 10 y 16hs- te enviaremos un correo electrónico para avisarte que el material ya está disponible en el Campus Virtual. A partir de ese día podrás visualizar los contenidos de la primera unidad, el programa de estudio y el cronograma de clases.",
+        },
+      ],
+    },
+    {
+      pregunta: "¿Puedo inscribirme a un curso que ya comenzó?",
+      respuesta: [
+        {
+          tipo: "parrafo",
+          texto:
+            "La inscripción de nuestros cursos se mantiene abierta hasta 7 días después de la fecha de inicio. Una vez abonado el curso, te solicitamos que envíes el comprobante de pago a administracion@centrodeelearning.com para que te brinden el acceso al aula y puedas comenzar a cursar.",
+        },
+      ],
+    },
+    {
+      pregunta: "¿Hay cupos limitados para cursar?",
+      respuesta: [
+        {
+          tipo: "parrafo",
+          texto:
+            "Dependiendo del curso, es posible que las vacantes se completen antes de que comiencen las clases.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "¡No te preocupes! Nuestros cursos cuentan con múltiples fechas de inicio a lo largo del año para que puedas estudiar y certificarte con el Centro de eLearning UTN BA.",
+        },
+      ],
+    },
+  ],
+},
+
   {
-    titulo: "Otros temas",
-    preguntas: [
-      {
-        pregunta: "¿Cuánto tarda en acreditarse mi pago?",
-        respuesta:
-          "El tiempo de acreditación depende del medio de pago utilizado.",
-      },
-      {
-        pregunta: "¿Cómo solicito mi comprobante de pago?",
-        respuesta:
-          "Podés solicitar el comprobante de pago a través de los canales de atención correspondientes.",
-      },
-      {
-        pregunta: "¿Cómo presentar equivalencias de otra carrera o Universidad?",
-        respuesta:
-          "La presentación y evaluación de equivalencias depende de los requisitos establecidos para cada carrera.",
-      },
-      {
-        pregunta: "¿Los cursos y/o carreras otorgan puntaje docente?",
-        respuesta:
-          "El reconocimiento de puntaje docente depende de las características y normativa correspondiente a cada propuesta.",
-      },
-      {
-        pregunta: "Certificado y validación para LinkedIn",
-        respuesta:
-          "Una vez cumplidos los requisitos correspondientes, se emite el certificado de la propuesta realizada.",
-      },
-      {
-        pregunta: "Quiero cambiar mi información registrada",
-        respuesta:
-          "Si necesitás modificar información registrada, utilizá los canales de atención correspondientes.",
-      },
-      {
-        pregunta: "Olvidé mi usuario y/o contraseña",
-        respuesta:
-          "Utilizá la opción de recuperación de acceso disponible en la plataforma.",
-      },
-      {
-        pregunta: "¿Cuáles son los términos y condiciones de cursada?",
-        respuesta:
-          "Las condiciones de cursada dependen de cada propuesta y se encuentran informadas junto con sus requisitos.",
-      },
-    ],
-  },
+  titulo: "Otros temas",
+  preguntas: [
+    {
+      pregunta: "¿Cuánto tarda en acreditarse mi pago?",
+      respuesta: [
+        {
+          tipo: "parrafo",
+          texto:
+            "Luego de confirmar la transacción, el pago puede demorar entre 6 y 12 horas. Cuando haya sido acreditado verás reflejado el pago en tu Panel del Alumno.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Si luego de las 12 horas de haber abonado lo ves en tu panel, contactanos a través de nuestro formulario de consultas para que podamos ayudarte. Una vez que lo hayas completado, aguardá la respuesta de nuestros asesores.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Ingresá al formulario de consultas aquí.",
+        },
+      ],
+    },
+    {
+      pregunta: "¿Cómo solicito mi comprobante de pago?",
+      respuesta: [
+        {
+          tipo: "parrafo",
+          texto:
+            "Si adquiriste un curso o carrera a través de nuestro Centro de e-Learning, podrás visualizar la factura correspondiente en el Panel del Alumno dentro de las 48 horas posteriores al pago. Si pasados ese tiempo encuentras la factura en tu panel, podés solicitarla a través de nuestro formulario de consultas. Ingresá al formulario de consultas aquí.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Si requerís atención personalizada sobre tu comprobante de pago, podés comunicarte con nuestros asesores de 9:00 a 19:00 hs (ARG).",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Escribinos por WhatsApp aquí.",
+        },
+      ],
+    },
+    {
+      pregunta: "¿Cómo presentar equivalencias de otra carrera o Universidad?",
+      respuesta: [
+        {
+          tipo: "parrafo",
+          texto:
+            "Para iniciar el trámite de Solicitud de Equivalencias, debés tener asignado un número de legajo. Podés visualizar tu número de legajo en tus datos de perfil del Panel del Alumno.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "La asignación del número de legajo se realiza entre la finalización del primer cuatrimestre de cursada y el inicio del segundo cuatrimestre. Si aún no tenés tu número de legajo asignado, deberás esperar a que se te asigne para iniciar el trámite.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Una vez que tengas tu número de legajo, debés completar el siguiente formulario.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Allí deberás adjuntar en mismo PDF unificado:",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "• Solicitud de trámite de puño y letra (descargar aquí)\n• Certificado analítico o de materias aprobadas con firma y sello de autoridad competente.\n• Programa foliado y sellado de la institución educativa donde cursaste la materia.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Si no contás con la documentación completa, no podremos iniciar la gestión.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "El proceso de revisión y aprobación de equivalencias suele completarse en aproximadamente un mes, aunque este plazo puede variar según el caso.",
+        },
+      ],
+    },
+    {
+      pregunta: "¿Los cursos y/o carreras otorgan puntaje docente?",
+      respuesta: [
+        {
+          tipo: "parrafo",
+          texto:
+            "Únicamente otorga puntaje docente la Licenciatura en Tecnología Educativa.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "De todas formas, podés consultar con el Ministerio de Educación de tu provincia sobre el curso que desees realizar y ellos te indicarán si reconocen el puntaje.",
+        },
+      ],
+    },
+    {
+      pregunta: "Certificado y validación para LinkedIn",
+      respuesta: [
+        {
+          tipo: "parrafo",
+          texto:
+            "Los certificados son extendidos en formato digital por el Centro de e-Learning de la Secretaría de Cultura y Extensión Universitaria de la Facultad Regional Buenos Aires de la Universidad Tecnológica Nacional, y podrás descargarlo desde el Panel del Alumno luego de 30 días de finalizada la cursada.",
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "Contamos con un Sistema de Verificación de Certificados (SVC) a través del cual se pueden verificar los diplomas emitidos, tanto por parte de un alumno o un tercero que requiera validar el historial académico, brindándote la posibilidad de compartirlo en tu Currículum Vitae y LinkedIn.",
+        },
+      ],
+    },
+    {
+      pregunta: "Quiero cambiar mi información registrada",
+      respuesta: [
+        {
+          tipo: "parrafo",
+          texto:
+            "Podés modificar tus datos desde el Panel del Alumno, en el menú izquierdo e ir a Perfil. Allí tendrás acceso a tu información personal y podrás realizar los cambios necesarios, entre ellos tu correo electrónico, DNI o país de residencia.",
+        },
+      ],
+    },
+    {
+      pregunta: "Olvidé mi usuario y/o contraseña",
+      respuesta: [
+        {
+          tipo: "parrafo",
+          texto:
+            'Podés recuperar tu contraseña dando click a la opción "Olvidé contraseña" en la pantalla de login.',
+        },
+        {
+          tipo: "parrafo",
+          texto:
+            "En caso de no recordar tu usuario, es decir, el correo electrónico con el que te registraste, podés ponerte en contacto con soporte@centrodeelearning.com o a través de nuestras redes sociales para que te ayudemos.",
+        },
+      ],
+    },
+    {
+      pregunta: "¿Cuáles son los términos y condiciones de cursada?",
+      respuesta: [
+        {
+          tipo: "parrafo",
+          texto:
+            "Podés leer nuestros términos y condiciones aquí.",
+        },
+      ],
+    },
+  ],
+},
 ];
 
 export default function PaginaFAQ() {
