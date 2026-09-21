@@ -17,3 +17,9 @@ class LegajoCrear(BaseModel):
     titulo_anterior: str
     universidad_anterior: str
     
+class LoginRequest(BaseModel):
+    correo_electronico: EmailStr
+    password: str
+    recaptcha_token: str
+    
+    
