@@ -1,26 +1,19 @@
 from pydantic import BaseModel, EmailStr
-from uuid import UUID
-from datetime import datetime
+from typing import Optional
 
-# Este es el esquema de los datos que el Frontend nos va a ENVIAR
 class LegajoCrear(BaseModel):
-    dni: str
+    carrera_elegida: str
     apellido: str
     nombre: str
-    email: EmailStr  # EmailStr valida automáticamente que sea un correo real
-    tipo_carrera: str
-
-# Este es el esquema de lo que nosotros le VAMOS A DEVOLVER al Frontend
-class LegajoRespuesta(BaseModel):
-    id: UUID
-    dni: str
-    apellido: str
-    nombre: str
-    email: str
-    estado: str
-    tipo_carrera: str
-    created_at: datetime
-
-    class Config:
-        # Esto permite que Pydantic lea los datos directamente desde tu LegajoORM
-        from_attributes = True
+    nacionalidad: str
+    dni_pasaporte: str
+    telefono_movil: Optional[str] = None
+    correo_electronico: EmailStr
+    correo_alternativo: Optional[EmailStr] = None
+    domicilio: Optional[str] = None
+    pais: str
+    provincia: str
+    ciudad: str
+    titulo_anterior: str
+    universidad_anterior: str
+    

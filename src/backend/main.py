@@ -9,7 +9,7 @@ if sys.platform == "win32":
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.compartido.baseDeDatos.conexion import Base, engine
+from backend.src.compartido.conexion import Base, engine
 from src.inscripcion.presentacion.rutas import enrutador as inscripcion_rutas
 
 

@@ -8,10 +8,19 @@ class LegajoORM(Base):
     __tablename__ = "legajos"
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    dni = Column(String(20), nullable=False)
+    carrera_elegida = Column(String(20), nullable=False)
     apellido = Column(String(100), nullable=False)
     nombre = Column(String(100), nullable=False)
-    email = Column(String(255), nullable=False, unique=True)
+    nacionalidad = Column(String(100), nullable=False)
+    dni_pasaporte = Column(String(100), nullable=False)
+    telefono_movil = Column(String(100), nullable=False)
+    correo_electronico = Column(String(255), nullable=False, unique=True)
+    correo_alternativo = Column(String(100), nullable=False)
+    domicilio = Column(String(100), nullable=False)
     estado = Column(String(30), nullable=False, default="PENDIENTE")
-    tipo_carrera = Column(String(30))
-    created_at = Column(DateTime, default=datetime.utcnow)
+    pais = Column(String(100), nullable=False)
+    provincia = Column(String(200), nullable=False)
+    ciudad = Column(String(200), nullable=False)
+    titulo_anterior = Column(String(200), nullable=False)
+    universidad_anterior = Column(String(200), nullable=False)
+    
