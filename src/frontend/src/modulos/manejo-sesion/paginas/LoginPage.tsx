@@ -1,113 +1,22 @@
 // Página de inicio de sesión para acceder a las funciones privadas del sistema.
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../useAuth";
+import Captcha from "../components/Captcha";
 
 import imagenFondo from "../../../imagenes/hero-inicio.jpg";
 import "./ManejoSesion.css";
 
-interface RecaptchaApi {
-  render: (
-    elemento: HTMLElement,
-    opciones: {
-      sitekey: string;
-      callback: (token: string) => void;
-      "expired-callback": () => void;
-      "error-callback": () => void;
-    }
-  ) => number;
-
-  reset: (widgetId?: number) => void;
-}
-
-declare global {
-  interface Window {
-    grecaptcha?: RecaptchaApi;
-  }
-}
-
-const RECAPTCHA_SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
-
 export default function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
-
-  const captchaRef = useRef<HTMLDivElement>(null);
-  const captchaWidgetId = useRef<number | null>(null);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mostrarPassword, setMostrarPassword] = useState(false);
   const [captchaToken, setCaptchaToken] = useState("");
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (!RECAPTCHA_SITE_KEY) {
-      return;
-    }
-
-    const cargarCaptcha = () => {
-      if (!window.grecaptcha || !captchaRef.current) {
-        return;
-      }
-
-      if (captchaWidgetId.current !== null) {
-        return;
-      }
-
-      captchaWidgetId.current = window.grecaptcha.render(
-        captchaRef.current,
-        {
-          sitekey: RECAPTCHA_SITE_KEY,
-
-          callback: (token: string) => {
-            setCaptchaToken(token);
-            setError("");
-          },
-
-          "expired-callback": () => {
-            setCaptchaToken("");
-          },
-
-          "error-callback": () => {
-            setCaptchaToken("");
-            setError("No se pudo cargar el CAPTCHA");
-          },
-        }
-      );
-    };
-
-    const scriptExistente =
-      document.getElementById("recaptcha-script");
-
-    if (scriptExistente) {
-      if (window.grecaptcha) {
-        cargarCaptcha();
-      } else {
-        scriptExistente.addEventListener("load", cargarCaptcha);
-      }
-
-      return () => {
-        scriptExistente.removeEventListener("load", cargarCaptcha);
-      };
-    }
-
-    const script = document.createElement("script");
-
-    script.id = "recaptcha-script";
-    script.src =
-      "https://www.google.com/recaptcha/api.js?render=explicit";
-    script.async = true;
-    script.defer = true;
-    script.onload = cargarCaptcha;
-
-    document.head.appendChild(script);
-
-    return () => {
-      script.onload = null;
-    };
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -123,14 +32,6 @@ export default function LoginPage() {
       navigate("/dashboard");
     } catch {
       setError("Credenciales inválidas");
-
-      if (
-        window.grecaptcha &&
-        captchaWidgetId.current !== null
-      ) {
-        window.grecaptcha.reset(captchaWidgetId.current);
-      }
-
       setCaptchaToken("");
     }
   };
@@ -139,13 +40,14 @@ export default function LoginPage() {
     <section
       className="sesion"
       style={{ backgroundImage: `url(${imagenFondo})` }}
+      aria-labelledby="titulo-login"
     >
       <form
         className="sesion-formulario"
         onSubmit={handleSubmit}
       >
         <header className="sesion-encabezado">
-          <h1>Iniciar Sesión</h1>
+          <h1 id="titulo-login">Iniciar Sesión</h1>
           <p>Ingresá tus credenciales para acceder al sistema</p>
         </header>
 
@@ -156,26 +58,32 @@ export default function LoginPage() {
         )}
 
         <label htmlFor="email">
-          Correo Electrónico <span aria-hidden="true">*</span>
+          Correo Electrónico{" "}
+          <span aria-hidden="true">*</span>
         </label>
 
         <input
           id="email"
+          name="email"
           type="email"
           placeholder="usuario@frlp.utn.edu.ar"
+          autoComplete="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <label htmlFor="password">
-          Contraseña <span aria-hidden="true">*</span>
+          Contraseña{" "}
+          <span aria-hidden="true">*</span>
         </label>
 
         <div className="sesion-password">
           <input
             id="password"
+            name="password"
             type={mostrarPassword ? "text" : "password"}
+            autoComplete="current-password"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -183,7 +91,9 @@ export default function LoginPage() {
 
           <button
             type="button"
-            onClick={() => setMostrarPassword(!mostrarPassword)}
+            onClick={() =>
+              setMostrarPassword(!mostrarPassword)
+            }
             aria-label={
               mostrarPassword
                 ? "Ocultar contraseña"
@@ -201,9 +111,18 @@ export default function LoginPage() {
           ¿Olvidaste tu contraseña?
         </Link>
 
-        <div
-          className="sesion-captcha"
-          ref={captchaRef}
+        <Captcha
+          onVerify={(token: string) => {
+            setCaptchaToken(token);
+
+            if (token) {
+              setError("");
+            }
+          }}
+          onError={() => {
+            setCaptchaToken("");
+            setError("No se pudo cargar el CAPTCHA");
+          }}
         />
 
         <button
