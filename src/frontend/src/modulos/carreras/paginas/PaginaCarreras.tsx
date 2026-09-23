@@ -87,7 +87,15 @@ export default function PaginaCarreras() {
           </section>
 
           <Link to="/inscripcion">
-            <span aria-hidden="true">▣</span>
+            <svg
+              className="carreras-inscripcion-icono"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M6 2h8l4 4v16H6V2Z" />
+              <path d="M14 2v5h5M9 12h6M9 16h6" />
+            </svg>
+
             Inscribite ahora
           </Link>
         </section>

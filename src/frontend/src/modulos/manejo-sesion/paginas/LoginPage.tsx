@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../useAuth";
+import Captcha from "../components/Captcha";
 
 import imagenFondo from "../../../imagenes/hero-inicio.jpg";
 import "./ManejoSesion.css";
@@ -14,17 +15,24 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mostrarPassword, setMostrarPassword] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState("");
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
+    if (!captchaToken) {
+      setError("Completá el CAPTCHA antes de iniciar sesión");
+      return;
+    }
+
     try {
       await login(email, password);
       navigate("/dashboard");
     } catch {
       setError("Credenciales inválidas");
+      setCaptchaToken("");
     }
   };
 
@@ -32,10 +40,14 @@ export default function LoginPage() {
     <section
       className="sesion"
       style={{ backgroundImage: `url(${imagenFondo})` }}
+      aria-labelledby="titulo-login"
     >
-      <form className="sesion-formulario" onSubmit={handleSubmit}>
+      <form
+        className="sesion-formulario"
+        onSubmit={handleSubmit}
+      >
         <header className="sesion-encabezado">
-          <h1>Iniciar Sesión</h1>
+          <h1 id="titulo-login">Iniciar Sesión</h1>
           <p>Ingresá tus credenciales para acceder al sistema</p>
         </header>
 
@@ -46,26 +58,32 @@ export default function LoginPage() {
         )}
 
         <label htmlFor="email">
-          Correo Electrónico <span aria-hidden="true">*</span>
+          Correo Electrónico{" "}
+          <span aria-hidden="true">*</span>
         </label>
 
         <input
           id="email"
+          name="email"
           type="email"
           placeholder="usuario@frlp.utn.edu.ar"
+          autoComplete="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
         <label htmlFor="password">
-          Contraseña <span aria-hidden="true">*</span>
+          Contraseña{" "}
+          <span aria-hidden="true">*</span>
         </label>
 
         <div className="sesion-password">
           <input
             id="password"
+            name="password"
             type={mostrarPassword ? "text" : "password"}
+            autoComplete="current-password"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -73,26 +91,44 @@ export default function LoginPage() {
 
           <button
             type="button"
-            onClick={() => setMostrarPassword(!mostrarPassword)}
+            onClick={() =>
+              setMostrarPassword(!mostrarPassword)
+            }
             aria-label={
-              mostrarPassword ? "Ocultar contraseña" : "Mostrar contraseña"
+              mostrarPassword
+                ? "Ocultar contraseña"
+                : "Mostrar contraseña"
             }
           >
             ◉
           </button>
         </div>
 
-        <Link className="sesion-recuperar" to="/recuperar-contrasena">
+        <Link
+          className="sesion-recuperar"
+          to="/recuperar-contrasena"
+        >
           ¿Olvidaste tu contraseña?
         </Link>
 
-        <div className="sesion-captcha">
-          <span className="sesion-captcha-cuadro" aria-hidden="true" />
-          <span>I'm not a robot</span>
-          <strong>reCAPTCHA</strong>
-        </div>
+        <Captcha
+          onVerify={(token: string) => {
+            setCaptchaToken(token);
 
-        <button className="sesion-boton" type="submit">
+            if (token) {
+              setError("");
+            }
+          }}
+          onError={() => {
+            setCaptchaToken("");
+            setError("No se pudo cargar el CAPTCHA");
+          }}
+        />
+
+        <button
+          className="sesion-boton"
+          type="submit"
+        >
           Iniciar Sesión
         </button>
       </form>
