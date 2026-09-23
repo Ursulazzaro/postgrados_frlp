@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, or_
-from backend.src.autenticacion.dominio.puertos import LegajoRepositorio
+from src.autenticacion.dominio.puertos import LegajoRepositorio
 from src.inscripcion.infraestructura.orm_modelos import LegajoORM
 from src.inscripcion.presentacion.esquemas import LegajoCrear
 
@@ -11,7 +11,7 @@ class LegajoRepositorioPostgres(LegajoRepositorio):
         self.session = session
 
     async def existe_por_email_o_dni(self, email: str, dni: str) -> bool:
-        query = select(LegajoORM).where(or_(LegajoORM.correo_electronico == email, LegajoORM.dni_o_pasaporte == dni))
+        query = select(LegajoORM).where(or_(LegajoORM.correo_electronico == email, LegajoORM.dni_pasaporte == dni))
         resultado = await self.session.execute(query)
         return resultado.scalars().first() is not None
     

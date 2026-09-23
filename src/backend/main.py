@@ -1,23 +1,29 @@
-import sys
 import asyncio
+import sys
+from contextlib import asynccontextmanager
+
 from dotenv import load_dotenv
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 load_dotenv()
 
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
-from contextlib import asynccontextmanager
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from backend.src.compartido.conexion import Base, engine
+from src.compartido.conexion import Base, engine
+from src.infraestructura import orm_modelos as _modelos_generales
 from src.inscripcion.presentacion.rutas import enrutador as inscripcion_rutas
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    yield
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        yield
+    finally:
+        await engine.dispose()
 
 
 app = FastAPI(

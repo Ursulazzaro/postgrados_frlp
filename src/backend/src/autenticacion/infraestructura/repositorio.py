@@ -2,7 +2,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from src.inscripcion.infraestructura.orm_modelos import LegajoORM
-from backend.src.autenticacion.infraestructura.orm_modelos import DocenteORM, HistorialAccesoORM
+from src.autenticacion.infraestructura.orm_modelos import DocenteORM, HistorialAccesoORM
 
 
 async def buscar_alumno_por_correo(db: AsyncSession, correo: str) -> LegajoORM | None:

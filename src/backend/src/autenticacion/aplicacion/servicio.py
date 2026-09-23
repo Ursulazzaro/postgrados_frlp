@@ -4,7 +4,7 @@ from passlib.context import CryptContext
 from jose import jwt
 from fastapi import HTTPException
 
-from backend.src.autenticacion.infraestructura import repositorio
+from src.autenticacion.infraestructura import repositorio
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

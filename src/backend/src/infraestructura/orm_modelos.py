@@ -2,7 +2,7 @@ import uuid
 from sqlalchemy import Column, String, Text, DateTime, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
-from backend.src.compartido.conexion import Base
+from src.compartido.conexion import Base
 
 class NoticiaORM(Base):
     __tablename__ = "noticias"
