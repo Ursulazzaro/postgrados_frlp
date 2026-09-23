@@ -12,3 +12,9 @@ class LegajoRepositorio(ABC):
     async def guardar(self, datos: LegajoCrear) -> Any:
         """Persiste el nuevo legajo en la base de datos."""
         pass
+    
+class UsuarioRepositorio(ABC):
+    @abstractmethod
+    async def obtener_por_email(self, email: str) -> Optional[Any]:
+        """Retorna el usuario si existe, o None si no se encuentra"""
+        pass

@@ -20,6 +20,11 @@ class LegajoCrear(BaseModel):
 class LoginRequest(BaseModel):
     correo_electronico: EmailStr
     password: str
-    recaptcha_token: str
     
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    rol: str
+
+
     
