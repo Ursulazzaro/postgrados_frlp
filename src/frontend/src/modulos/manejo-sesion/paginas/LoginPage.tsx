@@ -1,4 +1,4 @@
-// Página de inicio de sesión para acceder a las funciones privadas del sistema.
+﻿// PÃ¡gina de inicio de sesiÃ³n para acceder a las funciones privadas del sistema.
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,7 +23,7 @@ export default function LoginPage() {
     setError("");
 
     if (!captchaToken) {
-      setError("Completá el CAPTCHA antes de iniciar sesión");
+      setError("CompletÃ¡ el CAPTCHA antes de iniciar sesiÃ³n");
       return;
     }
 
@@ -31,7 +31,7 @@ export default function LoginPage() {
       await login(email, password);
       navigate("/dashboard");
     } catch {
-      setError("Credenciales inválidas");
+      setError("Credenciales invÃ¡lidas");
       setCaptchaToken("");
     }
   };
@@ -47,8 +47,8 @@ export default function LoginPage() {
         onSubmit={handleSubmit}
       >
         <header className="sesion-encabezado">
-          <h1 id="titulo-login">Iniciar Sesión</h1>
-          <p>Ingresá tus credenciales para acceder al sistema</p>
+          <h1 id="titulo-login">Iniciar SesiÃ³n</h1>
+          <p>IngresÃ¡ tus credenciales para acceder al sistema</p>
         </header>
 
         {error && (
@@ -58,7 +58,7 @@ export default function LoginPage() {
         )}
 
         <label htmlFor="email">
-          Correo Electrónico{" "}
+          Correo ElectrÃ³nico{" "}
           <span aria-hidden="true">*</span>
         </label>
 
@@ -74,7 +74,7 @@ export default function LoginPage() {
         />
 
         <label htmlFor="password">
-          Contraseña{" "}
+          ContraseÃ±a{" "}
           <span aria-hidden="true">*</span>
         </label>
 
@@ -96,11 +96,11 @@ export default function LoginPage() {
             }
             aria-label={
               mostrarPassword
-                ? "Ocultar contraseña"
-                : "Mostrar contraseña"
+                ? "Ocultar contraseÃ±a"
+                : "Mostrar contraseÃ±a"
             }
           >
-            ◉
+            â—‰
           </button>
         </div>
 
@@ -108,7 +108,7 @@ export default function LoginPage() {
           className="sesion-recuperar"
           to="/recuperar-contrasena"
         >
-          ¿Olvidaste tu contraseña?
+          Â¿Olvidaste tu contraseÃ±a?
         </Link>
 
         <Captcha
@@ -129,7 +129,7 @@ export default function LoginPage() {
           className="sesion-boton"
           type="submit"
         >
-          Iniciar Sesión
+          Iniciar SesiÃ³n
         </button>
       </form>
     </section>

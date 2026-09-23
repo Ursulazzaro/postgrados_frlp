@@ -1,7 +1,6 @@
-import {
+﻿import {
   NavLink,
   Outlet,
-  useLocation,
   useNavigate,
 } from "react-router-dom";
 
@@ -15,13 +14,11 @@ import BarraNavegacionPerfil from "../componentes/BarraNavegacionPerfil";
 import "../estilos/PerfilesCompartidos.css";
 
 export default function DashboardLayout() {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const esDocente = location.pathname.startsWith(
-    "/dashboard/docente"
-  );
+  // Dependiendo del rol, armamos la interfaz
+  const esDocente = user?.rol === "DOCENTE";
 
   const rolUsuario = esDocente
     ? "Docente"
@@ -65,7 +62,7 @@ export default function DashboardLayout() {
               to="/dashboard"
               className="perfil-boton-prueba"
             >
-              <span aria-hidden="true">↩️</span>
+              <span aria-hidden="true">🎓</span>
               Volver a Estudiante
             </NavLink>
           ) : (
@@ -73,7 +70,7 @@ export default function DashboardLayout() {
               to="/dashboard/docente"
               className="perfil-boton-prueba"
             >
-              <span aria-hidden="true">👁️</span>
+              <span aria-hidden="true">👨‍🏫</span>
               Vista Docente
             </NavLink>
           )}

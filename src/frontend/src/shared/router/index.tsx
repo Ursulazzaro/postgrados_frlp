@@ -1,4 +1,4 @@
-// Define las rutas públicas y privadas de la aplicación.
+﻿// Define las rutas pÃºblicas y privadas de la aplicaciÃ³n.
 
 import { createBrowserRouter } from "react-router-dom";
 

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+﻿import { Link } from "react-router-dom";
 import type { ReactNode } from "react";
 
 interface TarjetaMetricaProps {
@@ -46,7 +46,7 @@ export default function DashboardEstudiantePage() {
 
       <section
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8"
-        aria-label="Resumen académico"
+        aria-label="Resumen acadÃ©mico"
       >
         <TarjetaMetrica
           titulo="Estado del legajo"
@@ -57,18 +57,18 @@ export default function DashboardEstudiantePage() {
             to="/dashboard/perfil"
             className="text-green-700 text-sm font-semibold hover:underline"
           >
-            Ver legajo →
+            Ver legajo â†’
           </Link>
         </TarjetaMetrica>
 
         <TarjetaMetrica
-          titulo="Estado Académico"
+          titulo="Estado AcadÃ©mico"
           valor="En Curso"
           colorBorde="border-yellow-400"
         >
           <span
             className="flex items-end gap-1 h-8"
-            aria-label="Estado académico en curso"
+            aria-label="Estado acadÃ©mico en curso"
           >
             <span
               className="w-3 h-4 bg-yellow-400 rounded-sm"
@@ -93,7 +93,7 @@ export default function DashboardEstudiantePage() {
           colorBorde="border-blue-500"
         >
           <span className="text-blue-600 text-sm font-semibold">
-            Ver Progreso →
+            Ver Progreso â†’
           </span>
         </TarjetaMetrica>
 
@@ -103,7 +103,7 @@ export default function DashboardEstudiantePage() {
           colorBorde="border-slate-800"
         >
           <span className="text-slate-600 text-sm font-semibold">
-            Ver todos →
+            Ver todos â†’
           </span>
         </TarjetaMetrica>
 
@@ -113,7 +113,7 @@ export default function DashboardEstudiantePage() {
           colorBorde="border-red-500"
         >
           <span className="text-slate-600 text-sm font-semibold">
-            Ver detalle →
+            Ver detalle â†’
           </span>
         </TarjetaMetrica>
 
@@ -123,7 +123,7 @@ export default function DashboardEstudiantePage() {
           colorBorde="border-teal-500"
         >
           <span className="text-slate-600 text-sm font-semibold">
-            Ver notas →
+            Ver notas â†’
           </span>
         </TarjetaMetrica>
       </section>
@@ -132,14 +132,14 @@ export default function DashboardEstudiantePage() {
         <article className="bg-white rounded-xl shadow-sm border border-gray-100">
           <header className="p-6 border-b border-gray-100">
             <h2 className="text-lg font-bold text-gray-900">
-              Próximas Clases
+              PrÃ³ximas Clases
             </h2>
           </header>
 
           <ul className="divide-y divide-gray-100 p-2">
             <li className="p-4 flex justify-between items-center gap-4 text-sm">
               <span className="font-semibold text-slate-700">
-                Metodología de la Investigación
+                MetodologÃ­a de la InvestigaciÃ³n
               </span>
 
               <time className="text-slate-500 font-medium">
@@ -149,7 +149,7 @@ export default function DashboardEstudiantePage() {
 
             <li className="p-4 flex justify-between items-center gap-4 text-sm">
               <span className="font-semibold text-slate-700">
-                Gestión de Proyectos
+                GestiÃ³n de Proyectos
               </span>
 
               <time className="text-slate-500 font-medium">
@@ -159,7 +159,7 @@ export default function DashboardEstudiantePage() {
 
             <li className="p-4 flex justify-between items-center gap-4 text-sm">
               <span className="font-semibold text-slate-700">
-                Maestría de Sistemas
+                MaestrÃ­a de Sistemas
               </span>
 
               <time className="text-slate-500 font-medium">
@@ -172,7 +172,7 @@ export default function DashboardEstudiantePage() {
         <article className="bg-white rounded-xl shadow-sm border border-gray-100">
           <header className="p-6 border-b border-gray-100">
             <h2 className="text-lg font-bold text-gray-900">
-              Últimas Notificaciones
+              Ãšltimas Notificaciones
             </h2>
           </header>
 
@@ -182,7 +182,7 @@ export default function DashboardEstudiantePage() {
                 className="text-2xl"
                 aria-hidden="true"
               >
-                🔔
+                ðŸ””
               </span>
 
               <div>
@@ -191,8 +191,8 @@ export default function DashboardEstudiantePage() {
                 </h3>
 
                 <p className="text-sm text-red-700 mt-1 leading-relaxed">
-                  Falta completar información de la encuesta de la materia
-                  Metodología de la Investigación.
+                  Falta completar informaciÃ³n de la encuesta de la materia
+                  MetodologÃ­a de la InvestigaciÃ³n.
                 </p>
               </div>
             </div>
