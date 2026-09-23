@@ -11,6 +11,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.compartido.conexion import Base, engine
 from src.inscripcion.presentacion.rutas import enrutador as inscripcion_rutas
+from src.autenticacion.presentacion.rutas import enrutador as autenticacion_rutas
 from src.usuario.infraestructura.orm_modelos import UsuarioORM
 
 
@@ -48,3 +49,4 @@ def health_check():
 
 
 app.include_router(inscripcion_rutas)
+app.include_router(autenticacion_rutas)

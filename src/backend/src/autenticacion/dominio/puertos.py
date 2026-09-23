@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Optional
 from src.inscripcion.presentacion.esquemas import LegajoCrear
 
 class LegajoRepositorio(ABC):

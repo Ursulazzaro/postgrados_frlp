@@ -6,3 +6,6 @@ asyncpg
 pydantic==2.7.1
 pydantic-settings==2.2.1
 pydantic[email]
+PyJWT
+passlib
+bcrypt
