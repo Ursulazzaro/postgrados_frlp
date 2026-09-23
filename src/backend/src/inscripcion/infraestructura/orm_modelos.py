@@ -24,3 +24,4 @@ class LegajoORM(Base):
     titulo_anterior = Column(String(200), nullable=False)
     universidad_anterior = Column(String(200), nullable=False)
     
+    
