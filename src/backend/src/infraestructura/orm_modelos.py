@@ -1,11 +1,10 @@
 import uuid
-from sqlalchemy import Column, String, Text, DateTime
+from sqlalchemy import Column, String, Text, DateTime, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from datetime import datetime
 from backend.src.compartido.conexion import Base
 
 class NoticiaORM(Base):
-    # Le decimos a PostgreSQL cómo se va a llamar la tabla
     __tablename__ = "noticias"
 
     # El ID único
