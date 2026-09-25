@@ -1,4 +1,4 @@
-﻿// Define las rutas pÃºblicas y privadas de la aplicaciÃ³n.
+﻿// Define las rutas públicas y privadas de la aplicación.
 
 import { createBrowserRouter } from "react-router-dom";
 
@@ -6,6 +6,10 @@ import DashboardDocentePage from "../../modulos/perfiles/docente/paginas/Dashboa
 import PanelAsistenciaPage from "../../modulos/perfiles/docente/paginas/PanelAsistenciaPage";
 import MisSeminariosPage from "../../modulos/perfiles/docente/paginas/MisSeminariosPage";
 import CalificacionesPage from "../../modulos/perfiles/docente/paginas/CalificacionesPage";
+import EstudiantesPage from "../../modulos/perfiles/docente/paginas/EstudiantesPage";
+import ReportesPage from "../../modulos/perfiles/docente/paginas/ReportesPage";
+import PendientesPage from "../../modulos/perfiles/docente/paginas/PendientesPage";
+import ProfesoresPage from "../../modulos/perfiles/docente/paginas/ProfesoresPage"; // <-- Importamos la última página
 
 import DashboardEstudiantePage from "../../modulos/perfiles/estudiante/paginas/DashboardEstudiantePage";
 import EstadoAcademicoPage from "../../modulos/perfiles/estudiante/paginas/EstadoAcademicoPage";
@@ -127,12 +131,28 @@ export const router = createBrowserRouter([
             element: <MisSeminariosPage />,
           },
           {
+            path: "dashboard/docente/estudiantes",
+            element: <EstudiantesPage />,
+          },
+          {
             path: "dashboard/docente/asistencia",
             element: <PanelAsistenciaPage />,
           },
           {
             path: "dashboard/docente/calificaciones",
             element: <CalificacionesPage />,
+          },
+          {
+            path: "dashboard/docente/reportes",
+            element: <ReportesPage />,
+          },
+          {
+            path: "dashboard/docente/pendientes",
+            element: <PendientesPage />,
+          },
+          {
+            path: "dashboard/docente/profesores", // <-- Conectamos la última ruta
+            element: <ProfesoresPage />,
           },
         ],
       },
