@@ -1,11 +1,7 @@
-import {
-  NavLink,
-  Outlet,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../../manejo-sesion/useAuth";
+import type { Rol } from "../../../../shared/tipos";
 
 import { menuEstudiante } from "../../estudiante/config/menuEstudiante";
 import { menuDocente } from "../../docente/config/menuDocente";
@@ -15,29 +11,32 @@ import BarraNavegacionPerfil from "../componentes/BarraNavegacionPerfil";
 import "../estilos/PerfilesCompartidos.css";
 
 export default function DashboardLayout() {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const esDocente = location.pathname.startsWith(
-    "/dashboard/docente"
-  );
+  const etiquetasRol: Record<Rol, string> = {
+    ASPIRANTE: "Aspirante",
+    DOCENTE: "Docente",
+    COORDINADOR: "Coordinador",
+    CPR: "CPR",
+    ADMIN: "Administrador",
+  };
 
-  const rolUsuario = esDocente
-    ? "Docente"
-    : "Estudiante";
+  const rolUsuario = user ? etiquetasRol[user.rol] : "Sin sesión";
+  const nombreUsuario = user
+    ? `${user.nombre} ${user.apellido}`
+    : "Usuario";
 
-  const nombreUsuario = esDocente
-    ? "Margarita"
-    : "Juan Perez";
+  const inicialesUsuario = user
+    ? `${user.nombre.charAt(0)}${user.apellido.charAt(0)}`.toUpperCase()
+    : "";
 
-  const inicialesUsuario = esDocente
-    ? "M"
-    : "JP";
-
-  const opcionesMenu = esDocente
-    ? menuDocente
-    : menuEstudiante;
+  const opcionesMenu =
+    user?.rol === "DOCENTE"
+      ? menuDocente
+      : user?.rol === "ASPIRANTE"
+        ? menuEstudiante
+        : [];
 
   const cerrarSesion = () => {
     logout();
@@ -56,28 +55,6 @@ export default function DashboardLayout() {
           rol={rolUsuario}
           opciones={opcionesMenu}
         />
-
-        <section className="perfil-menu-pruebas">
-          <p>Vistas de prueba</p>
-
-          {esDocente ? (
-            <NavLink
-              to="/dashboard"
-              className="perfil-boton-prueba"
-            >
-              <span aria-hidden="true">↩️</span>
-              Volver a Estudiante
-            </NavLink>
-          ) : (
-            <NavLink
-              to="/dashboard/docente"
-              className="perfil-boton-prueba"
-            >
-              <span aria-hidden="true">👁️</span>
-              Vista Docente
-            </NavLink>
-          )}
-        </section>
 
         <footer className="perfil-sidebar-pie">
           <button
