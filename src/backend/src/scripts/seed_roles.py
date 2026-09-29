@@ -7,7 +7,7 @@ load_dotenv()
 
 from sqlalchemy import select
 
-from src.autenticacion.infraestructura.orm_modelos import RolORM
+from src.usuarios.modelos import RolORM
 from src.compartido.conexion import AsyncSessionLocal, engine
 
 
