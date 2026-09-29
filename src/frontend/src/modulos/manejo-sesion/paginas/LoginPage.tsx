@@ -18,7 +18,7 @@ export default function LoginPage() {
   const [captchaToken, setCaptchaToken] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
@@ -27,18 +27,22 @@ export default function LoginPage() {
       return;
     }
 
-     try {
+    try {
       const sesion = await login(email, password);
+      console.log("Rol recibido:", sesion.rol);
+
       if (sesion.rol === "DOCENTE") {
         navigate("/dashboard/docente");
-      } else {
+      } else if (sesion.rol === "ASPIRANTE") {
         navigate("/dashboard");
+      } else {
+        navigate("/dashboard/general");
       }
     } catch {
-      setError("Credenciales inválidas");
+      setError("No se pudo iniciar sesión. Revisá las credenciales y la conexión.");
       setCaptchaToken("");
     }
-  }
+  };
 
   return (
     <section
