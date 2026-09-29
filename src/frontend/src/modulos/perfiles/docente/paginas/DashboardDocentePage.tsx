@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../../manejo-sesion/useAuth";
 
 interface TarjetaDocenteProps {
   titulo: string;
@@ -42,10 +43,11 @@ function TarjetaDocente({
 }
 
 export default function DashboardDocentePage() {
+  const { user } = useAuth();
   return (
     <section className="perfil-pagina">
       <header className="perfil-pagina-encabezado">
-        <h1>Hola, Margarita!</h1>
+        <h1>Hola, {user?.nombre ?? "Docente"}!</h1>
 
         <p>
           Bienvenido/a a tu panel docente.
