@@ -71,6 +71,41 @@ export default function FormularioInscripcion() {
     solicitud_beca: "",
   });
 
+  const MAX_TAMANIO_PDF = 5 * 1024 * 1024;
+
+  const validarDocumento = (
+    archivo: File | undefined,
+    campo: keyof typeof documentos
+    ) => {
+    if (!archivo) {
+      setDocumentos({
+        ...documentos,
+        [campo]: null,
+      });
+      return;
+    }
+
+    if (
+      archivo.type !== "application/pdf" ||
+      !archivo.name.toLowerCase().endsWith(".pdf")
+    ) {
+      setMensaje("El archivo debe estar en formato PDF.");
+      return;
+    }
+
+    if (archivo.size > MAX_TAMANIO_PDF) {
+      setMensaje("El archivo no puede superar los 5 MB.");
+      return;
+    }
+
+    setDocumentos({
+      ...documentos,
+      [campo]: archivo,
+    });
+
+    setMensaje("");
+  };
+
   const siguienteEtapa = () => {
     if (etapa === 2) {
       const documentosObligatorios = [
@@ -599,13 +634,25 @@ export default function FormularioInscripcion() {
                   accept="application/pdf"
                   required
                   onChange={(e) =>
-                    setDocumentos({
-                      ...documentos,
-                      formularioPreinscripcion: e.target.files?.[0] ?? null,
-                    })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "formularioPreinscripcion"
+                    )
                   }
                 />
 
+                {documentos.formularioPreinscripcion && (
+                  <p>
+                    Archivo: {documentos.formularioPreinscripcion.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.formularioPreinscripcion.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
 
               <div className="inscripcion-documento">
@@ -621,12 +668,25 @@ export default function FormularioInscripcion() {
                   accept="application/pdf"
                   required
                   onChange={(e) =>
-                    setDocumentos({
-                      ...documentos,
-                      formularioInscripcion: e.target.files?.[0] ?? null,
-                    })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "formularioInscripcion"
+                    )
                   }
                 />
+
+                {documentos.formularioInscripcion && (
+                  <p>
+                    Archivo: {documentos.formularioInscripcion.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.formularioInscripcion.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
 
               <div className="inscripcion-documento">
@@ -642,12 +702,24 @@ export default function FormularioInscripcion() {
                   accept="application/pdf"
                   required
                   onChange={(e) =>
-                    setDocumentos({
-                      ...documentos,
-                      partidaNacimiento: e.target.files?.[0] ?? null,
-                    })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "partidaNacimiento"
+                    )
                   }
                 />
+                {documentos.partidaNacimiento && (
+                  <p>
+                    Archivo: {documentos.partidaNacimiento.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.partidaNacimiento.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
 
               <div className="inscripcion-documento">
@@ -663,12 +735,24 @@ export default function FormularioInscripcion() {
                   accept="application/pdf"
                   required
                   onChange={(e) =>
-                  setDocumentos({
-                    ...documentos,
-                    constanciaCuitCuil: e.target.files?.[0] ?? null,
-                  })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "constanciaCuitCuil"
+                    )
                 }
                 />
+                {documentos.constanciaCuitCuil && (
+                  <p>
+                    Archivo: {documentos.constanciaCuitCuil.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.constanciaCuitCuil.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
 
               <div className="inscripcion-documento">
@@ -684,12 +768,24 @@ export default function FormularioInscripcion() {
                   accept="application/pdf"
                   required
                   onChange={(e) =>
-                    setDocumentos({
-                      ...documentos,
-                      tituloGrado: e.target.files?.[0] ?? null,
-                    })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "tituloGrado"
+                    )
                   }
                 />
+                {documentos.tituloGrado && (
+                  <p>
+                    Archivo: {documentos.tituloGrado.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.tituloGrado.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
 
               <div className="inscripcion-documento">
@@ -703,12 +799,24 @@ export default function FormularioInscripcion() {
                   type="file"
                   accept="application/pdf"
                   onChange={(e) =>
-                    setDocumentos({
-                      ...documentos,
-                      tituloPosgrado: e.target.files?.[0] ?? null,
-                    })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "tituloPosgrado"
+                    )
                   }
                 />
+                {documentos.tituloPosgrado && (
+                  <p>
+                    Archivo: {documentos.tituloPosgrado.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.tituloPosgrado.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
             </fieldset>
 
