@@ -1,7 +1,12 @@
 // Formulario público de preinscripción para aspirantes a carreras de posgrado.
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  guardarBorrador,
+  recuperarBorrador,
+} from "../borrador";
 import "./FormularioInscripcion.css";
+
 
 const etapas = [
   "Datos Personales",
@@ -41,6 +46,7 @@ export default function FormularioInscripcion() {
   const [etapa, setEtapa] = useState(1);
   const [otroPais, setOtroPais] = useState("");
   const [mensaje, setMensaje] = useState("");
+  const [cargandoBorrador, setCargandoBorrador] = useState(true);
   
   const [documentos, setDocumentos] = useState({
     formularioPreinscripcion: null as File | null,
@@ -70,6 +76,50 @@ export default function FormularioInscripcion() {
     motivos_cursar: "",
     solicitud_beca: "",
   });
+
+  useEffect(() => {
+    const cargarBorrador = async () => {
+      try {
+        const borrador = await recuperarBorrador();
+
+        if (borrador) {
+          setDatos(borrador.datos as typeof datos);
+          setDocumentos(borrador.documentos as typeof documentos);
+          setOtroPais(borrador.otroPais);
+          setEtapa(borrador.etapa);
+        }
+      } catch (error) {
+        console.error("Error al recuperar el borrador:", error);
+        setMensaje("No se pudo recuperar el borrador guardado.");
+      } finally {
+        setCargandoBorrador(false);
+      }
+    };
+
+    cargarBorrador();
+  }, []);
+
+  useEffect(() => {
+    if (cargandoBorrador) return;
+
+    const temporizador = setTimeout(async () => {
+      try {
+        await guardarBorrador({
+          id: "inscripcion",
+          datos,
+          documentos,
+          otroPais,
+          etapa,
+          actualizadoEn: Date.now(),
+        });
+      } catch (error) {
+        console.error("Error al guardar el borrador:", error);
+        setMensaje("No se pudo guardar el borrador.");
+      }
+    }, 500);
+
+    return () => clearTimeout(temporizador);
+  }, [datos, documentos, otroPais, etapa, cargandoBorrador]);
 
   const MAX_TAMANIO_PDF = 5 * 1024 * 1024;
 
