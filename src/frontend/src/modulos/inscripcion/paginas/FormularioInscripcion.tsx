@@ -285,9 +285,8 @@ export default function FormularioInscripcion() {
                   name="dni"
                   type="text"
                   required
-                  inputMode="numeric"
-                  pattern="[0-9]+"
-                  title="El DNI solo puede contener números."
+                  pattern="([0-9]{7,8}|(?=.*[A-Za-z])[A-Za-z0-9]{6,20})"
+                  title="El DNI solo puede tener 7 u 8 dígitos. El pasaporte solo puede tener de 6 a 20 carácteres alfanúmericos."
                   placeholder="Ingresá tu DNI o Pasaporte"
                   value={datos.dni}
                   onChange={(e) =>
