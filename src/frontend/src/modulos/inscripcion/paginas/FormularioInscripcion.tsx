@@ -47,7 +47,8 @@ export default function FormularioInscripcion() {
   const [otroPais, setOtroPais] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [cargandoBorrador, setCargandoBorrador] = useState(true);
-  
+  const [numeroSeguimiento, setNumeroSeguimiento] = useState("");
+
   const [documentos, setDocumentos] = useState({
     formularioPreinscripcion: null as File | null,
     formularioInscripcion: null as File | null,
@@ -216,11 +217,17 @@ export default function FormularioInscripcion() {
         }
       );
 
-      setMensaje(
-        respuesta.ok
-          ? "¡Inscripción enviada con éxito! Revisá tu email."
-          : "Error al enviar la inscripción. Verificá tus datos."
-      );
+      if (respuesta.ok) {
+        const resultado = await respuesta.json();
+
+        setNumeroSeguimiento(
+          resultado.numero_seguimiento ?? ""
+        );
+
+        setMensaje("¡Inscripción enviada con éxito! Revisá tu email.");
+      } else {
+        setMensaje("Error al enviar la inscripción. Verificá tus datos.");
+      }
     } catch {
       setMensaje("Error de conexión con el servidor.");
     }
@@ -970,6 +977,14 @@ export default function FormularioInscripcion() {
             <p>
               Revisá la información ingresada antes de confirmar la inscripción.
             </p>
+
+            {numeroSeguimiento && (
+              <div className="inscripcion-numero-seguimiento">
+                <h3>Número de seguimiento</h3>
+                <p>{numeroSeguimiento}</p>
+                <span>Conservá este número para consultar tu inscripción.</span>
+              </div>
+            )}
 
             <div className="inscripcion-resumen-grid">
               <section className="inscripcion-resumen">
