@@ -1,7 +1,12 @@
 // Formulario público de preinscripción para aspirantes a carreras de posgrado.
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  guardarBorrador,
+  recuperarBorrador,
+} from "../borrador";
 import "./FormularioInscripcion.css";
+
 
 const etapas = [
   "Datos Personales",
@@ -41,7 +46,9 @@ export default function FormularioInscripcion() {
   const [etapa, setEtapa] = useState(1);
   const [otroPais, setOtroPais] = useState("");
   const [mensaje, setMensaje] = useState("");
-  
+  const [cargandoBorrador, setCargandoBorrador] = useState(true);
+  const [numeroSeguimiento, setNumeroSeguimiento] = useState("");
+
   const [documentos, setDocumentos] = useState({
     formularioPreinscripcion: null as File | null,
     formularioInscripcion: null as File | null,
@@ -70,6 +77,85 @@ export default function FormularioInscripcion() {
     motivos_cursar: "",
     solicitud_beca: "",
   });
+
+  useEffect(() => {
+    const cargarBorrador = async () => {
+      try {
+        const borrador = await recuperarBorrador();
+
+        if (borrador) {
+          setDatos(borrador.datos as typeof datos);
+          setDocumentos(borrador.documentos as typeof documentos);
+          setOtroPais(borrador.otroPais);
+          setEtapa(borrador.etapa);
+        }
+      } catch (error) {
+        console.error("Error al recuperar el borrador:", error);
+        setMensaje("No se pudo recuperar el borrador guardado.");
+      } finally {
+        setCargandoBorrador(false);
+      }
+    };
+
+    cargarBorrador();
+  }, []);
+
+  useEffect(() => {
+    if (cargandoBorrador) return;
+
+    const temporizador = setTimeout(async () => {
+      try {
+        await guardarBorrador({
+          id: "inscripcion",
+          datos,
+          documentos,
+          otroPais,
+          etapa,
+          actualizadoEn: Date.now(),
+        });
+      } catch (error) {
+        console.error("Error al guardar el borrador:", error);
+        setMensaje("No se pudo guardar el borrador.");
+      }
+    }, 500);
+
+    return () => clearTimeout(temporizador);
+  }, [datos, documentos, otroPais, etapa, cargandoBorrador]);
+
+  const MAX_TAMANIO_PDF = 5 * 1024 * 1024;
+
+  const validarDocumento = (
+    archivo: File | undefined,
+    campo: keyof typeof documentos
+    ) => {
+    if (!archivo) {
+      setDocumentos({
+        ...documentos,
+        [campo]: null,
+      });
+      return;
+    }
+
+    if (
+      archivo.type !== "application/pdf" ||
+      !archivo.name.toLowerCase().endsWith(".pdf")
+    ) {
+      setMensaje("El archivo debe estar en formato PDF.");
+      return;
+    }
+
+    if (archivo.size > MAX_TAMANIO_PDF) {
+      setMensaje("El archivo no puede superar los 5 MB.");
+      return;
+    }
+
+    setDocumentos({
+      ...documentos,
+      [campo]: archivo,
+    });
+
+    setMensaje("");
+  };
 
   const siguienteEtapa = () => {
     if (etapa === 2) {
@@ -131,11 +217,17 @@ export default function FormularioInscripcion() {
         }
       );
 
-      setMensaje(
-        respuesta.ok
-          ? "¡Inscripción enviada con éxito! Revisá tu email."
-          : "Error al enviar la inscripción. Verificá tus datos."
-      );
+      if (respuesta.ok) {
+        const resultado = await respuesta.json();
+
+        setNumeroSeguimiento(
+          resultado.numero_seguimiento ?? ""
+        );
+
+        setMensaje("¡Inscripción enviada con éxito! Revisá tu email.");
+      } else {
+        setMensaje("Error al enviar la inscripción. Verificá tus datos.");
+      }
     } catch {
       setMensaje("Error de conexión con el servidor.");
     }
@@ -285,9 +377,8 @@ export default function FormularioInscripcion() {
                   name="dni"
                   type="text"
                   required
-                  inputMode="numeric"
-                  pattern="[0-9]+"
-                  title="El DNI solo puede contener números."
+                  pattern="([0-9]{7,8}|(?=.*[A-Za-z])[A-Za-z0-9]{6,20})"
+                  title="El DNI solo puede tener 7 u 8 dígitos. El pasaporte solo puede tener de 6 a 20 carácteres alfanúmericos."
                   placeholder="Ingresá tu DNI o Pasaporte"
                   value={datos.dni}
                   onChange={(e) =>
@@ -600,13 +691,25 @@ export default function FormularioInscripcion() {
                   accept="application/pdf"
                   required
                   onChange={(e) =>
-                    setDocumentos({
-                      ...documentos,
-                      formularioPreinscripcion: e.target.files?.[0] ?? null,
-                    })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "formularioPreinscripcion"
+                    )
                   }
                 />
 
+                {documentos.formularioPreinscripcion && (
+                  <p>
+                    Archivo: {documentos.formularioPreinscripcion.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.formularioPreinscripcion.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
 
               <div className="inscripcion-documento">
@@ -622,12 +725,25 @@ export default function FormularioInscripcion() {
                   accept="application/pdf"
                   required
                   onChange={(e) =>
-                    setDocumentos({
-                      ...documentos,
-                      formularioInscripcion: e.target.files?.[0] ?? null,
-                    })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "formularioInscripcion"
+                    )
                   }
                 />
+
+                {documentos.formularioInscripcion && (
+                  <p>
+                    Archivo: {documentos.formularioInscripcion.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.formularioInscripcion.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
 
               <div className="inscripcion-documento">
@@ -643,12 +759,24 @@ export default function FormularioInscripcion() {
                   accept="application/pdf"
                   required
                   onChange={(e) =>
-                    setDocumentos({
-                      ...documentos,
-                      partidaNacimiento: e.target.files?.[0] ?? null,
-                    })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "partidaNacimiento"
+                    )
                   }
                 />
+                {documentos.partidaNacimiento && (
+                  <p>
+                    Archivo: {documentos.partidaNacimiento.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.partidaNacimiento.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
 
               <div className="inscripcion-documento">
@@ -664,12 +792,24 @@ export default function FormularioInscripcion() {
                   accept="application/pdf"
                   required
                   onChange={(e) =>
-                  setDocumentos({
-                    ...documentos,
-                    constanciaCuitCuil: e.target.files?.[0] ?? null,
-                  })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "constanciaCuitCuil"
+                    )
                 }
                 />
+                {documentos.constanciaCuitCuil && (
+                  <p>
+                    Archivo: {documentos.constanciaCuitCuil.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.constanciaCuitCuil.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
 
               <div className="inscripcion-documento">
@@ -685,12 +825,24 @@ export default function FormularioInscripcion() {
                   accept="application/pdf"
                   required
                   onChange={(e) =>
-                    setDocumentos({
-                      ...documentos,
-                      tituloGrado: e.target.files?.[0] ?? null,
-                    })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "tituloGrado"
+                    )
                   }
                 />
+                {documentos.tituloGrado && (
+                  <p>
+                    Archivo: {documentos.tituloGrado.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.tituloGrado.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
 
               <div className="inscripcion-documento">
@@ -704,12 +856,24 @@ export default function FormularioInscripcion() {
                   type="file"
                   accept="application/pdf"
                   onChange={(e) =>
-                    setDocumentos({
-                      ...documentos,
-                      tituloPosgrado: e.target.files?.[0] ?? null,
-                    })
+                    validarDocumento(
+                      e.target.files?.[0],
+                      "tituloPosgrado"
+                    )
                   }
                 />
+                {documentos.tituloPosgrado && (
+                  <p>
+                    Archivo: {documentos.tituloPosgrado.name}
+                    <br />
+                    Tamaño:{" "}
+                    {(
+                      documentos.tituloPosgrado.size /
+                      (1024 * 1024)
+                    ).toFixed(2)}{" "}
+                     MB
+                  </p>
+                )}
               </div>
             </fieldset>
 
@@ -813,6 +977,14 @@ export default function FormularioInscripcion() {
             <p>
               Revisá la información ingresada antes de confirmar la inscripción.
             </p>
+
+            {numeroSeguimiento && (
+              <div className="inscripcion-numero-seguimiento">
+                <h3>Número de seguimiento</h3>
+                <p>{numeroSeguimiento}</p>
+                <span>Conservá este número para consultar tu inscripción.</span>
+              </div>
+            )}
 
             <div className="inscripcion-resumen-grid">
               <section className="inscripcion-resumen">
