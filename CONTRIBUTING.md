@@ -1,228 +1,356 @@
-# Guía de Contribución — postgrado Posgrado (Modificada)
+# Guía de contribución — Sistema de Gestión de Posgrados
 
-Leé este documento antes de comenzar a trabajar en el proyecto. La idea es que los 4 podamos trabajar en paralelo sin pisarnos cambios ni romper main.
----
+**UTN Facultad Regional La Plata · Desarrollo de Software · 2026**
 
-## 1. Tecnologias del proyecto
+Esta guía establece las pautas de trabajo de los cuatro integrantes del equipo para desarrollar, mantener e integrar funcionalidades sin sobrescribir cambios de otros compañeros ni comprometer la estabilidad de `main`.
 
-El proyecto está dividido en frontend y backend
+## 1. Tecnologías del proyecto
 
-Frontend: React, TypeScript, Vite, React Router y Tailwind CSS
+| Área | Tecnologías |
+|---|---|
+| Frontend | React, TypeScript, Vite y React Router |
+| Estilos | CSS y Tailwind CSS |
+| Backend | Python, FastAPI y Uvicorn |
+| Persistencia | SQLAlchemy y asyncpg |
+| Base de datos | PostgreSQL 15 |
+| Autenticación | JWT y control de acceso por roles |
+| Correo electrónico | SMTP |
+| Formularios | Google reCAPTCHA |
+| Testing frontend | Vitest y React Testing Library |
+| Testing backend | Pytest |
+| Calidad frontend | ESLint y TypeScript |
+| Infraestructura | Docker y Docker Compose |
+| Control de versiones | Git y GitHub |
 
-Backend: Python 3.12, FastAPI, Uvicorn, SQLAlchemy, Alembic, PostgreSQL
+No incorporar dependencias nuevas sin justificar su necesidad y acordarlo con el equipo.
 
-Herramientas: Git, GitHub y Docker/Docker compose
----
-## 2. Estructura general (por ahora)
+## 2. Estructura general
 
-La estructura principal es: 
-
+```text
 postgrados_frlp/
-│
 ├── src/
 │   ├── backend/
 │   │   ├── main.py
-│   │   ├── requirements.txt
-│   │   ├── database/
+│   │   ├── Dockerfile.dev
+│   │   ├── tests/
 │   │   └── src/
-│   │
-│   └── frontend/  --> Buscamos separar las funcionalidades por modulos
-│       ├── src/
-│       │   ├── assets/
-│       │   ├── dashboard/
-│       │   ├── home/
-│       │   ├── inscripcion/
-│       │   └── shared/  --> Shred es la unica que contiene elementos que son reutilizables en todo el proyecto
-│       │
-│       └── package.json
-│
+│   │       ├── compartido/
+│   │       ├── inscripcion/
+│   │       ├── seminarios/
+│   │       └── ...
+│   └── frontend/
+│       ├── Dockerfile.dev
+│       ├── package.json
+│       ├── tests/
+│       └── src/
+│           ├── assets/
+│           ├── modulos/
+│           │   ├── calendario/
+│           │   ├── inscripcion/
+│           │   ├── manejo-sesion/
+│           │   ├── perfiles/
+│           │   │   ├── administrador/
+│           │   │   ├── conduccion/
+│           │   │   ├── cpr/
+│           │   │   ├── docente/
+│           │   │   ├── estudiante/
+│           │   │   └── shared/
+│           │   └── ...
+│           └── shared/
+│               ├── api/
+│               ├── componentes/
+│               └── hooks/
 ├── docs/
 ├── docker-compose.yml
-├── .env
-└── .env.example
+├── .env.example
+├── .gitignore
+├── README.md
+└── CONTRIBUTING.md
+```
 
----
+El árbol es orientativo y muestra los módulos principales, no un inventario exhaustivo.
 
-## 3. Ramas de Git
+- `src/frontend/src/modulos/`: funcionalidades organizadas por dominio.
+- `perfiles/shared/`: elementos reutilizables entre perfiles.
+- `src/frontend/src/shared/`: elementos transversales de toda la aplicación.
+- Backend: separar presentación, aplicación y persistencia según la estructura de cada dominio.
 
-Para evitar que varias personas trabajen directamente sobre main, cada integrante debe trabajar en su propia rama.
+## 3. Pautas de desarrollo
 
-La rama MAIN es la principal y es la que nos tenemos que asegurar que siempre funcione
+### Frontend
 
+- Separar los componentes TSX de sus estilos CSS y respetar el diseño existente.
+- Reutilizar el cliente HTTP, los hooks, las validaciones y los componentes compartidos.
+- Utilizar `ConfirmacionModal` para operaciones de alta, modificación, baja y cambios de estado que requieran confirmación.
+- Cancelar una confirmación no debe generar peticiones de escritura. Evitar envíos duplicados.
+- Utilizar `MensajeSistema` para mensajes de éxito y error cuando corresponda.
+- Contemplar estados de carga, error, ausencia de resultados y reintento.
+- Mantener tipos explícitos y evitar `any` innecesarios.
+- Utilizar HTML semántico, etiquetas asociadas a los campos, navegación por teclado y foco visible.
+- Consumir datos reales de la API; no simular resultados académicos en producción.
+- Revisar todos los perfiles afectados antes de modificar componentes compartidos.
 
-Pasos para crear las ramas:
+### Backend
 
-Primero asegurate de estar en main actualizado (Trarnos los ultimos cambios que alguien haya hecho): 
+- Mantener las reglas de negocio en los servicios correspondientes, evitando duplicarlas en rutas o frontend.
+- Validar los datos y permisos en el servidor, aunque también existan validaciones en la interfaz.
+- Preservar la integridad referencial y el historial académico.
+- Utilizar respuestas HTTP coherentes y mensajes de error comprensibles.
+- No registrar contraseñas, tokens, credenciales ni documentación personal en logs.
+- Actualizar las pruebas y la documentación de API cuando cambie un contrato.
 
-git checkout main
-git pull origin main
+### Roles y reglas funcionales
 
-Ahora si, crear tu rama:
+- ASPIRANTE: inscripción y consulta de seguimiento desde el sitio público, sin acceso a dashboards privados.
+- ALUMNO: acceso autenticado a sus propias funcionalidades académicas.
+- DOCENTE: gestión de los seminarios y estudiantes que le correspondan.
+- CPR: gestión y seguimiento de las funcionalidades académicas autorizadas.
+- COORDINADOR / Equipo de Conducción: gestión de inscripciones, legajos y seguimiento según permisos.
+- ADMINISTRADOR: administración institucional y del sistema según permisos.
 
-git checkout -b rama-ursula
+No ampliar los permisos de un rol para resolver un problema de visualización. Las restricciones del backend deben mantenerse.
 
-Luego, podemos ver en que rama estamos parados: En la rama que estamos parados aparece con un *
+## 4. Levantar el entorno
 
-git branch 
----
+Requisitos: Git, Docker Desktop iniciado y Docker Compose compatible con la configuración del repositorio.
 
-## 4. Guardar cambios
+Desde la raíz del proyecto:
 
-Una vez terminado de modificar lo que queremos subir hacemos un para agregar todo lo modificado:
+```bash
+# Crear el archivo local de configuración solo si no existe
+[ -f .env ] || cp .env.example .env
 
-git add .
+# Validar y levantar los servicios
+docker compose config --quiet
+docker compose up -d --build
+docker compose ps
+```
 
-si no, tambien podemos subir de forma especifica:
+| Servicio | Acceso |
+|---|---|
+| Frontend | http://localhost:3000 |
+| API REST | http://localhost:8000/api/v1 |
+| Swagger | http://localhost:8000/docs |
+| Healthcheck | http://localhost:8000/health |
+| PostgreSQL desde el host | localhost:5433 |
+| PostgreSQL entre contenedores | db:5432 |
 
-git add src/home/pages/HomePage.tsx  -- Esta se una mas para los conflictos al momento de mergear, siempre recomiendo al primera.
+Compose espera que PostgreSQL esté saludable antes de iniciar el backend y que el backend responda al healthcheck antes de iniciar el frontend.
 
-Despues podemos hacer un:
+## 5. Ramas de Git
 
+`main` es la rama principal y debe mantenerse estable. Cada integrante trabaja en su propia rama, por ejemplo `rama-ursula`, `rama-julian`, `rama-matias` o `rama-jony`.
+
+Antes de crear una rama nueva, comprobar que no haya cambios pendientes:
+
+```bash
 git status
+git switch main
+git pull --ff-only origin main
+git switch -c rama-nombre
+```
 
-El cual nos sirve para corroborar que todos nuestros cambios se esten subiendo correctamente
+Si la rama ya existe, usar `git switch rama-nombre` en lugar de crearla nuevamente.
 
-## 5. Crear un Commit
+```bash
+git branch --show-current
+git branch -a
+git remote -v
+```
 
-Se suele utilizar una forma universal para que todos lo entendamos:
+Verificar que el remoto corresponda al repositorio compartido por el equipo.
 
-Formato: `tipo(alcance): descripción en presente, sin mayúscula inicial, sin punto final`
+## 6. Guardar cambios y crear commits
 
-**Tipos válidos:**
+Revisar primero qué archivos se modificaron:
 
-| Tipo | Cuándo usarlo |
-|------|--------------|
+```bash
+git status
+git diff --stat
+git diff
+```
+
+Agregar únicamente los archivos relacionados con la tarea. Ejemplo desde la raíz:
+
+```bash
+git add src/frontend/src/modulos/perfiles/docente/paginas/EstudiantesPage.tsx
+git diff --cached --check
+git diff --cached --stat
+git diff --cached
+```
+
+Evitar `git add .` sin revisar previamente los archivos, para no incluir credenciales, archivos de prueba, imágenes cargadas localmente o eliminaciones accidentales.
+
+### Convención de commits
+
+Formato: `tipo(alcance): descripción en presente, sin punto final`.
+
+| Tipo | Uso |
+|---|---|
 | `feat` | Nueva funcionalidad |
-| `fix` | Corrección de bug |
-| `docs` | Cambios en documentación |
-| `test` | Agrega o modifica tests |
-| `refactor` | Refactorización sin cambio de comportamiento |
-| `chore` | Tareas de mantenimiento (CI, dependencias) |
-| `style` | Formato (linting, espacios) sin cambio de lógica |
+| `fix` | Corrección de errores |
+| `docs` | Documentación |
+| `test` | Pruebas automatizadas |
+| `refactor` | Reorganización sin cambiar comportamiento |
+| `chore` | Mantenimiento y configuración |
+| `style` | Formato sin cambio de lógica |
 
 Ejemplos:
-feat(home): agrega pagina principal
-feat(navbar): agrega navegacion principal
-fix(auth): corrige redireccion despues del login
-refactor(inscripcion): reorganiza componentes
-docs(readme): actualiza instrucciones de instalacion
-chore(deps): actualiza dependencias
----
 
-## 6.  Subir mi rama a GitHub
+```bash
+git commit -m "feat(docente): agrega asociación de estudiantes"
+git commit -m "fix(inscripcion): corrige validación documental"
+git commit -m "docs(readme): actualiza instrucciones de instalación"
+```
 
-Despues del Commit usamos: (El -u es solo para la primera vez, despues ya no se pone)
+Referenciar la historia de usuario o requisito cuando corresponda.
 
-git push -u origin rama-julian
+## 7. Subir una rama
 
----
-## 7.  Pull Request
+```bash
+# Primera vez
+git push -u origin rama-nombre
 
-Una vez ya este todo subido a nuestra rama tenemos que saber que el push no lo hace directamente al main para no romper nada justamente.
-Entonces el Pull Request permite que otro integrante revise los cambios antes de incorporarlos.
+# Siguientes veces
+git push
+```
 
-Antes de pasar al como se hace un PR verificamos que:
-- El proyecto compila.
-- No hay errores.
-- La funcionalidad funciona.
-- No se rompieron funcionalidades existentes.
-- Los cambios están relacionados con lo que se quería implementar.
+Un push a una rama personal no modifica `main`.
 
-Despues si vas a la pagina de GitHub y solicitas un Pull Request de loq ue acabas de subir a tu rama con el main
+## 8. Mantener actualizada la rama
 
-### Qué incluir en el PR
+Desde la propia rama, con los cambios guardados:
 
-**Título:** Igual que el título de la historia de usuario. Ej: `[US-CORE-001] Formulario de inscripción de aspirantes`
+```bash
+git fetch origin --prune
+git log HEAD..origin/main --oneline
+git merge origin/main
+```
 
-**Descripción (template):**
+Si el log no muestra commits, la rama ya contiene el `main` remoto consultado.
+
+En caso de conflictos, revisar los archivos indicados por `git status`, resolverlos conservando los cambios válidos de ambas partes y ejecutar las pruebas. No utilizar `push --force` para resolver conflictos.
+
+## 9. Validaciones antes de integrar
+
+Desde la raíz, con los contenedores levantados:
+
+```bash
+docker compose exec frontend npm run build
+docker compose exec frontend npm run lint
+docker compose exec frontend npm run test:run
+```
+
+Alternativamente, si las dependencias de frontend están instaladas localmente:
+
+```bash
+cd src/frontend
+npm ci
+npm run build
+npm run lint
+npm run test:run
+```
+
+Para el backend, ejecutar `python -m pytest` desde su entorno de desarrollo con las dependencias de prueba instaladas y una base de datos de pruebas correctamente configurada. No ejecutar pruebas destructivas sobre la base de desarrollo con datos importantes.
+
+No modificar expectativas de tests únicamente para hacerlos pasar. Adaptar las pruebas a cambios funcionales intencionales y conservar las verificaciones de permisos, confirmaciones, validaciones y manejo de errores.
+
+## 10. Pull Request e integración a main
+
+La integración debe respetar las reglas de la cátedra: utilizar Pull Request y obtener al menos una revisión aprobada antes del merge.
+
+Antes de solicitar revisión, comprobar que la funcionalidad funciona, el proyecto compila, el linter y las pruebas pasan, y no existen cambios ajenos a la tarea.
+
+### Plantilla de Pull Request
+
 ```markdown
 ## ¿Qué hace este PR?
-[Descripción de qué implementa en 2-3 oraciones]
+Descripción breve de la funcionalidad o corrección.
 
-## Historia de usuario
-Cierra #[número de issue en GitHub] — US-CORE-001
+## Historia de usuario / requisito
+Referencia al issue o requisito correspondiente.
 
 ## Cambios principales
-- [Lista de cambios relevantes]
+- Cambio 1
+- Cambio 2
 
+## Validaciones realizadas
+- [ ] Build correcto
+- [ ] Lint correcto
+- [ ] Tests correctos
+- [ ] Prueba manual de la funcionalidad
 
-## 8.  Mantener actualizada mi rama:
-
-Como otras personas pueden mergear cambios a main, antes de seguir trabajando conviene actualizarse.
-
-git checkout main
-git pull origin main
-
-Después volver a nuestra rama:
-
-git checkout rama-matias
-
-y traer esas actualizaciones que por ahora solo llegaron al main:
-
-git merge main
-
----
-
---- Importante!!! ---
-## 9. Instalaciones del proyecto:
-
-
-Cada area va a tener ciertas dependencias por lo que cada una debe estar actualizada para que no nos falte ninguna. Como se hace:
-
-Comprobamos la version: py -3.12 --version
-
-Backend:
-cd src/backend
-py -3.12 -m pip install -r requirements.txt
-
-Frontend:
-cd src/frontend
-npm install
-
-
-## 10. Variables de Entorno
-
-**NUNCA commitear el archivo `.env`**. Está en `.gitignore`.
-
-Cuando agregues una variable nueva:
-1. Agregala a `.env.example` con un valor de ejemplo (no real)
-2. Documentala en el comentario del `.env.example`
-3. Mencionala en la descripción del PR
-
-```bash
-# .env.example
-DATABASE_URL=postgresql://user:password@localhost:5432/postgrado_dev
-JWT_SECRET=cambiar-en-produccion-por-secreto-seguro-32chars-min
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-STORAGE_PATH=/var/postgrado-storage  # Ruta donde se almacenan los PDFs
+## Impacto y observaciones
+Indicar cambios compartidos, variables de entorno o modificaciones de API.
 ```
 
----
+Una integración directa por consola solo corresponde si las reglas de la cátedra y del equipo la autorizan expresamente. No debe utilizarse para omitir una revisión obligatoria.
 
-## 7. Comandos Útiles
+## 11. Variables de entorno
+
+Nunca subir archivos `.env`, contraseñas, secretos JWT, credenciales SMTP ni claves privadas. Usar `.env.example` para documentar variables con valores de ejemplo.
+
+Al agregar una variable, actualizar `.env.example`, explicar su propósito y comunicar el cambio al equipo.
+
+Docker Compose contempla, entre otras, las siguientes variables:
+
+| Variable | Finalidad |
+|---|---|
+| `DB_USER` | Usuario PostgreSQL |
+| `DB_PASSWORD` | Contraseña PostgreSQL |
+| `DB_NAME` | Nombre de la base de datos |
+| `DATABASE_URL` | Conexión del backend a PostgreSQL |
+| `SECRET_KEY` / `JWT_SECRET` | Secreto de autenticación |
+| `VITE_RECAPTCHA_SITE_KEY` | Clave pública de reCAPTCHA |
+
+Consultar `.env.example` para los nombres exactos de las variables SMTP y demás integraciones. Los valores predeterminados de Compose son exclusivamente para desarrollo. Dentro de Docker, la conexión a PostgreSQL utiliza `db:5432`, no `localhost`.
+
+## 12. Comandos útiles de Docker
 
 ```bash
-# Levantar ambiente completo
-docker-compose up -d
+# Levantar servicios
+docker compose up -d --build
 
-# Ver logs del backend en tiempo real
-docker-compose logs -f backend
+# Ver estado
+docker compose ps
 
-# Correr tests
-npm test                  # o: pytest
-npm run test:coverage     # con reporte de cobertura
+# Consultar logs
+docker compose logs -f backend frontend
 
-# Linting
-npm run lint              # o: flake8 src/
-npm run lint:fix          # corrige automáticamente
+# Reiniciar backend
+docker compose restart backend
 
-# Migraciones de base de datos
-npm run db:migrate        # aplica migraciones pendientes
-npm run db:generate       # genera nueva migración desde cambio en schema
+# Acceder a PostgreSQL
+docker exec -it postgrado-db sh -c 'psql -U "$POSTGRES_USER" -d "$POSTGRES_DB"'
 
-# Acceder a la base de datos
-docker exec -it postgrado-db psql -U postgrado_user -d postgrado_dev
+# Detener conservando los volúmenes
+docker compose down
 ```
 
+No ejecutar `docker compose down -v` salvo que se haya acordado eliminar los datos persistidos y exista un respaldo cuando sea necesario.
+
+La inicialización de tablas se realiza al iniciar FastAPI según la configuración documentada del proyecto. No ejecutar comandos de migración no verificados ni modificar el esquema manualmente sin coordinarlo con el equipo.
+
+## 13. Definition of Done
+
+Una tarea se considera terminada cuando:
+
+- [ ] Cumple los requisitos y criterios de aceptación.
+- [ ] Respeta los permisos y las reglas de negocio.
+- [ ] Conserva la consistencia visual y la accesibilidad.
+- [ ] No introduce duplicación innecesaria.
+- [ ] Compila y pasa las verificaciones de calidad y pruebas aplicables.
+- [ ] Cumple el objetivo de cobertura establecido por la cátedra (70 % en lógica nueva).
+- [ ] Fue probada en el entorno de otro integrante según corresponda.
+- [ ] La documentación y el changelog están actualizados cuando corresponde.
+- [ ] Fue revisada e integrada conforme a las reglas del proyecto.
+
+## 14. Comunicación y coordinación
+
+Comunicar los bloqueos al equipo, registrar tareas y errores en el medio de seguimiento acordado y avisar antes de modificar contratos de API, componentes compartidos, dependencias o configuraciones transversales.
+
+Mantener actualizado el acuerdo de trabajo en `docs/onboarding/TEAM_CHARTER.md` si se encuentra disponible.
+
 ---
+
+*Proyecto académico — Desarrollo de Software — UTN FRLP — 2026.*

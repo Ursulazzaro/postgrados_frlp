@@ -1,251 +1,221 @@
-# 🎓 Sistema de Posgrado
-### Sistema de Gestión Académica · UTN FRLP · Desarrollo de Software 2026
+# Sistema de Gestión de Posgrados
 
-[![Estado](https://img.shields.io/badge/estado-En%20Desarrollo-yellow)](#)
-[![Cobertura objetivo](https://img.shields.io/badge/cobertura-≥70%25-green)](#)
-[![Semana actual](https://img.shields.io/badge/semana-1%20de%2032-blue)](#)
+### Universidad Tecnológica Nacional · Facultad Regional La Plata
 
-> **Proyecto integrador** de la cátedra **Desarrollo de Software** — 3° año · Turno NOche · Ingeniería en Sistemas de Información · UTN FRLP · 2026
+Proyecto integrador de Desarrollo de Software — Ingeniería en Sistemas de Información · 3.er año · Turno noche · 2026.
 
----
+[![Frontend](https://img.shields.io/badge/Frontend-React%20%2B%20TypeScript-blue)](#stack-tecnológico)
+[![Backend](https://img.shields.io/badge/Backend-FastAPI-green)](#stack-tecnológico)
+[![Database](https://img.shields.io/badge/Database-PostgreSQL-blue)](#stack-tecnológico)
+[![Docker](https://img.shields.io/badge/Entorno-Docker%20Compose-blue)](#instalación-y-ejecución)
 
-## ¿Qué es este proyecto?
+## Descripción
 
-**Sistema Postgrados** reemplaza el proceso manual de gestión de posgrado de UTN FRLP —hoy basado en Excel, carpetas físicas y correos— por una plataforma web centralizada que digitaliza el ciclo de vida del estudiante: desde la preinscripción hasta la graduación.
+Sistema web centralizado para digitalizar la gestión académica y administrativa de las carreras de posgrado de la UTN FRLP. Busca reemplazar los procesos dispersos en planillas, documentación física y correos electrónicos por flujos trazables, desde la inscripción del aspirante hasta el seguimiento académico y los trabajos finales.
 
-**Este repositorio es el punto de entrada único** para todos los equipos del curso. Cada equipo implementa el **Módulo Core (obligatorio para todos)** más **un módulo especializado** asignado por sorteo.
+## Equipo de desarrollo
 
----
-## Equipo
-**Esta seccion es un template para el equipo, debe completarse en le primer commit**
+| Integrante | Área de participación | Rama de trabajo |
+|---|---|---|
+| Ursula Martina Lazzaro | Head del frontend, integración, gestión académica y mejoras transversales | `rama-ursula` |
+| Julián Stecanella | Desarrollo de funcionalidades de estudiantes y docentes | `rama-julian` |
+| Matías Garcia Vidal | Desarrollo de funcionalidades de gestión académica y CPR | `rama-matias` |
+| Jonathan Santurio | Head del backend, autenticación e inscripción | `rama-jony` |
 
-| Nombre              | Rol                          | GitHub                          | Email                          |
-|---------------------|------------------------------|---------------------------------|--------------------------------|
-| Tu Nombre           | Líder / Desarrollador Principal | [@tuusuario](https://github.com/tuusuario) | tuemail@ejemplo.com           |
-| Nombre Compañero 1  | Desarrollador Backend        | [@usuario2](https://github.com/usuario2)   | email2@ejemplo.com            |
-| Nombre Compañero 2  | Diseñador / Frontend         | [@usuario3](https://github.com/usuario3)   | email3@ejemplo.com            |
+Repositorio: [Ursulazzaro/postgrados_frlp](https://github.com/Ursulazzaro/postgrados_frlp).
 
-### Reglas básicas del equipo
+## Alcance funcional
 
-- **Commits**: Usa mensajes claros y en presente (ej: "Agrega login con GitHub"). Sigue la convención [Conventional Commits](https://www.conventionalcommits.org) si es posible.
-- **Branching**: Nunca pushes directos a `main`. Crea una rama con tu nombre o tarea (`feature/nombre-tarea` o `bugfix/...`).
-- **Pull Requests**: Siempre abre un PR para revisar el código. Mínimo 1 aprobación antes de mergear.
-- **Código**: Mantén el código limpio, comenta lo complejo y respeta el estilo del proyecto (usa el `.editorconfig` si existe).
-- **Issues**: Reporta bugs o ideas en la sección de Issues con la plantilla correspondiente.
+El proyecto desarrolla el núcleo de gestión de posgrados e incorpora funcionalidades de gestión docente, seguimiento académico y reportes. La disponibilidad de cada operación depende del perfil y del estado académico del legajo.
 
-**Revisa las reglas completas** CONTRIBUTING.md
+| Perfil | Funcionalidades |
+|---|---|
+| Público | Oferta académica, noticias, calendario, preguntas frecuentes, contacto e inscripción. |
+| Aspirante | Inscripción, carga documental, seguimiento mediante número de seguimiento y corrección de solicitudes observadas. No requiere un dashboard privado. |
+| Equipo de Conducción / Coordinador | Consulta de aspirantes por cohorte, revisión documental, observaciones, resolución de inscripciones, matriculación, seguimiento de legajos, consultas académicas, períodos de inscripción, estadísticas y exportaciones. |
+| Administrador | Gestión de usuarios, carreras, cohortes, docentes, seminarios, asociaciones académicas, tutorías, sitio público, estadísticas y reportes. |
+| Docente | Consulta de seminarios asignados, asociación de estudiantes habilitados, registro de asistencia, calificaciones y seguimiento de cursada. |
+| Estudiante (`ALUMNO`) | Inscripción a seminarios disponibles, consulta del estado académico, asistencias, calificaciones, tutorías y seguimiento del trabajo final. |
+| CPR | Consulta de estudiantes y docentes, gestión de trabajos prácticos, tutorías y seguimiento de tesis. |
 
-### Comunicación
-- **Comunicacion con docentes:** Mediante CVG o presencial en horarios de catedra
-- **Principal del grupo**: Usamos **Discord/Slack/Teams** (agrega el link del canal).
-- **Discusiones técnicas**: En los **Issues** y **Pull Requests** del repositorio.
-- **Urgencias**: Mensaje directo por WhatsApp/Telegram/Slack.
-- **Horario de pair programming**: Reuniones de trabajo virtual programadas
-- **Reuniones**: [Breve weekly los miércoles a las XX hs] o según necesidad.
+### Flujos principales
 
-**Cualquier duda** → Pregunta primero en el canal de #general o abre un Issue.
+**Inscripción y matriculación:** el aspirante completa su solicitud y documentación, recibe un número de seguimiento y consulta su estado públicamente. Conducción revisa los requisitos, solicita correcciones cuando corresponde y resuelve la inscripción. La matriculación habilita el legajo académico; la creación y activación de la cuenta permiten acceder al perfil de estudiante.
 
-**Completa luego** [`docs\onboarding\TEAM_CHARTER.md`] (TEAM_CHARTER.md) 
+**Cursada:** el administrador registra seminarios y asigna docentes. Los estudiantes habilitados pueden inscribirse en seminarios de su carrera, y los docentes pueden asociar candidatos compatibles. El backend valida la pertenencia académica, el estado del legajo y la ausencia de inscripciones duplicadas. El docente registra asistencias y calificaciones.
 
----
+**Seguimiento:** las consultas de legajos, tutorías, trabajos prácticos y tesis permiten acompañar el avance académico. Los indicadores, alertas y reportes facilitan las tareas de gestión según los permisos del usuario.
 
-## Documentación: Por Dónde Empezar
+**Sitio público:** el administrador actualiza la información institucional, las noticias, preguntas frecuentes, eventos académicos y la configuración del calendario. Los eventos institucionales se obtienen del backend y los feriados se consultan mediante ArgentinaDatos, de forma independiente.
 
-Lee en este orden antes de escribir código:
+## Stack tecnológico
 
-0. **Lee este docmento README completamente. **
-1. 📋 [`docs/SRS.md`](docs/SRS.md) — Qué debe hacer el sistema (fuente de verdad de requisitos)
-2. 🗺️ [`docs/BFD.md`](docs/BFD.md) — Cómo funciona el negocio hoy y cómo debe ser
-3. 📦 [`docs/PRD.md`](docs/PRD.md) — Detalle funcional con criterios de aceptación (Gherkin)
-4. 🏗️ [`docs/ARQUITECTURA.md`](docs/ARQUITECTURA.md) — Cómo estructurar el código
-5. 🗓️ [`docs/CRONOGRAMA.md`](docs/CRONOGRAMA.md) — Tu roadmap personal de las próximas 30 semanas
-6. 🚀 [`onboarding/Guia_KickOff.md`](docs/onboarding/GUIA_KICKOFF.md) — Qué entregar en la semana 3
----
+| Capa | Tecnología | Finalidad |
+|---|---|---|
+| Frontend | React, TypeScript, Vite | Interfaz web modular y compilación del cliente. |
+| Navegación | React Router | Rutas públicas, privadas y navegación por perfil. |
+| Estilos | CSS y Tailwind CSS | Diseño responsive y reutilización de estilos. |
+| Backend | Python, FastAPI | API REST, reglas de negocio y control de acceso. |
+| Persistencia | SQLAlchemy, asyncpg, PostgreSQL | Acceso asíncrono a datos y persistencia relacional. |
+| Autenticación | JWT y control de acceso por roles | Identificación y autorización de operaciones. |
+| Correo | SMTP con STARTTLS | Envío de comunicaciones institucionales y activación de cuentas. |
+| Testing frontend | Vitest, React Testing Library | Pruebas de componentes, interacciones y flujos. |
+| Testing backend | Pytest | Pruebas de servicios y reglas de negocio. |
+| Infraestructura | Docker y Docker Compose | Ejecución reproducible de los servicios. |
+| Control de versiones | Git y GitHub | Desarrollo colaborativo e integración. |
 
-## Estructura de Módulos
+## Arquitectura
 
-| Módulo | Descripción | Estado |
-|--------|-------------|--------|
-| **CORE** *(todos los equipos)* | Inscripción, legajo digital, workflow de estados, gestión documental | 🟡 En kickoff |
-| **MOD-B** | Gestión Docente: asistencia digital, calificaciones, recordatorios automáticos | 🔴 Pendiente |
-| **MOD-C** | Seguimiento de Graduación: TFI/Tesis, semáforo de riesgo académico | 🔴 Pendiente |
-| **MOD-D** | Analytics & Reporting: dashboards, estadísticas por cohorte, exportación | 🔴 Pendiente |
+El sistema separa presentación, lógica de negocio y persistencia. El frontend consume la API REST del backend, que valida las operaciones y accede a PostgreSQL mediante SQLAlchemy.
 
----
-
-## Quickstart — Levantá el entorno en 5 minutos
-
-> **Requisitos previos:** Git y Docker Desktop iniciado con contenedores Linux. No hace falta instalar Python ni Node.js en la computadora.
-
-```bash
-# 1. Cloná el repositorio
- git clone https://github.com/desasoftfrlptn/postgrados_frlp.git
- cd postgrados_frlp
-
-# 2. Copiá las variables de ejemplo (solo si todavía no existe .env)
- cp .env.example .env
-
-# 3. Construí y levantá todo el entorno
- docker compose up --build
+```mermaid
+flowchart LR
+    U[Usuario] --> F[React + TypeScript]
+    F -->|HTTP / JSON / JWT| B[FastAPI]
+    B --> O[SQLAlchemy]
+    O --> D[(PostgreSQL)]
+    B --> M[SMTP]
+    F --> H[ArgentinaDatos]
 ```
 
-En PowerShell podés usar `Copy-Item .env.example .env` para el paso 2.
-Después del primer build, alcanza con `docker compose up`. Para dejarlo en segundo plano, usá `docker compose up -d --build`.
+El frontend se organiza por módulos funcionales y perfiles, con componentes, hooks, servicios API y estilos compartidos. En el backend, los módulos separan responsabilidades de presentación, aplicación, dominio e infraestructura según corresponda.
 
-- Frontend React: http://localhost:3000
-- Backend FastAPI: http://localhost:8000
-- Documentación de la API: http://localhost:8000/docs
-- Correos: Gmail SMTP autenticado mediante STARTTLS. Configurar las variables de `.env.example`.
+### Estructura general
 
-Compose inicia PostgreSQL, espera que esté disponible, inicia el backend y espera que `/health` responda antes de iniciar el frontend. FastAPI crea las tablas al arrancar; no hay un paso manual de migraciones para este inicio. Las dependencias se instalan dentro de las imágenes y los cambios del código se recargan durante el desarrollo.
-
-El backend recibe `SECRET_KEY` desde `.env`; por compatibilidad también acepta el valor de `JWT_SECRET` de `.env` a través de Compose. Si no definís ninguno, Compose utiliza una clave exclusivamente de desarrollo. La conexión del contenedor apunta al servicio `db`, no a `localhost`.
-
-Las integraciones de CAPTCHA y calendario requieren sus propias claves (`VITE_RECAPTCHA_SITE_KEY` y `VITE_CALENDARIFIC_API_KEY`). Son opcionales para levantar el entorno.
-
-```bash
-# Ver el estado y los logs
- docker compose ps
- docker compose logs -f backend frontend
-
-# Detener los servicios conservando los datos
- docker compose down
-```
-
-Los datos de PostgreSQL y los archivos del sistema se conservan en volúmenes Docker. Si cambiás dependencias, reconstruí con `docker compose up --build --renew-anon-volumes` para actualizar también el volumen de `node_modules`.
-
----
-
-## Estructura del Repositorio
-
-```
-postgrado-[equipo]/
-├── README.md                     ← Empezá acá
-├── CONTRIBUTING.md               ← Cómo trabajar: ramas, commits, PRs
-├── CHANGELOG.md                  ← Historial de cambios por versión
-├── docker-compose.yml            ← Ambiente local unificado
-├── .env.example                  ← Variables de entorno de referencia
-│
+```text
+postgrados_frlp/
+├── README.md
+├── CONTRIBUTING.md
+├── docker-compose.yml
+├── .env.example
 ├── docs/
-│   ├── SRS.md                    ← Especificación de Requisitos (fuente de verdad)
-│   ├── PRD.md                    ← Product Requirements Document
-│   ├── BFD.md                    ← Business Flow Diagram
-│   ├── ARQUITECTURA.md           ← Decisiones técnicas + diagramas C4
-│   ├── CRONOGRAMA.md             ← Roadmap con fechas reales (abr–nov 2026)
-│   ├── BACKLOG_MODELO.md         ← Historias de usuario base + plantillas
-│   ├── DEFINITION_OF_DONE.md    ← Criterios de completitud del equipo
-│   ├── ASR.md                    ← Requisitos arquitectónicamente significativos
-│   │
-│   ├── onboarding/
-│   │   ├── GUIA_KICKOFF.md       ← Qué hacer en las primeras 3 semanas
-│   │   ├── SETUP_LOCAL.md        ← Setup paso a paso con troubleshooting
-│   │   └── TEAM_CHARTER.md       ← Contrato social del equipo (completar)
-│   │
-│   └── adr/                      ← Registro de decisiones de arquitectura
-│       ├── ADR-000-template.md
-│       └── ADR-001-stack.md      ← Primera decisión: elección de stack
-│
 ├── src/
-│   ├── core/                     ← Módulo Core (TODOS los equipos)
-│   └── mod-[b|c|d]/              ← Módulo especializado asignado
-│
+│   ├── frontend/
+│   │   ├── src/
+│   │   │   ├── modulos/
+│   │   │   │   ├── calendario/
+│   │   │   │   ├── inscripcion/
+│   │   │   │   ├── manejo-sesion/
+│   │   │   │   └── perfiles/
+│   │   │   │       ├── administrador/
+│   │   │   │       ├── conduccion/
+│   │   │   │       ├── cpr/
+│   │   │   │       ├── docente/
+│   │   │   │       ├── estudiante/
+│   │   │   │       └── shared/
+│   │   │   └── shared/
+│   │   ├── tests/
+│   │   └── package.json
+│   └── backend/
+│       ├── src/
+│       └── tests/
 └── .github/
-    └── workflows/
-        └── ci.yml                ← Pipeline: lint + test + build en cada PR
 ```
 
+## Instalación y ejecución
+
+### Requisitos
+
+- Git.
+- Docker Desktop o Docker Engine con Docker Compose, en ejecución.
+- Acceso a Internet para descargar las imágenes y dependencias iniciales.
+
+Desde Git Bash:
+
+```bash
+git clone https://github.com/Ursulazzaro/postgrados_frlp.git
+cd postgrados_frlp
+[ -f .env ] || cp .env.example .env
+docker compose up -d --build
+```
+
+En PowerShell, para crear el archivo de configuración si no existe: `if (!(Test-Path .env)) { Copy-Item .env.example .env }`.
+
+| Servicio | Dirección |
+|---|---|
+| Frontend | http://localhost:3000 |
+| Backend | http://localhost:8000 |
+| Swagger / OpenAPI | http://localhost:8000/docs |
+| Estado del backend | http://localhost:8000/health |
+
+Compose inicia los servicios y conserva los datos en volúmenes. El backend inicializa las tablas según la configuración de arranque del proyecto.
+
+### Variables de entorno
+
+Consultar `.env.example` para conocer los nombres y valores de referencia. Configurar la clave JWT (`SECRET_KEY` o `JWT_SECRET`, según Compose), conexión a PostgreSQL, credenciales SMTP y, cuando corresponda, `VITE_RECAPTCHA_SITE_KEY`. ArgentinaDatos no requiere una clave de acceso. La disponibilidad de feriados depende del proveedor y del año consultado.
+
+No versionar `.env`, contraseñas, tokens ni archivos personales cargados durante las pruebas. Las claves de desarrollo no deben utilizarse en producción.
+
+### Comandos útiles
+
+```bash
+docker compose ps
+docker compose logs -f backend frontend
+docker compose up -d --build
+docker compose down
+```
+
+`docker compose down` detiene los servicios sin eliminar los volúmenes por defecto. No usar `down -v` salvo que se quiera eliminar deliberadamente los datos persistidos.
+
+## Testing y calidad de código
+
+Para ejecutar las verificaciones del frontend localmente con Node.js y npm instalados:
+
+```bash
+cd src/frontend
+npm ci
+npm run build
+npm run lint
+npm run test:run
+```
+
+Prueba individual:
+
+```bash
+npm run test:run -- tests/gestion-inscripcion.test.tsx
+```
+
+Para el backend, con el servicio iniciado y las dependencias de pruebas disponibles:
+
+```bash
+docker compose exec backend python -m pytest
+```
+
+Las pruebas verifican, entre otros aspectos, autenticación, permisos, formularios, validaciones, confirmaciones de operaciones, inscripción, gestión documental, seminarios, tutorías y consultas académicas. La cobertura objetivo establecida por la cátedra es del 70 % en lógica nueva; el porcentaje real debe obtenerse mediante una ejecución de cobertura, no inferirse de la cantidad de tests aprobados.
+
+## Seguridad, accesibilidad y mantenimiento
+
+- Autorización de operaciones desde el backend y protección de rutas en el frontend.
+- Validación de campos, documentos y transiciones de estados académicos.
+- Confirmación de operaciones sensibles y prevención de envíos duplicados.
+- Manejo de estados de carga, errores y ausencia de datos.
+- Formularios con etiquetas, estructura semántica y mensajes accesibles.
+- Componentes compartidos para reducir duplicación y mantener una experiencia consistente.
+- Notificaciones y comunicaciones institucionales vinculadas a los flujos del sistema.
+
+## Documentación
+
+| Documento | Contenido |
+|---|---|
+| [SRS](docs/SRS.md) | Especificación de requisitos. |
+| [BFD](docs/BFD.md) | Flujos del negocio. |
+| [PRD](docs/PRD.md) | Requisitos funcionales y criterios de aceptación. |
+| [Arquitectura](docs/ARQUITECTURA.md) | Decisiones y diseño técnico. |
+| [ASR](docs/ASR.md) | Requisitos arquitectónicamente significativos. |
+| [Cronograma](docs/CRONOGRAMA.md) | Planificación académica. |
+| [Definition of Done](docs/DEFINITION_OF_DONE.md) | Criterios de calidad y completitud. |
+| [Team Charter](docs/onboarding/TEAM_CHARTER.md) | Acuerdos del equipo. |
+| [Setup local](docs/onboarding/SETUP_LOCAL.md) | Configuración y resolución de problemas. |
+| [Contributing](CONTRIBUTING.md) | Reglas de colaboración. |
+
+## Desarrollo colaborativo
+
+El equipo trabaja con ramas individuales y mensajes de commit descriptivos. Conforme a las reglas de la cátedra, la integración a `main` debe realizarse mediante Pull Request con revisión, verificaciones de calidad y pruebas aprobadas. Los requisitos y decisiones técnicas se documentan en el repositorio.
+
+## Estado del proyecto
+
+Proyecto académico finalizado. La descripción del alcance no constituye una certificación de que todos los requisitos estén completos o de que todas las pruebas estén aprobadas.
+
 ---
 
-## Calendario de Entregas 2026
-
-| Hito | Semana | Fecha | Entregable obligatorio |
-|------|--------|-------|------------------------|
-| **Kickoff completo** | 3 | 01/05 | Repo + Team Charter + ASR + RFC-001 |
-| **Sprint 0** | 5 | 15/05 | Auth + DB + `docker-compose up` funcionando |
-| **Review 1** | 10 | 19/06 | Demo: inscripción de aspirante end-to-end |
-| **Entrega Parcial** | 16 | 31/07 | `git tag v0.5` — Core completo y funcional |
-| **Review 2** | 22 | 11/09 | Demo: módulo especializado funcional |
-| **Code Freeze** | 27 | 16/10 | Rama `main` congelada, solo bugfixes |
-| **Entrega Final** | 28 | 23/10 | `git tag v1.0` — Sistema completo |
-| **Exposición** | 30-31 | 06–13/11 | Demo Day con stakeholders reales |
-
----
-
-## Roles del Equipo (rotan cada 4 semanas)
-
-| Rol | Responsabilidades | Entregables específicos |
-|-----|-------------------|------------------------|
-| **Product Owner** | Prioriza el backlog, gestiona historias, interfaz con el docente-cliente | PRD actualizado, minutas de sprint planning |
-| **Tech Lead** | Decisiones de arquitectura, code reviews obligatorios, ADRs | Diagramas C4, ADRs, configuración CI/CD |
-| **Dev Lead** | GitFlow, integración, calidad de código (linting), pair programming | Historial de commits limpio, documentación técnica |
-| **QA/UX Lead** | Testing exploratorio, wireframes, criterios de aceptación, reporte de bugs | Casos de prueba, reporte de bugs, análisis UX |
-
----
-
-## Definition of Done (DoD)
-
-Una historia de usuario está **terminada** cuando cumple **todos** estos criterios:
-
-- [ ] Código mergeado a `main` via **Pull Request** con al menos 1 code review aprobado
-- [ ] **Tests unitarios pasando** con ≥70% de cobertura en la lógica nueva
-- [ ] **Linter sin errores** (ESLint + Prettier para JS/TS · PEP8 para Python)
-- [ ] **Documentación de API actualizada** (Swagger/OpenAPI en `/api/docs`)
-- [ ] **Probado en el entorno local de otro integrante** del equipo
-- [ ] **`CHANGELOG.md` actualizado** con descripción del cambio
-
----
-
-## Reglas No Negociables
-
-> Estas reglas aplican a todos los equipos desde el día 1.
-
-1. **Nunca pushees directamente a `main`**. Siempre via Pull Request.
-2. **Los commits referencian el requisito**: `feat: REQ-CORE-002 valida tamaño de PDF`
-3. **Si el pipeline de CI falla, es prioridad máxima** antes de continuar desarrollo.
-4. **Las variables de entorno nunca van al repo** (`.env` está en `.gitignore`).
-5. **Los bloqueos se comunican en ≤2 horas**: si estás trabado, avisá en el canal del equipo.
-
----
-
-## Stack Tecnológico 
-** Template a completar por el equipo** 
-
-## Stack Tecnológico
-
-| Capa              | Recomendado (Prioridad: Simplicidad + Demanda) | Alternativa (Mayor estructura / Enterprise) | Justificación |
-|-------------------|------------------------------------------------|---------------------------------------------|-------------|
-| **Frontend**     | **React 19 + TypeScript + Vite + TailwindCSS + TanStack Query** | Next.js 15+ (App Router) | React sigue siendo la tecnología frontend **más demandada** del mercado. Vite es muy rápido y simple. TanStack Query simplifica mucho la gestión de datos. |
-| **Backend**      | **FastAPI (Python 3.12+)**                    | NestJS (TypeScript)                        | FastAPI es **mucho más simple**, rápido de desarrollar, tiene documentación automática (Swagger) y excelente rendimiento. Ideal para proyectos académicos y APIs modernas. NestJS ofrece más estructura pero aumenta la complejidad. |
-| **ORM / DB Layer** | **SQLAlchemy 2.0 + Alembic** (con async support) | Tortoise ORM o Prisma (si vas full TypeScript) | SQLAlchemy es el estándar más maduro y potente para Python. Alembic maneja migraciones muy bien. Para proyectos simples también puedes usar **SQLModel** (de tiangolo, creador de FastAPI) → aún más simple. |
-| **Base de Datos** | **PostgreSQL 16/17 (Docker)**                 | ← igual                                    | Mejor relación rendimiento / features / ecosistema. Excelente con Docker. |
-| **Testing**       | **Pytest + HTTPX** (unitarias + integración) + **Playwright** (E2E opcional) | Vitest + Supertest (si usas NestJS)       | Pytest es muy simple y potente. Enfocarte solo en **unitarias** como dijiste es una buena decisión para no complicar el proyecto. |
-| **DevOps / Infra**| **Docker + Docker Compose + GitHub Actions** | ← igual                                    | Estándar actual. Muy simple de configurar con `docker-compose.yml`. |
-
-### Por qué elegimos este stack
-
-- **Alta empleabilidad**: React y PostgreSQL son de las tecnologías más solicitadas en 2026.
-- **Simplicidad y velocidad de desarrollo**: FastAPI + SQLModel permite crear APIs completas con muy poco código.
-- **Moderno pero maduro**: Evitamos tecnologías demasiado experimentales.
-- **Full Docker**: Todo el entorno se levanta con un solo comando (`docker compose up`).
-
-**¿Quieres cambiar algo?**  
-El stack es flexible. Si prefieres **full TypeScript** (React + NestJS + Prisma), también es una excelente opción (más demandada en algunas empresas, pero más verbose).
-> El stack es sugerido. Si el equipo quiere otra tecnología, debe presentar un **RFC aprobado antes de la semana 4**.
-
-
----
-
-## Canales de Ayuda
-
-| Canal | Para qué usarlo |
-|-------|----------------|
-| Correo `#postgrado-general` | Dudas generales, anuncios del docente |
-| Correo `#[nombre-equipo]` | Comunicación interna del equipo |
-| Github Discussion `#[nombre-equipo]` | Comunicación interna del equipo |
-| **Issues de GitHub** | Bugs, tareas técnicas, dudas de implementación |
-| **Clínica de Código** (martes semanas 20hs, aula) | Traé código roto o decisiones difíciles |
-
-
----
-
-*Proyecto académico · Cátedra Desarrollo de Software · UTN FRLP · 2026*
+**UTN FRLP · Desarrollo de Software · Ingeniería en Sistemas de Información · 2026**
